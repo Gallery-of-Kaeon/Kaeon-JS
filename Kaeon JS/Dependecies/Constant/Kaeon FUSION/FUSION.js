@@ -84,7 +84,279 @@ class FUSION extends philosophersStone.PhilosophersStone {
 					getVerifiedFUSIONUnits(currentElement) :
 					[];
 
-			// 112
+			if(!bubbleUp) {
+				
+				var trickleDown = trickleDown(verifiedFUSIONUnits, currentElement);
+
+				if(trickleDown && currentElement.children.length > 0) {
+					
+					currentElement = currentElement.children[0];
+					processed.push([]);
+
+					continue;
+				}
+			}
+
+			processedArguments = processed[processed.length - 2];
+			arguments = processed[processed.length - 1];
+
+			var object = processElement(verifiedFUSIONUnits, currentElement, arguments);
+			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+
+			var terminated = terminate(verifiedFUSIONUnits, currentElement, arguments);
+			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+
+			var added = isAdded(verifiedFUSIONUnits, currentElement, arguments);
+			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+
+			var jumpElement = jump(verifiedFUSIONUnits, currentElement, arguments);
+
+			if(!denied && added)
+				processedArguments.push(object);
+
+			processed[processed.length - 1] = [];
+
+			if(terminated)
+				break;
+
+			bubbleUp = false;
+
+			if(jumpElement == null) {
+
+				var index = one.getIndex(currentElement);
+
+				if(currentElement.parent == null)
+					break;
+
+				if(index < currentElement.parent.children.length - 1)
+					currentElement = currentElement.parent.children[index + 1];
+
+				else {
+					
+					currentElement = currentElement.parent;
+					bubbleUp = true;
+
+					processed.splice(processed.length - 1, 1);
+				}
+			}
+
+			else {
+
+				for(var i = 0; i < processed.length; i++)
+					processed[i] = [];
+
+				currentElement = jumpElement;
+
+				bubbleUp = false;
+			}
+		}
+	}
+
+	function updateVerifiedUnits(
+		verifiedFUSIONUnits,
+		currentElement,
+		denied) {
+		
+		var update = this.updated;
+		this.updated = false;
+
+		if(update) {
+			
+			return !denied ?
+				getVerifiedFUSIONUnits(currentElement) :
+				[];
+		}
+
+		return verifiedFUSIONUnits;
+	}
+
+	function isDenied(element) {
+
+		if(element.content == null)
+			return false;
+		
+		var denied = false;
+		
+		for(var i = 0; i < this.fusionUnits.length; i++) {
+
+			try {
+				
+				if(this.fusionUnits[i].deny(element))
+					denied = true;
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+		}
+		
+		return denied;
+	}
+
+	function getVerifiedFUSIONUnits(element) {
+		
+		var verifiedFUSIONUnits = [];
+		
+		for(var i = 0; i < this.fusionUnits.length; i++) {
+			
+			try {
+				
+				if(this.fusionUnits[i].verify(element))
+					verifiedFUSIONUnits.push(fusionUnits[i]);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+		}
+		
+		return verifiedFUSIONUnits;
+	}
+
+	function trickleDown(
+		verifiedFUSIONUnits,
+		element) {
+		
+		var trickleDown = true;
+		
+		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
+			
+			var result = true;
+			
+			try {
+				result = verifiedFUSIONUnits[i].trickleDown(element);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+			
+			if(!result)
+				trickleDown = false;
+		}
+		
+		return trickleDown;
+	}
+
+	function process(
+		verifiedFUSIONUnits,
+		element,
+		processed) {
+		
+		var object = true;
+		
+		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
+			
+			var newObject = true;
+			
+			try {
+				newObject = verifiedFUSIONUnits[i].trickleDown(element, processed);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+			
+			if(newObject != null)
+				object = newObject;
+		}
+		
+		return object;
+	}
+
+	function isAdded(
+		verifiedFUSIONUnits,
+		element,
+		processed) {
+		
+		var isAdded = true;
+		
+		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
+			
+			var result = true;
+			
+			try {
+				result = verifiedFUSIONUnits[i].isAdded(element, processed);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+			
+			if(!result)
+				isAdded = false;
+		}
+		
+		return isAdded;
+	}
+
+	function terminate(
+		verifiedFUSIONUnits,
+		element,
+		processed) {
+		
+		var terminate = true;
+		
+		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
+			
+			var result = true;
+			
+			try {
+				result = verifiedFUSIONUnits[i].terminate(element, processed);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+			
+			if(result)
+				terminate = true;
+		}
+		
+		return terminate;
+	}
+
+	function jump(
+		verifiedFUSIONUnits,
+		element,
+		processed) {
+		
+		var defaultElement = null;
+		var jumpElement = defaultElement;
+		
+		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
+			
+			var newJumpElement = defaultElement;
+			
+			try {
+				newJumpElement = verifiedFUSIONUnits[i].jump(element, processed);
+			}
+			
+			catch(error) {
+				handleError(element, [], error);
+			}
+			
+			if(defaultElement != newJumpElement)
+				jumpElement = newJumpElement;
+		}
+		
+		return jumpElement;
+	}
+
+	function handleError(
+		element,
+		processed,
+		error) {
+		
+		for(var i = 0; i < this.fusionUnits.length; i++) {
+			
+			try {
+				this.fusionUnits[i].handleError(element, arguments, error);
+			}
+			
+			catch(error) {
+				
+			}
 		}
 	}
 }

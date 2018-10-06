@@ -7,7 +7,7 @@ class Use extends fusion.FUSIONUnit {
 		this.fusion = null;
 	}
 
-	function verify(element) {
+	verify(element) {
 
 		if(this.fusion == null)
 			this.fusion = philosophersStone.get(this, ["FUSION"])[0];
@@ -15,7 +15,7 @@ class Use extends fusion.FUSIONUnit {
 		return element.content.toLowerCase() == "use";
 	}
 
-	function process(element, processed) {
+	process(element, processed) {
 
 		for(var i = 0; i < element.children.length; i++) {
 

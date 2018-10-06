@@ -13,7 +13,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		this.tags.push("FUSION");
 	}
 
-	function onCall(packet) {
+	onCall(packet) {
 		
 		if(("" + packet[0]).toLowerCase() == "update")
 			update();
@@ -24,7 +24,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return null;
 	}
 
-	function update() {
+	update() {
 		
 		var units = philosophersStone.get(this, ["FUSION Unit"]);
 
@@ -46,7 +46,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		this.updated = true;
 	}
 
-	function process(element) {
+	process(element) {
 		
 		this.running = true;
 
@@ -58,7 +58,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		this.running = false;
 	}
 
-	function internalProcess(element, internal) {
+	internalProcess(element, internal) {
 		
 		var currentElement = element;
 
@@ -152,7 +152,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		}
 	}
 
-	function updateVerifiedUnits(
+	updateVerifiedUnits(
 		verifiedFUSIONUnits,
 		currentElement,
 		denied) {
@@ -170,7 +170,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return verifiedFUSIONUnits;
 	}
 
-	function isDenied(element) {
+	isDenied(element) {
 
 		if(element.content == null)
 			return false;
@@ -193,7 +193,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return denied;
 	}
 
-	function getVerifiedFUSIONUnits(element) {
+	getVerifiedFUSIONUnits(element) {
 		
 		var verifiedFUSIONUnits = [];
 		
@@ -213,7 +213,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return verifiedFUSIONUnits;
 	}
 
-	function trickleDown(
+	trickleDown(
 		verifiedFUSIONUnits,
 		element) {
 		
@@ -238,7 +238,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return trickleDown;
 	}
 
-	function process(
+	process(
 		verifiedFUSIONUnits,
 		element,
 		processed) {
@@ -264,7 +264,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return object;
 	}
 
-	function isAdded(
+	isAdded(
 		verifiedFUSIONUnits,
 		element,
 		processed) {
@@ -290,7 +290,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return isAdded;
 	}
 
-	function terminate(
+	terminate(
 		verifiedFUSIONUnits,
 		element,
 		processed) {
@@ -316,7 +316,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return terminate;
 	}
 
-	function jump(
+	jump(
 		verifiedFUSIONUnits,
 		element,
 		processed) {
@@ -343,7 +343,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return jumpElement;
 	}
 
-	function handleError(
+	handleError(
 		element,
 		processed,
 		error) {
@@ -367,35 +367,35 @@ class FUSIONUnit extends philosophersStone.PhilosophersStone {
 		this.tags.push("FUSION Unit");
 	}
 
-	function deny(element) {
+	deny(element) {
 		return false;
 	}
 
-	function verify(element) {
+	verify(element) {
 		return false;
 	}
 
-	function trickleDown(element) {
+	trickleDown(element) {
 		return true;
 	}
 
-	function process(element, processed) {
+	process(element, processed) {
 		return null;
 	}
 
-	function isAdded(element, processed) {
+	isAdded(element, processed) {
 		return true;
 	}
 
-	function terminate(element, processed) {
+	terminate(element, processed) {
 		return false;
 	}
 
-	function jump(element, processed) {
+	jump(element, processed) {
 		return null;
 	}
 
-	function handleError(element, processed, error) {
+	handleError(element, processed, error) {
 		
 	}
 }

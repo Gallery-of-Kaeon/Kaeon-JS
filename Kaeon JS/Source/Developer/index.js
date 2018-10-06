@@ -1,5 +1,12 @@
 // YOUR CODE HERE
 
-// UNCOMMENT THE LINE BELOW FOR A KAEON FUSION PROJECT
+// UNCOMMENT THE BLOCK BELOW FOR A KAEON FUSION PROJECT
 
-// new require("./KaeonFUSION").process(require("./ONEPlus").readONEPlus(require("./kaeon").open("./index.op")));
+/*
+
+var kaeonFUSION = require("./KaeonFUSION");
+var fusion = new kaeonFUSION.KaeonFUSION();
+
+fusion.process(require("./ONEPlus").readONEPlus(require("./kaeon").open("./index.op")));
+
+*/

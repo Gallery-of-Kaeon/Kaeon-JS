@@ -14,7 +14,7 @@ unzip said bundle into the desired directory.
 For a Javascript project,
 simply replace the code in the index.js file with the desired Javascript.
 For a Kaeon FUSION project,
-replace uncomment line 5 of the index.js file and replace the code in the index.op file with the desired Kaeon FUSION.
+replace uncomment the comment block starting at line 5 in the index.js file and replace the code in the index.op file with the desired Kaeon FUSION.
 
 <!-- <h2 align="center">Notes for Javascript Projects</h2> -->
 

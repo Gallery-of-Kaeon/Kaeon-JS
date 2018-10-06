@@ -1,9 +1,12 @@
 var philosophersStone = require("./PhilosophersStone");
-var fusion = ("./FUSION");
+var fusion = require("./FUSION");
 
 class Use extends fusion.FUSIONUnit {
 
 	constructor() {
+
+		super();
+
 		this.fusion = null;
 	}
 
@@ -34,9 +37,11 @@ class KaeonFUSION extends fusion.FUSION {
 	
 	constructor() {
 
+		super();
+
 		this.tags.push("Kaeon FUSION");
 
-		philosophersStone.connectMutally(this, new Use(), false);
+		philosophersStone.connectMutually(this, new Use(), false);
 	}
 }
 

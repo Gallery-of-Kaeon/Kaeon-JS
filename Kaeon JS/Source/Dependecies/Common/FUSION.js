@@ -5,6 +5,8 @@ class FUSION extends philosophersStone.PhilosophersStone {
 	
 	constructor() {
 
+		super();
+
 		this.running = false;
 
 		this.fusionUnits = [];
@@ -97,19 +99,19 @@ class FUSION extends philosophersStone.PhilosophersStone {
 				}
 			}
 
-			processedArguments = processed[processed.length - 2];
-			arguments = processed[processed.length - 1];
+			var processedArguments = processed[processed.length - 2];
+			var newArguments = processed[processed.length - 1];
 
-			var object = processElement(verifiedFUSIONUnits, currentElement, arguments);
+			var object = processElement(verifiedFUSIONUnits, currentElement, newArguments);
 			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var terminated = terminate(verifiedFUSIONUnits, currentElement, arguments);
+			var terminated = terminate(verifiedFUSIONUnits, currentElement, newArguments);
 			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var added = isAdded(verifiedFUSIONUnits, currentElement, arguments);
+			var added = isAdded(verifiedFUSIONUnits, currentElement, newArguments);
 			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var jumpElement = jump(verifiedFUSIONUnits, currentElement, arguments);
+			var jumpElement = jump(verifiedFUSIONUnits, currentElement, newArguments);
 
 			if(!denied && added)
 				processedArguments.push(object);
@@ -364,6 +366,9 @@ class FUSION extends philosophersStone.PhilosophersStone {
 class FUSIONUnit extends philosophersStone.PhilosophersStone {
 	
 	constructor() {
+
+		super();
+
 		this.tags.push("FUSION Unit");
 	}
 

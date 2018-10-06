@@ -7,7 +7,7 @@
 
 <h2 align="center">How to Use</h2>
 
-To begin, download either the [browser bundle]() or the [node bundle](),
+To begin, download either the [browser bundle](https://github.com/Gallery-of-Kaeon/Kaeon-JS/raw/master/Kaeon%20JS/Bundles/Kaeon%20JS%20-%20Browser.zip) or the [node bundle](https://github.com/Gallery-of-Kaeon/Kaeon-JS/raw/master/Kaeon%20JS/Bundles/Kaeon%20JS%20-%20Node.zip),
 depending on the desired environment.
 Then,
 unzip said bundle into the desired directory.

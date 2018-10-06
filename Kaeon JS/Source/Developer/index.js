@@ -7,6 +7,16 @@
 var kaeonFUSION = require("./KaeonFUSION");
 var fusion = new kaeonFUSION.KaeonFUSION();
 
-fusion.process(require("./ONEPlus").readONEPlus(require("./kaeon").open("./index.op")));
+var data = require("./kaeon").open("./index.op");
 
-*/
+for(var i = 0; i < data.length; i++) {
+
+	if(data.charCodeAt(i) == 13) {
+		data = data.substring(0, i) + data.substring(i + 1);
+		i--;
+	}
+}
+
+fusion.process(require("./ONEPlus").readONEPlus(data));
+
+ */

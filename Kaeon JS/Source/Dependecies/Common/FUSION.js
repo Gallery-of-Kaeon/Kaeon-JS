@@ -34,7 +34,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			
 			for(var j = i + 1; j < units.length; j++) {
 				
-				if(typeof units[i] === typeof units[j]) {
+				if(units[i] === units[j]) {
 
 					units.splice(j, 1);
 
@@ -196,7 +196,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 	}
 
 	getVerifiedFUSIONUnits(element) {
-		
+
 		var verifiedFUSIONUnits = [];
 		
 		for(var i = 0; i < this.fusionUnits.length; i++) {
@@ -204,7 +204,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			try {
 				
 				if(this.fusionUnits[i].verify(element))
-					verifiedFUSIONUnits.push(fusionUnits[i]);
+					verifiedFUSIONUnits.push(this.fusionUnits[i]);
 			}
 			
 			catch(error) {
@@ -244,15 +244,15 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		verifiedFUSIONUnits,
 		element,
 		processed) {
-		
-		var object = true;
+
+		var object = null;
 		
 		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
 			
-			var newObject = true;
+			var newObject = null;
 			
 			try {
-				newObject = verifiedFUSIONUnits[i].trickleDown(element, processed);
+				newObject = verifiedFUSIONUnits[i].process(element, processed);
 			}
 			
 			catch(error) {

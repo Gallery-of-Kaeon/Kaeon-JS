@@ -18,7 +18,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 	onCall(packet) {
 		
 		if(("" + packet[0]).toLowerCase() == "update")
-			update();
+			this.update();
 		
 		else if(("" + packet[0]).toLowerCase() == "stop")
 			this.running = false;
@@ -49,12 +49,12 @@ class FUSION extends philosophersStone.PhilosophersStone {
 	}
 
 	process(element) {
-		
+
 		this.running = true;
 
-		update();
+		this.update();
 
-		internalProcess(element, true);
+		this.internalProcess(element, true);
 
 		this.fusionUnits = [];
 		this.running = false;
@@ -68,27 +68,27 @@ class FUSION extends philosophersStone.PhilosophersStone {
 
 			this.running = true;
 
-			update();
+			this.update();
 		}
 
 		var processed = [[], []];
 
 		var bubbleUp = false;
 
-		while(running) {
+		while(this.running) {
 
 			this.updated = false;
 
-			var denied = isDenied(currentElement);
+			var denied = this.isDenied(currentElement);
 
 			var verifiedFUSIONUnits =
 				!denied ?
-					getVerifiedFUSIONUnits(currentElement) :
+					this.getVerifiedFUSIONUnits(currentElement) :
 					[];
 
 			if(!bubbleUp) {
 				
-				var trickleDown = trickleDown(verifiedFUSIONUnits, currentElement);
+				var trickleDown = this.trickleDown(verifiedFUSIONUnits, currentElement);
 
 				if(trickleDown && currentElement.children.length > 0) {
 					
@@ -102,16 +102,16 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			var processedArguments = processed[processed.length - 2];
 			var newArguments = processed[processed.length - 1];
 
-			var object = processElement(verifiedFUSIONUnits, currentElement, newArguments);
-			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+			var object = this.processElement(verifiedFUSIONUnits, currentElement, newArguments);
+			verifiedFUSIONUnits = this.updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var terminated = terminate(verifiedFUSIONUnits, currentElement, newArguments);
-			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+			var terminated = this.terminate(verifiedFUSIONUnits, currentElement, newArguments);
+			verifiedFUSIONUnits = this.updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var added = isAdded(verifiedFUSIONUnits, currentElement, newArguments);
-			verifiedFUSIONUnits = updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
+			var added = this.isAdded(verifiedFUSIONUnits, currentElement, newArguments);
+			verifiedFUSIONUnits = this.updateVerifiedUnits(verifiedFUSIONUnits, currentElement, denied);
 
-			var jumpElement = jump(verifiedFUSIONUnits, currentElement, newArguments);
+			var jumpElement = this.jump(verifiedFUSIONUnits, currentElement, newArguments);
 
 			if(!denied && added)
 				processedArguments.push(object);
@@ -165,7 +165,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		if(update) {
 			
 			return !denied ?
-				getVerifiedFUSIONUnits(currentElement) :
+				this.getVerifiedFUSIONUnits(currentElement) :
 				[];
 		}
 
@@ -188,7 +188,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 		}
 		
@@ -208,7 +208,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 		}
 		
@@ -230,7 +230,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 			
 			if(!result)
@@ -240,7 +240,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		return trickleDown;
 	}
 
-	process(
+	processElement(
 		verifiedFUSIONUnits,
 		element,
 		processed) {
@@ -256,7 +256,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 			
 			if(newObject != null)
@@ -282,7 +282,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 			
 			if(!result)
@@ -297,18 +297,18 @@ class FUSION extends philosophersStone.PhilosophersStone {
 		element,
 		processed) {
 		
-		var terminate = true;
+		var terminate = false;
 		
 		for(var i = 0; i < verifiedFUSIONUnits.length; i++) {
 			
-			var result = true;
+			var result = false;
 			
 			try {
 				result = verifiedFUSIONUnits[i].terminate(element, processed);
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 			
 			if(result)
@@ -335,7 +335,7 @@ class FUSION extends philosophersStone.PhilosophersStone {
 			}
 			
 			catch(error) {
-				handleError(element, [], error);
+				this.handleError(element, [], error);
 			}
 			
 			if(defaultElement != newJumpElement)

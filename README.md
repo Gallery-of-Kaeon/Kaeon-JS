@@ -7,14 +7,13 @@
 
 <h2 align="center">How to Use</h2>
 
-To begin, download either the [browser bundle](https://github.com/Gallery-of-Kaeon/Kaeon-JS/raw/master/Kaeon%20JS/Bundles/Kaeon%20JS%20-%20Browser.zip) or the [node bundle](https://github.com/Gallery-of-Kaeon/Kaeon-JS/raw/master/Kaeon%20JS/Bundles/Kaeon%20JS%20-%20Node.zip),
-depending on the desired environment.
+To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-JS/raw/master/Kaeon%20JS/Bundles/Kaeon%20JS.zip).
 Then,
 unzip said bundle into the desired directory.
 For a Javascript project,
 simply replace the code in the index.js file with the desired Javascript.
 For a Kaeon FUSION project,
-replace uncomment the comment block starting at line 5 in the index.js file and replace the code in the index.op file with the desired Kaeon FUSION.
+uncomment the comment block starting at line 5 in the index.js file and replace the code in the index.op file with the desired Kaeon FUSION.
 
 <!-- <h2 align="center">Notes for Javascript Projects</h2> -->
 

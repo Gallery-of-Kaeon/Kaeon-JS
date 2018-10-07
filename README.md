@@ -1,4 +1,4 @@
-<h1 align="center">Kaeon JS</h1>
+<h1 align="center">Kaeon United</h1>
 <h2 align="center">Any application, anywhere, with pure JS or Kaeon FUSION</h2>
 
 <p align="center">

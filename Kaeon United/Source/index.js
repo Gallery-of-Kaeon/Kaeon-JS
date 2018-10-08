@@ -4,7 +4,7 @@
 var kaeonFUSION = require("./KaeonFUSION");
 var fusion = new kaeonFUSION.KaeonFUSION();
 
-var data = require("./kaeon").open("./index.op");
+var data = require("./kaeon").getKaeon().open("./index.op");
 
 for(var i = 0; i < data.length; i++) {
 

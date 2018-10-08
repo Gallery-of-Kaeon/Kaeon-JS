@@ -1,4 +1,4 @@
-var one = require("./ONE");
+var one = require("./ONE.js");
 
 function readONEPlus(data) {
 

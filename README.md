@@ -21,7 +21,3 @@ uncomment the comment block starting at line 5 in the index.js file and replace 
 
 To view the source files individually,
 click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20JS/Source).
-
-<h2 align="center">Acknowledgements</h2>
-
-This project uses [require1k](http://stuk.github.io/require1k/).

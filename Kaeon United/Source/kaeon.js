@@ -1,13 +1,24 @@
 function getPlatform() {
-	return (typeof module !== 'undefined' && this.module !== module) ? "Node" : "Browser";
+
+	if(typeof process === 'object') {
+
+		if(typeof process.versions === 'object') {
+
+			if(typeof process.versions.node !== 'undefined') {
+				return "Node";
+			}
+		}
+	}
+
+	return "Browser";
 }
 
 function getKaeon() {
 
 	if(getPlatform().toLowerCase() == "browser")
-		return require("./kaeonBrowser");
+		return require("./kaeonBrowser.js");
 
-	return require("./kaeonNode");
+	return require("./kaeonNode.js");
 }
 
 module.exports = {

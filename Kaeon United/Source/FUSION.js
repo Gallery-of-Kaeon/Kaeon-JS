@@ -1,5 +1,5 @@
-var one = require("./ONE");
-var philosophersStone = require("./PhilosophersStone");
+var one = require("./ONE.js");
+var philosophersStone = require("./PhilosophersStone.js");
 
 class FUSION extends philosophersStone.PhilosophersStone {
 	

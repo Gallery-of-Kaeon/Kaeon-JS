@@ -1,3 +1,7 @@
+function getInput() {
+	return readline();
+}
+
 function open(file) {
 
 	var rawFile = new XMLHttpRequest();
@@ -21,5 +25,7 @@ function open(file) {
 }
 
 module.exports = {
+
+	getInput,
 	open
 };

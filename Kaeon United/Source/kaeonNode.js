@@ -9,13 +9,8 @@ function open(file) {
 	return fs.readFileSync(file, 'utf8');
 }
 
-function dynamicRequire(path) {
-	return require(path);
-}
-
 module.exports = {
 
 	getInput,
-	open,
-	dynamicRequire
+	open
 };

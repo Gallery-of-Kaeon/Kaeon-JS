@@ -5,6 +5,23 @@
 	<img src="https://quiksite.com/wp-content/uploads/2016/09/Javascript-Square.png" width="300px" height="300px"/>
 </p>
 
+<h2 align="center">What is Kaeon United?</h2>
+
+Kaeon United is an HTML and JavaScript application framework designed with to meet the following goals:
+
+* To allow the use of the node.js require function in the browser,
+even when the path is dynamic.
+
+* To allow an entire application to be developed without HTML or CSS,
+where a single JavaScript file serves as the main file,
+JavaScript dependencies are handled by the require function,
+and the entire frontend of the application is managed through the DOM.
+
+* To provide a wrapper module that allows the same code to be used on the browser or on node.js for common tasks such as opening files or retrieving console input.
+
+* To provide a JavaScript interpreter for [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md),
+and to provide the option for a Kaeon FUSION file to act as the main file in place of a JavaScript file.
+
 <h2 align="center">How to Use</h2>
 
 To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-United/raw/master/Kaeon%20United/Bundle/Kaeon%20United.zip).

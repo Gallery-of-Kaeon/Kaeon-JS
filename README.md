@@ -7,7 +7,7 @@
 
 <h2 align="center">How to Use</h2>
 
-To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-United/raw/master/Kaeon%20United/Bundles/Kaeon%20United.zip).
+To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-United/raw/master/Kaeon%20United/Bundle/Kaeon%20United.zip).
 Then,
 unzip said bundle into the desired directory.
 For a Javascript project,

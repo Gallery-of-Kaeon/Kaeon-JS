@@ -7,7 +7,7 @@
 
 <h2 align="center">What is Kaeon United?</h2>
 
-Kaeon United is an HTML and JavaScript application framework designed with to meet the following goals:
+Kaeon United is an HTML and JavaScript application framework designed to meet the following goals:
 
 * To allow the use of the node.js require function in the browser,
 even when the path is dynamic.

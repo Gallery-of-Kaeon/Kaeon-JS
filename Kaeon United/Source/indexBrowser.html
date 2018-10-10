@@ -27,7 +27,7 @@
 
 				rawFile.send(null);
 
-				return (new Function("var module = { exports: {} };\n" + allText + "return module.exports;"))();
+				return (new Function("var module = { exports: {} };" + allText + "return module.exports;"))();
 			}
 
 		</script>

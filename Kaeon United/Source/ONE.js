@@ -158,9 +158,7 @@ function readONEAs(one, tokens, reduced) {
 			
 			addChild(currentElement, newElement);
 			
-			if(nest > currentNest)
-				currentElement = newElement;
-				
+			currentElement = newElement;
 			currentNest = nest;
 		}
 	}

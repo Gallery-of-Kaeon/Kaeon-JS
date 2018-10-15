@@ -1,5 +1,6 @@
 var philosophersStone = require("./PhilosophersStone.js");
 var fusion = require("./FUSION.js");
+var aether = require("./Aether.js");
 
 class Use extends fusion.FUSIONUnit {
 
@@ -24,13 +25,13 @@ class Use extends fusion.FUSIONUnit {
 
 			try {
 
-				require(element.children[i].content).aether(this.fusion);
+				aether.call(element.children[i].content, this.fusion);
 
 				this.fusion.update();
 			}
 
 			catch(error) {
-				console.log(error.message);
+
 			}
 		}
 

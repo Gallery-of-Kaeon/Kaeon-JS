@@ -13,16 +13,8 @@ function getPlatform() {
 	return "Browser";
 }
 
-function getKaeon() {
+if(getPlatform().toLowerCase() == "browser")
+	module.exports = require("./kaeonBrowser.js");
 
-	if(getPlatform().toLowerCase() == "browser")
-		return require("./kaeonBrowser.js");
-
-	return require("./kaeonNode.js");
-}
-
-module.exports = {
-
-	getPlatform,
-	getKaeon
-};
+else
+	module.exports = require("./kaeonNode.js");

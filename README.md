@@ -19,7 +19,7 @@ and the entire frontend of the application is managed through the DOM.
 
 * To provide a wrapper module that allows the same code to be used on the browser or on node.js for common tasks such as opening files or retrieving console input.
 
-* To provide a JavaScript interpreter for [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md),
+* To provide a JavaScript based [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md) interpreter,
 and to provide the option for a Kaeon FUSION file to act as the main file in place of a JavaScript file.
 
 <h2 align="center">How to Use</h2>
@@ -46,4 +46,4 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20Un
 <h2 align="center">Specification</h2>
 
 To view the specification,
-click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification).
+click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification/Kaeon%20United.op).

@@ -32,9 +32,18 @@ simply replace the code in the index.js file with the desired Javascript.
 For a Kaeon FUSION project,
 uncomment the comment block starting at line 5 in the index.js file and replace the code in the index.op file with the desired Kaeon FUSION.
 
+<h2 align="center">Porting</h2>
+
+It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.
+
 <!-- <h2 align="center">Notes for Javascript Projects</h2> -->
 
 <h2 align="center">Source</h2>
 
 To view the source files individually,
 click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Source).
+
+<h2 align="center">Specification</h2>
+
+To view the specification,
+click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification).

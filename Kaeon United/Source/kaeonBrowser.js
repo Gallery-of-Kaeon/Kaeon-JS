@@ -1,3 +1,7 @@
+function getPlatform() {
+	return "Browser";
+}
+
 function getInput() {
 	return readline();
 }
@@ -26,6 +30,7 @@ function open(file) {
 
 module.exports = {
 
+	getPlatform,
 	getInput,
 	open
 };

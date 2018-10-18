@@ -1,5 +1,5 @@
 <h1 align="center">Kaeon United</h1>
-<h2 align="center">Any application, anywhere, with pure JS or Kaeon FUSION</h2>
+<h2 align="center">Any application, anywhere. It just works.</h2>
 
 <p align="center">
 	<img src="https://quiksite.com/wp-content/uploads/2016/09/Javascript-Square.png" width="300px" height="300px"/>

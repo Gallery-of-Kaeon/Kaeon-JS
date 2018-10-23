@@ -4,8 +4,42 @@
 var kaeonFUSION = require("./KaeonFUSION.js");
 var fusion = new kaeonFUSION.KaeonFUSION();
 
-var kaeon = require("./kaeon.js").getKaeon();
-var data = kaeon.open("./index.op");
+var platform = "Browser";
+
+if(typeof process === 'object') {
+
+	if(typeof process.versions === 'object') {
+
+		if(typeof process.versions.node !== 'undefined') {
+			platform = "Node";
+		}
+	}
+}
+
+var data = "";
+
+if(platform.toLowerCase == "Node")
+	data = require("fs").readFileSync("./index.op", 'utf8');
+
+else {
+
+	var rawFile = new XMLHttpRequest();
+	rawFile.open("GET", "./index.op", false);
+
+	var allText = "";
+
+	rawFile.onreadystatechange = function() {
+
+		if(rawFile.readyState === 4) {
+
+			if(rawFile.status === 200 || rawFile.status == 0) {
+				data = rawFile.responseText;
+			}
+		}
+	}
+
+	rawFile.send(null);
+}
 
 for(var i = 0; i < data.length; i++) {
 

@@ -17,8 +17,6 @@ where a single JavaScript file serves as the main file,
 JavaScript dependencies are handled by the require function,
 and the entire frontend of the application is managed through the DOM.
 
-* To provide a wrapper module that allows the same code to be used on the browser or on node.js for common tasks such as opening files or retrieving console input.
-
 * To provide a JavaScript based [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md) interpreter,
 and to provide the option for a Kaeon FUSION file to act as the main file in place of a JavaScript file.
 

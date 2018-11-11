@@ -1,7 +1,7 @@
 function call(module, packet) {
 
 	var rawFile = new XMLHttpRequest();
-	rawFile.open("GET", path, false);
+	rawFile.open("GET", module, false);
 
 	var allText = "";
 

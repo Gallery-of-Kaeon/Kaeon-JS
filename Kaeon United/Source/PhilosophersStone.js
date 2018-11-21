@@ -189,7 +189,9 @@ function isConnected(stone, connection, mutual, private) {
 			isConnected(connection, stone, private);
 	}
 	
-	else {if(Array.isArray(stone)) {
+	else {
+
+		if(Array.isArray(stone)) {
 		
 			if(Array.isArray(connection)) {
 				

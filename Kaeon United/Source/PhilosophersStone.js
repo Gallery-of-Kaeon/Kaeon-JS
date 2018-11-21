@@ -35,18 +35,44 @@ class PhilosophersStone {
 
 function getAtlas(stone) {
 	
-	var atlas = [stone];
-	
-	for(var i = 0; i < stone.connections.length; i++) {
+	if(Array.isArray(stone)) {
 		
-		var projectedPath = atlas.slice(0);
-		projectedPath.push(stone.connections[i]);
+		var atlas = [];
 		
-		if(stone.onOutgoing(projectedPath))
-			getAtlasTraversal(stone.connections[i], atlas);
+		for(var i = 0; i < stone.length; i++)
+			atlas = atlas.concat(getAtlas(stone[i]));
+		
+		for(var i = 0; i < atlas.length; i++) {
+		
+			for(var j = 0; j < atlas.length; j++) {
+				
+				if(atlas[i] === atlas[j]) {
+				
+					atlas.splice(j, 1);
+					
+					j--;
+				}
+			}
+		}
+		
+		return atlas;
 	}
 	
-	return atlas;
+	else {
+		
+		var atlas = [stone];
+		
+		for(var i = 0; i < stone.connections.length; i++) {
+			
+			var projectedPath = atlas.slice(0);
+			projectedPath.push(stone.connections[i]);
+			
+			if(stone.onOutgoing(projectedPath))
+				getAtlasTraversal(stone.connections[i], atlas);
+		}
+		
+		return atlas;
+	}
 }
 
 function getAtlasTraversal(stone, atlas) {
@@ -90,6 +116,187 @@ function getAtlasTraversal(stone, atlas) {
 	}
 }
 
+function connect(stone, connection, mutual, private) {
+
+	if(mutual) {
+		connect(stone, connection, false, private);
+		connect(connection, stone, false, private);
+	}
+
+	else {
+	
+		if(Array.isArray(stone)) {
+		
+			if(Array.isArray(connection)) {
+			
+				for(var i = 0; i < stone.length; i++) {
+				
+					for(var j = 0; j < connection.length; j++)
+						connect(stone[i], connection[j], mutual, private);
+				}
+			}
+			
+			else {
+			
+				for(var i = 0; i < stone.length; i++)
+					connect(stone[i], connection, mutual, private)
+			}
+		}
+	
+		else if(Array.isArray(connection)) {
+			
+			for(var i = 0; i < connection.length; i++)
+				connect(stone, connection[i], mutual, private)
+		}
+		
+		else {
+		
+			if(isConnected(stone, connection, false))
+				return;
+				
+			stone.connections.push(connection);
+			
+			if(private && !isConnected(stone, connection, true))
+				stone.privateConnections.push(connection);
+		}
+	}
+}
+
+function tag(stone, tags) {
+	
+	if(Array.isArray(stone)) {
+		
+		for(var i = 0; i < stone.length; i++)
+			tag(stone[i], tags);
+	}
+	
+	else {
+	
+		for(var i = 0; i < tags.length; i++) {
+		
+			if(stone.tags.includes(tags[i].toLowerCase()))
+				stone.tags.push(tags[i]);
+		}
+	}
+}
+
+function isConnected(stone, connection, mutual, private) {
+
+	if(mutual) {
+	
+		return
+			isConnected(stone, connection, private) &&
+			isConnected(connection, stone, private);
+	}
+	
+	else {if(Array.isArray(stone)) {
+		
+			if(Array.isArray(connection)) {
+				
+				for(var i = 0; i < stone.length; i++) {
+				
+					for(var j = 0; j < connection.length; j++) {
+					
+						if(!isConnected(stone[i], connection[j], mutual, private))
+							return false;
+					}
+				}
+				
+				return true;
+			}
+			
+			else {
+			
+				for(var i = 0; i < stone.length; i++) {
+				
+					if(!isConnected(stone[i], connection, mutual, private))
+						return false;
+				}
+						
+				return true;
+			}
+		}
+	
+		else if(Array.isArray(connection)) {
+			
+			for(var i = 0; i < connection.length; i++) {
+			
+				if(!isConnected(stone, connection[i], mutual, private))
+					return false;
+			}
+					
+			return true;
+		}
+		
+		else {
+		
+			var connections =
+				private ?
+					stone.privateConnections :
+					stone.connections;
+			
+			for(var i = 0; i < connections.length; i++) {
+				
+				if(connections[i] === connection)
+					return true;
+			}
+			
+			return false;
+		}
+	}
+}
+
+function isTagged(stone, tags) {
+	
+	if(Array.isArray(stone)) {
+		
+		for(var i = 0; i < stone.length; i++) {
+			
+			if(!isTagged(stone[i]))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	else {
+	
+		for(var i = 0; i < tags.length; i++) {
+			
+			var found = false;
+			
+			for(var j = 0; j < stone.tags.length; j++) {
+				
+				if(tags[i].toLowerCase() == stone.tags[j].toLowerCase()) {
+					
+					found = true;
+					
+					break;
+				}
+			}
+			
+			if(!found)
+				return false;
+		}
+		
+		return true;
+	}
+}
+
+function get(stone, tags) {
+	
+	var tagged = [];
+	var atlas = getAtlas(stone);
+	
+	for(var i = 0; i < atlas.length; i++) {
+		
+		if(isTagged(atlas[i], tags))
+			tagged.push(atlas[i]);
+	}
+	
+	return tagged;
+}
+
 function call(stone, arg) {
 	
 	var call = [];
@@ -113,98 +320,15 @@ function call(stone, arg) {
 	return call;
 }
 
-function isTagged(stone, tags) {
-	
-	for(var i = 0; i < tags.length; i++) {
-		
-		var found = false;
-		
-		for(var j = 0; j < stone.tags.length; j++) {
-			
-			if(
-				tags[i].toLowerCase() ==
-				stone.tags[j].toLowerCase()) {
-				
-				found = true;
-				
-				break;
-			}
-		}
-		
-		if(!found)
-			return false;
-	}
-	
-	return true;
-}
-
-function get(stone, tags) {
-	
-	var tagged = [];
-	var atlas = getAtlas(stone);
-	
-	for(var i = 0; i < atlas.length; i++) {
-		
-		if(isTagged(atlas[i], tags))
-			tagged.push(atlas[i]);
-	}
-	
-	return tagged;
-}
-
-function has(stone, tags) {
-	return get(stone, tags).length > 0;
-}
-
-function isConnected(stone, connection, private) {
-	
-	var connections =
-		private ?
-			stone.privateConnections :
-			stone.connections;
-	
-	for(var i = 0; i < connections.length; i++) {
-		
-		if(connections[i] === connection)
-			return true;
-	}
-	
-	return false;
-}
-
-function isConnectedMutually(stone, connection, private) {
-
-	return
-		isConnected(stone, connection, private) ||
-		isConnected(connection, stone, private);
-}
-
-function connect(stone, connection, private) {
-
-	if(isConnected(stone, connection, false))
-		return;
-		
-	stone.connections.push(connection);
-	
-	if(private && !isConnected(stone, connection, true))
-		stone.privateConnections.push(connection);
-}
-
-function connectMutually(stone, connection, private) {
-	connect(stone, connection, private);
-	connect(connection, stone, private);
-}
-
 module.exports = {
 
 	PhilosophersStone,
 	getAtlas,
 	getAtlasTraversal,
+	connect,
+	tag,
+	isConnected,
+	isTagged,
 	call,
 	get,
-	has,
-	isConnected,
-	isConnectedMutually,
-	connect,
-	connectMutually
 };

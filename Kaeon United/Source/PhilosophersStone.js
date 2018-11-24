@@ -185,12 +185,12 @@ function isConnected(stone, connection, mutual, private) {
 	if(mutual) {
 	
 		return
-			isConnected(stone, connection, private) &&
-			isConnected(connection, stone, private);
+			isConnected(stone, connection, false, private) &&
+			isConnected(connection, stone, false, private);
 	}
 	
 	else {
-
+	
 		if(Array.isArray(stone)) {
 		
 			if(Array.isArray(connection)) {

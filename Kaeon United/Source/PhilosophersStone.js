@@ -172,11 +172,17 @@ function tag(stone, tags) {
 	
 	else {
 	
-		for(var i = 0; i < tags.length; i++) {
+		if(Array.isArray(tags)) {
 		
-			if(stone.tags.includes(tags[i].toLowerCase()))
-				stone.tags.push(tags[i]);
+			for(var i = 0; i < tags.length; i++) {
+			
+				if(stone.tag.includes(tags[i].toLowerCase()))
+					stone.tags.push(tags[i]);
+			}
 		}
+	
+		else
+			stone.tags.push(tags);
 	}
 }
 
@@ -263,13 +269,16 @@ function isTagged(stone, tags) {
 	
 	else {
 	
+		if(!Array.isArray(tags))
+			tags = [tags];
+	
 		for(var i = 0; i < tags.length; i++) {
 			
 			var found = false;
 			
 			for(var j = 0; j < stone.tags.length; j++) {
 				
-				if(tags[i].toLowerCase() == stone.tags[j].toLowerCase()) {
+				if(formatTag(tags[i]) == formatTag(stone.tags[j])) {
 					
 					found = true;
 					
@@ -322,6 +331,23 @@ function call(stone, arg) {
 	return call;
 }
 
+function formatTag(tag) {
+	
+	var newTag = tag.toLowerCase();
+	
+	for(var i = 0; i < tag.length; i++) {
+		
+		if(newTag.charAt(i) == " ") {
+		
+			newTag = newTag.substring(0, i) + newTag.substring(i + 1);
+			
+			i--;
+		}
+	}
+	
+	return newTag;
+}
+
 module.exports = {
 
 	PhilosophersStone,
@@ -333,4 +359,5 @@ module.exports = {
 	isTagged,
 	call,
 	get,
+	formatTag
 };

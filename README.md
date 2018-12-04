@@ -45,3 +45,7 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20Un
 
 To view the specification,
 click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification/Kaeon%20United.op).
+
+<h2 align="center">Additional Resources</h2>
+
+[Beginner's Guide to Kaeon United](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification/Kaeon%20United.op) (A work in progress.)

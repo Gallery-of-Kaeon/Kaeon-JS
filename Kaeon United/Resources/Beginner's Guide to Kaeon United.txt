@@ -1,0 +1,1474 @@
+Beginner's Guide to Kaeon United
+
+[*]	- (1) Introduction - [*] __________________________________________________
+
+Programming is incredibly powerful, but it isn't hard. Well, it shouldn't be.
+That's why Kaeon United exists. It's a toolset that allows developers to make
+any type of application, be it a script, a website, an app, etc, with just a
+single file of text. What's more, if you wanted to change your application from
+say a website to a mobile app, you wouldn't have to change any of said text.
+
+This text is of course code. But not like 1's and 0's, we're not cavemen. We're
+going to use the most versatile programming language currently available:
+JavaScript, which looks like English with a bit of mathematical notation mixed
+in.
+
+Kaeon United also gives you the option to use a really special language called
+"Kaeon FUSION", but let's focus on JavaScript for now.
+
+For any questions or comments, please contact:
+
+	kaeon.ace@gmail.com
+
+[*]	- (2) Prerequites - [*] ___________________________________________________
+	
+Can you read, write, do basic math, and use a computer? Good.
+
+[*]	- (3) Setup - [*] _________________________________________________________
+
+First, download Kaeon United by entering this URL into a browser:
+
+	https://github.com/Gallery-of-Kaeon/Kaeon-United/raw/master/Kaeon%20United/Bundle/Kaeon%20United.zip
+
+It will be a zip folder so you'll need to unzip it. If you don't know how to
+unzip zip folders, see here:
+
+	https://www.wikihow.com/Unzip-a-File
+
+Secondly, you'll need a plain text editor. If you don't know what that is, or
+just don't already have one, download the Atom text editor here:
+
+	https://atom.io/
+
+[*]	- (3 - 1) Setup [Test] - [*] ______________________________________________
+	
+For this little test run, and for everything you make with Kaeon United, we
+recommend making a copy of the unzipped Kaeon United folder.
+
+So in the copied folder, open the file called "index.js" in your plain text
+editor. Then, delete all of the text in it, and replace it with the following
+JavaScript code:
+
+	console.log("Hello, world!");
+
+Once you have saved the file, navigate back out to the copied folder and find
+the file called "index.html". Right click (or control click on Mac) on the
+index.html file and navigate to the "open with" manu, and select to open it
+with your web browser.
+
+Once it has been opened inside the browser, open the browser's developer
+console. See here for how to do this depending on the browser you're using:
+
+	https://www.wickedlysmart.com/hfjsconsole/?fbclid=IwAR1g801Mj1LmWAb4Xzui10ja7HGaEpJDDTLVNTfhTdguc3tUdBXH4uOCZQ0
+	
+Once the console has been opened, you should see the text "Hello, world!"
+displayed within it. This means the test was successful.
+
+[*]	- (3 - 2) Setup [Additional Installations] - [*] __________________________
+	
+We also recommend installing node.js, which can be found here:
+
+	https://nodejs.org/en/
+
+As well as git, which can be found here:
+
+	https://git-scm.com/downloads
+
+[*]	- (4) JavaScript - [*] ____________________________________________________
+
+Now we're going to learn how to actually use JavaScript.
+
+[*]	- (4 - 1) JavaScript [Important Note] - [*] _______________________________
+	
+Knowing how the computer actually works, while not necessary for learning to
+code, does help. This video series is great for explaining it:
+
+	https://www.youtube.com/watch?v=tpIctyqH29Q&list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo
+
+It's a playlist of videos in a series of videos produced by PBS in a series
+called "Crash Course Computer Science".
+
+[*]	- (4 - 2) JavaScript [Your First Line of Code] - [*] ______________________
+
+It is a long and proud tradition among programmers to have the first program a
+new programmer write be a script to print the text "Hello, world!" to the
+console. This is how such a program is written in JavaScript:
+
+	console.log("Hello, world!");
+
+So we know what this code does, but why does it work and why is it written like
+this? First, let's separate this line into the following chunks, or "tokens":
+
+	(1)		console
+	(2)		.
+	(3)		log
+	(4)		(
+	(5)		"
+	(6)		hello
+	(7)		,
+	(8)		[space]
+	(9)		world!
+	(10)	"
+	(11)	)
+	(12)	;
+
+Tokens 2, 4, 5, 7, 8, 10, 11, and 12 are characters or sequences of characters
+that mean specific things to JavaScript, and they determine where the line is
+cut to form our tokens. The sequences that occur between the aforementioned
+tokens can mean different things depending on where they occur and what's
+currently stored in the computer's memory.
+
+We can separate our tokens into expressions, each of which when executed,
+returns a value.
+
+Here are the expressions in this line and the order in which they are executed,
+as dictated by JavaScript's order of operations:
+
+	(1)		Tokens 5 through 10
+	(2)		Tokens 4 through 11
+	(3)		Token 1 through 11
+	(4)		Token 12
+
+Here's what's going on with expression 1:
+
+The whole expression is enclosed within quotation marks. This means the
+expression is among a type of expressions referred to a "literals", or
+expressions that generate and return values based on how they are "literally"
+written out.
+
+This particular type of literal, that is the type that starts and ends with
+quotation marks, is referred to as a "string" literal, because it returns a
+string.
+
+Strings are sequences of characters. They are commonly used to represent text.
+
+In this case, the string we generated was:
+
+	Hello, world!
+
+The comma and space tokens within our string, while normally acting to separate
+expressions and values, are relegated to non-functional text because they are
+contained within a literal.
+
+Here's what's going on with expression 2:
+
+The whole expression is enclosed within parentheses. This means the contents of
+the expression are isolated from their surroundings. Like in math, these
+expressions tend to execute first, and simply return whatever is generated
+inside them.
+
+Here's what's going on with expression 3:
+
+Token 1 is what's called an alias. It references something defined elsewhere.
+
+Obviously, we never defined this "console", but the developers of JavaScript
+thought that it was so important that it always needed to be available, so it
+is automatically available for reference without us having to explicitly define
+it. There are many other such things in JavaScript that are always available
+for reference.
+
+Token 2, a dot, means that the alias that follows it, token 3, is an alias
+referencing something that exists inside the "object" referenced by whatever
+precedes it, in this case token 1. This syntax (rules regarding how code is
+written) is referred to as dot notation.
+
+An "object" in the context of programming is a collection of data and
+functionality with a shared purpose. The console object represents the area
+where our text is printed on the screen.
+
+Because token 3 is followed by an expression enclosed in parentheses, the
+values generated within said parentheses are used as arguments for which
+token 3 is the alias. The values consist solely of the string "Hello, world!"
+and the function is "log" which is defined within "console".
+
+Think of
+
+	log("Hello, world!")
+	
+as being akin to
+
+	f(x)
+
+As I'm sure you've figured out, log takes whatever is passed to it and writes
+it to the real console referenced by the "console" alias. Of course, there's no
+need for such a function to return a value, so expression 3 can be referred to
+as a void expression, that is one that returns no value.
+
+Token 12, a semicolon, simply isolates everything that precedes it from
+everything that follows it, and prevents whatever follows it from running until
+whatever precedes has finished.
+
+[*]	- (4 - 3) JavaScript [Formatting] - [*]
+
+JavaScript as a general rule does not place too much emphasis on how many lines
+or how much whitespace there is between tokens within your code.
+
+You will however encounter people who have VERY strong opinions regarding how
+much of either there ought to be.
+
+[*]	- (4 - 4) JavaScript [Comments] - [*]
+	
+Observe the following code. It does exactly what the code in the last example
+did, but contains within it additional text to assist the programmer referred
+to as comments:
+	
+	// Any text that follows two slashes is a comment.
+	
+	/*
+	
+		A comment can also start with "/*" and end with "*/". This way, it can
+		cover multiple lines.
+		
+		Comments are how programmers leave notes in their code without
+		affecting how it runs. In other words, programmers can see comments,
+		but the computer ignores them.
+	
+	 */ 
+
+	/*
+	
+		The following line is a command that will take the text "Hello, world!"
+		and display it on the "console".
+		
+	 */
+	 
+	console.log("Hello, world!");
+
+	/*
+		
+		Helpful tip:
+		
+		The console is normally invisible to people using applications with
+		graphical interfaces like mobile apps, Microsoft Office, video games,
+		or web browsers, but you can see it if you open up something called a
+		terminal. Most web browsers actually have a built in terminal that
+		shows the text generated by code just like the line above.
+		
+	 */
+
+[*]	- (4 - 5) JavaScript [Data and Variables] - [*] ___________________________
+	
+Let's start this next topic by examining the following code:
+
+	var x = 5;
+	console.log(x);
+	
+Note:
+
+	Aliases in JavaScript can't contain spaces or any punctuation other than
+	underscores, and can't start with numbers.
+
+There are two new tokens to note here, "var" and "=", as well as a new type of
+literal, number literals.
+
+var indicates that whatever follows it is a new alias for a new variable. A
+variable is a chunk of data that is stored in the computer's memory that can
+be retrieved by an assigned alias.
+
+5, like "Hello, world!", is a literal. Because it is a number written outside
+of quotation marks, it returns a number as opposed to a string.
+
+= means the variable referenced by whatever precedes it will be assigned the
+value that follows it.
+
+So:
+
+	var x = 5;
+	
+creates a new variable in the computer's memory and gives it the value of the
+number 5. Creating a new variable is called "declaration", and setting its
+value for the first time is called "initialization". If you do not assign it a
+value, then by default it will have a value of "null", meaning that it has no
+value.
+
+Because the x in the second line is not surrounded by quotation marks, it is
+assumed to be an alias as opposed to a literal. This means that when executed
+as an expression, it will return the value stored in the variable referenced by
+its alias.
+
+So, running this code will print:
+
+	5
+	
+in the console.
+
+It's also important to know that you can change a value of a variable after it
+has been declared, like so:
+
+	var x = 5;
+	console.log(x);
+	x = 10;
+	console.log(x);
+	
+This code will print 5, and then print 10 to the console.
+
+Now, it should go without saying that an alias cannot be used for a variable
+that has not been declared.
+
+For example, running,
+
+	console.log(x);
+	var x = 5;
+	
+will print "undefined" to the console.
+
+Here's a list of some of the types of data commonly stored in JavaScript
+variables:
+
+	Numbers
+	Characters
+	Booleans (true or false values)
+	Strings (sequences of characters)
+	Lists (sequences of chunks of data)
+	Functions
+	Objects (collections of data and functionality with a shared purpose)
+	null (a "value" representing the absence of a value, aka "undefined")
+
+Here are some examples of literals for each data type other than functions,
+objects:
+
+Numbers:
+
+	1
+	3.14
+	-20
+	.15
+
+Characters:
+
+	'a'
+	'4'
+	'A'
+	' '
+
+Booleans:
+
+	true
+	false
+
+Strings:
+
+	"Hello"
+	"1 + 1 = 2"
+	"2 + 2 = 5"
+	"But not really."
+
+Lists:
+
+	[123, 456, 789]
+	["abc, "def", "ghi"]
+	["abc", 123, "def", 456]
+
+The null value is simply written as:
+
+	null
+
+Regarding string literals, it is also important to note that certain characters
+within string literals require special sequences to be encoded. These sequences
+always consist of a backwards slash followed by another character.
+
+These "escape sequences" are as follows:
+
+New Line:		\n
+Tab:			\t
+Double Quote: 	\"
+Single Quote: 	\'
+Back Slash: 	\\
+
+So, the following code:
+
+	console.log("abc\n123");
+	console.log("def\n\t456");
+	console.log("They said \"hello\".");
+	console.log("Use \'\\\' to write escape sequences.");
+	
+Will display this on the console:
+
+	abc
+	123
+	def
+		456
+	They said "hello".
+	Use '\' to write escape sequences.
+
+[*]	- (4 - 6) JavaScript [Operations] - [*] ___________________________________
+
+Here are the basic math operations in JavaScript:
+
+Adding:			1 + 2	[returns 3]
+Subtracting:	1 - 2	[returns -1]
+Multiplying:	2 * 2	[returns 4]
+Dividing:		4 / 2	[returns 2]
+Modulus:		10 % 4	[returns 2]
+
+Modulus means divide and take the remainder. So 10 % 4 (pronounced 10 mod 4),
+returns 2 because 4 can fit into 10 twice with 2 left over.
+
+Logic operations are also important to discuss. They compare values and return
+booleans (true or false values).
+
+Here are the basic logic operations in JavaScript:
+
+Less:				1 < 2	[returns true]
+Greater:			1 > 2	[returns false]
+Less or Equal:		2 <= 2	[returns 4]
+Greater or Equal:	4 >= 2	[returns 2]
+
+Equal:
+
+	1 == 1			[returns true]
+	1 == 2			[returns false]
+	"abc" == "abc"	[returns true]
+	"abc" == "def"	[returns false]
+
+[Note: There are also scenarios where "===" is used instead of "==".]
+
+Not Equal:
+
+	1 != 1			[returns false]
+	1 != 2			[returns true]
+	"abc" != "abc"	[returns false]
+	"abc" != "def"	[returns true]
+
+[Note: There are also scenarios where "!==" is used instead of "!=".]
+
+And:
+
+	true && true	[returns true]
+	true && false	[returns false]
+	false && false	[returns false]
+
+Or:
+
+	true || true	[returns true]
+	true || false	[returns true]
+	false || false	[returns false]
+
+Exclusive Or:
+
+	true ^ true		[returns false]
+	true ^ false	[returns true]
+	false ^ false	[returns false]
+
+Not:
+
+	!true	[returns false]
+	!false	[returns true]
+
+A hugely important thing to note is that operations can be used together in
+expressions.
+
+These expressions follow an order of operations similar to PEMDAS, with logic
+operations would right below the 'P', where mathematical comparisons are ranked
+below other logic operations.
+
+You can also place a minus sign in front of a math expression to make the
+result negative if it is positive or positive if it is negative.
+
+For example:
+
+	1 + 2 < 40 && "abc" == "abc"	[returns true]
+	-(3 * 3 / 2)					[returns -4.5]
+
+It is also possible to "add" strings together. This is referred to a
+"concatenation". For example:
+
+	console.log("abc" + "123");
+
+will print out:
+
+	abc123
+
+There are also specialized operators for changing the values of existing
+variables.
+
+Here are some examples of this:
+
+	var x = 1;	// x is created and given a value of 1 to start with
+	
+	x++;		// The value of x is now 2
+	x++;		// The value of x is now 3
+	
+	x--;		// The value of x is now 2
+	x--;		// The value of x is now 1
+	
+	x += 3;		// The value of x is now 4
+	x -= 2;		// The value of x is now 2
+	x *= 5;		// The value of x is now 10
+	x /= 2;		// The value of x is now 5
+	x %= 2;		// The value of x is now 1
+
+The "+=" operator also works on strings. For example:
+
+	var myString = "abc";
+	myString += "123"
+
+	console.log(myString);
+	
+will print out:
+
+	abc123
+	
+[*]	- (4 - 7) JavaScript [Flow Control] - [*] _________________________________
+	
+Sometimes in programs you have things you want to happen only if certain
+conditions have been met, or to happen until certain conditions have been met.
+The process of managing this is referred to as flow control.
+
+Here's the basic format for a flow control structure:
+
+	/* Type of flow control */ (/* Boolean value, or boolean value plus other operations */) {
+	                        /* ^                    Not always needed                      ^ */
+	                        
+		/*
+		
+			Code to execute when conditions are met.
+			
+			The curly brackets are unnecessary if this body consists only of a
+			single line of code or another flow control structure;
+			
+		 */
+		
+	} // Sometimes needed: /* Type of flow control */ (/* Boolean value, or boolean value plus other operations */);
+	
+Most flow control structures look like this, where the first word in the
+structure determines the type of flow control. The contents of the parentheses
+(if present as they are not necessary for all flow control structures), which
+for most of them is a single boolean value, determine the conditions. The code
+between the curly brackets is what's run when said conditions are met.
+
+The first important flow control tool to note is the if statement.
+
+An if statement will execute the code within it only if the value returned by
+the expression in the parentheses, or its "conditional", is true.
+
+Here's an example of what one might look like:
+
+	if(1 < 2) {
+		console.log("One is less than two.");
+	}
+
+	if(2 < 1) {
+		console.log("Two is less than one.");
+	}
+
+Because 1 is indeed less than 2, the conditional returns true, and thus the
+text "One is less than two." is displayed in the console, but the text "Two is
+less than one." is not.
+
+The second control structure we'll discuss is one that's closely tied to if
+statements: else statements. else statements can only be placed directly after
+if statements.
+
+An else statement is the only flow control structure that does not require
+conditions to be placed within parentheses. It will execute the code within it
+if the if statement it follows did not execute the code within it due to a
+false conditional.
+
+For example:
+
+	if(2 < 1) {
+		console.log("Two is less than one.");
+	}
+
+	else {
+		console.log("One is less than two.");
+	}
+
+Because 2 is not less than 1, the if's conditional returns false, and thus the
+text "Two is less than one." is not displayed in the console, but this allows
+the else statement to activate, displaying the text "One is less than two." in
+the console.
+
+Several if and else statements can actually be chained together is what's
+called a "cascading" if statement.
+
+For example:
+
+	var x = 5;
+
+	if(x <= 0) {
+		console.log("x is less than 1");
+	}
+
+	else if(x == 1) {
+		console.log("x is 1");
+	}
+
+	else if(x == 2) {
+		console.log("x is 2");
+	}
+
+	else if(x == 3) {
+		console.log("x is 3");
+	}
+
+	else if(x == 4) {
+		console.log("x is 4");
+	}
+	
+	else {
+		console.log("x is greater than 4");
+	}
+
+Starting at the first if statement, this cascading if will work its way through
+each if statement until one's conditional returns true, until there are no more
+ifs left to cascade down to, or until reaching an else statement with no if
+attached to it.
+
+Thus, our cascading if statement example will print "x is greater than 4".
+
+It should be noted that "else if" is not a single flow control structure. It is
+an if within an else, and as the if is the only thing within the else, the else
+requires no curly brackets of its own.
+
+This brings us to loops.
+
+Loops are used when the program requires certain operations to be repeated
+until certain conditions have been met. Each time the loop repeats is referred
+to as an "iteration".
+
+The simplest example of a loop is a while loop.
+
+A while loop is almost exactly like an if statement, except that the code
+within its body will continue to execute over and over until its conditional
+returns false.
+
+And obviously, while loops, or any other loops for that matter, don't work with
+else statements.
+
+Here's an example of a while loop that counts from 1 to 10.
+
+	var num = 1;
+	
+	while(num <= 10) {
+	
+		console.log(num);
+		
+		/*
+		
+			The next line increases the value of num by one with each iteration
+			of the loop.
+			
+			It it were removed, the loop would continue forever.
+			
+		 */
+		
+		num = num + 1;
+	}
+
+There also exists an alternative form of while loops referred to as "do while"
+loops. While loops will not run at all if their conditional is false at the
+start, but do while loops will always run at least once.
+
+Here's an example of a do while loop that is fairly similar to the loop above.
+
+	var num = 1;
+	
+	do {
+	
+		console.log(num);
+		
+		/*
+		
+			The next line increases the value of num by one with each iteration
+			of the loop.
+			
+			It it were removed, the loop would continue forever.
+			
+		 */
+		
+		num = num + 1;
+		
+	} while(num <= 10);
+
+The final loop that needs to be discussed is the for loop. For loops are
+convenient when you know exactly how many times you want your loop to iterate.
+
+Instead of having only a boolean conditional, a for loop has three fields in
+its parentheses each separated by a semicolon. The first is a variable
+declaration and optionally its initialization, the second is a boolean
+conditional, and the third may be any operation. The first and third fields are
+optional, but the semicolons that separate them still need to be present.
+
+Here's an example of a for loop that is functionally the same as our first
+while loop:
+
+	// "i" is often used because it stands for "index"
+	
+	for(var i = 1; i <= 10; i++)
+		console.log(i);
+		
+	/*
+	
+		Curly brackets are unnecessary since the loop only contains a single
+		line. However, if they were present there wouldn't be any issue.
+		
+	 */
+
+There are also two ways to alter the flow of loops from inside of them. The
+keywords used to do this are "break" and "continue".
+
+If "break" is used within a loop, said loop will immediately stop.
+
+If "continue" is used within a loop, all code within said loop following said
+continue will be skipped over and the next iteration will start.
+
+For example, a loop with a conditional that is simply the literal "true" would
+normally continue forever, but by placing breaks and continues within it, its
+flow control can still be managed.
+
+For example, this loop:
+
+	var num = 1;
+	
+	while(true) {
+		
+		console.log(num);
+		
+		if(num <= 10) {
+		
+			i++;
+			
+			continue;
+		}
+		
+		break;
+	}
+
+is functionally the same as our first while loop.
+
+[*]	- (4 - 8) JavaScript [Scope] - [*] ________________________________________
+	
+Code contained within curly braces, such as in if / else statements and loops,
+is isolated from the rest of the code in the file. What this means is that
+depending on how variables are declared, their aliases may not be available
+outside of isolated code if they were declared within them.
+
+It is possible to use the term "let" instead of "var" when declaring a
+variable. This allows the variable to have the aforementioned properties.
+
+Note:
+
+	It is also possible to use "const" instead of "var" or "let". "const" will
+	prevent the value of the variable from ever being changed after
+	initialization.
+
+Observe the following code:
+
+	let a = 1;
+	var x = 1;
+	
+	console.log(a); // 1
+	console.log(x); // 1
+	console.log(b); // [crashes]
+	console.log(y); // undefined
+	
+	if(x == "1") {
+		
+		let b = 2;
+		var y = 2;
+		
+		console.log(a); // 1
+		console.log(x); // 1
+		console.log(b); // 2
+		console.log(y); // 2
+	}
+	
+	console.log(a); // 1
+	console.log(x); // 1
+	console.log(b); // [crashes]
+	console.log(y); // 2
+
+This ties into the general concept of scope, which is basically that where
+things are declared affects where they can be accessed from.
+
+It's also possible to create an isolated scope that isn't attached to any sort
+of flow control structure, simply by placing code between curly brackets.
+
+Observe the following code:
+
+	let a = 5;
+	
+	{ // Isolated Scope Begin
+	
+		let b = 10;
+		
+		console.log(a); // works
+		console.log(b); // works
+		
+	} // Isolated Scope End
+	
+	console.log(a); // works
+	console.log(b); // crashes
+
+Finally, we need to discuss "global" variables, which are variables that, once
+created, are available anywhere within the code and are never deleted. To
+declare a global variable, you write the varaible declaration without any key
+word such as let, var, or const.
+
+For example:
+
+	x = 5; // x is now a global variable.
+
+The console object we've been using to display text is a global variable.
+
+[*]	- (4 - 9) JavaScript [Lists] - [*] ________________________________________
+
+We previously discuss how a list, a linear sequences of miscellaneous chunks of
+data, can be represented as a literal by placing expressions that return the
+contents of the in order, separated by commas and surrounded by square
+brackets.
+
+Like so:
+
+	[]							// literal empty list
+	[1]							// literal list with one number
+	[123, 4 + 56, 789]			// literal list of numbers, with an expression value
+	["abc", "123", "xyz"]		// literal list of strings
+	[123, "abc", 456, "xyz"]	// literal list of numbers and strings
+
+We can retrieve a specific item in a list used something called index notation.
+In index notation, an expression that returns a list is followed by an
+expression that returns an integer number surrounded by square brackets.
+
+Counting with lists starts at 0, so the first item in a list is at index 0,
+followed by the second item at index 1, etc.
+
+Observe the following expression:
+
+	[123, 4 + 56, 789][1]
+	
+This expression evaluates to 60, because index 1 references the second item,
+which is 4 + 56, which is equal to 60.
+
+Of course any index used must be greater than or equal to zero and less than
+the number of items, or "elements" in the list. No index will work with an
+empty list.
+
+A list, like the console object, can itself be treated as an object, with
+functions and data within it accessible through dot notation.
+
+Below are some examples of the fields and functions available to lists.
+Assume we have a list variable with the alias "myList".
+
+	// Returns the number of elements in the list
+	
+	myList.length
+	
+	// Adds a new element to the list
+	
+	myList.push(/* a value */)
+	
+	/*
+		Removes and returns a section of the list starting at the first number
+		and contuing for the number specified by the second number.
+	 */
+	 
+	myList.splice(index, number of items)
+
+It should also be noted that elements in a list can be reset using dot
+notation.
+
+For example, running:
+
+	let myList = [1, 2, 3];
+	console.log(myList);
+
+	myList[1] = 4;
+	console.log(myList);
+	
+will print:
+
+	[1, 2, 3]
+	[1, 4, 3]
+	
+Here's an example showing how lists and for loops can be used together:
+
+	let myList = [1];
+	
+	for(let i = 2; i < 10; i++)
+		myList.push(i);
+		
+	console.log(myList);
+	
+	for(let i = 0; i < myList.length; i++)
+		console.log(myList[i]);
+	
+	console.log(myList.splice(3, 3));
+	console.log(myList);
+
+The above code will print the following to the console:
+
+	[1, 2, 3, 4, 5, 6, 7, 8, 9]
+	1
+	2
+	3
+	4
+	5
+	6
+	7
+	8
+	9
+	[4, 5, 6]
+	[1, 2, 3, 7, 8, 9]
+
+[*]	- (4 - 10) JavaScript [String Processing] - [*] ____________________________
+	
+Strings in essence are lists. Lists of characters to be specific.
+
+Conveniently, It is possible to use index notation and the length field with
+strings.
+
+For example, running:
+
+	let myString = "hello";
+	
+	console.log(myString[1]);
+	console.log(myString.length);
+	
+Will print:
+
+	e
+	5
+	
+Another important thing that programmers should be aware of is that each
+character corresponds to a number. The numbers that commonly used characters
+correspond to is defined by a standard called ASCII (pronounced AZ-key).
+
+Observe this chart:
+
+	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/ASCII-Table-wide.svg/875px-ASCII-Table-wide.svg.png
+
+Compare the "decimal" column to the "char" column to see how numbers and
+characters match up.
+
+You can get the ASCII value of a character in a string using the function
+charCodeAt which takes the index of the desired character, and you can generate
+a character from its ASCII value using the String.fromCharCode(/* number */).
+
+For example, running:
+
+	console.log("ABC".charCodeAt(0));
+	console.log(String.fromCharCode(65));
+
+will print:
+
+	65
+	A
+
+While ASCII is generally useful for the most common characters, less common
+characters, ranging from chinese characters to emojis, are encoded with the
+ASCII characters in larger standards, the largest of which is Unicode.
+
+[*]	- (4 - 11) JavaScript [Functions] - [*] ____________________________________
+	
+We already used functions that were stored inside objects, but what are they
+and why are they important?
+
+A function is a reusable body of code with an alias.
+
+The syntax for creating a function is the word "function" followed by at least
+one space, followed by the alias of the function, followed by parentheses,
+followed by code contained within curly brackets.
+
+The whole format if used outside any other expression, makes the function
+available to the rest of the file. If used inside another expression, it acts
+as a literal, passing the function itself as a value to a larger expression.
+Also, a function definition used this way does not require an alias.
+
+Here's an example of what one looks like:
+
+	function foo() {
+		console.log("Foo");
+	}
+
+The above code establishes a function called foo with a single line of code
+within it. It itself doesn't actually do anything though.
+
+Now observe the following code:
+
+	function foo() {
+		console.log("Foo");
+		console.log("Bar");
+		console.log("Baz");
+	}
+	
+	foo();
+	foo();
+	foo();
+	
+The above code also establishes a function called foo (note that within the
+same program, no two functions may share the same alias. This is also true for
+variables), which this time has three lines. Then, the function is "called"
+three times using the alias of the function followed by parentheses. As a
+result, the following text is printed:
+
+	Foo
+	Bar
+	Baz
+	Foo
+	Bar
+	Baz
+	Foo
+	Bar
+	Baz
+
+What would have been 9 lines of code has been reduced to 3. A function could
+easily contain 1,000's of lines of code, which can be reused over and over
+again with a single line of code for each use, or for even less with a loop.
+
+Here's a hypothetical example:
+
+	function foo() {
+		// 1000 lines of code
+	}
+	
+	for(let i = 0; i < 1000; i++)
+		foo();
+
+This would reduce 1,000,000 lines of code down to exactly 1,005. That is a huge
+difference.
+
+Functions can also take and generate values.
+
+Observe the following code:
+
+	function foo(x, y) {
+		console.log(x + y);
+	}
+	
+	foo(1, 2);
+	
+This code establishes a function called foo which takes two chunks of data
+which become the variables x and y within the function.
+
+As a result, the above code prints:
+
+	3
+
+This brings us to the topic of generating values. Observe this code:
+
+	function foo(x, y) {
+	
+		console.log(x + y);
+		
+		return x + y;
+	}
+	
+	let x = foo(1, 2) + foo(3, 4);
+	
+	console.log(x);
+	
+This code establishes a function called foo which, like the previous function,
+takes two chunks of data which become the variables x and y within the
+function, but this time in addition to displaying them, it also "returns" the
+value which can then be used as part of the expression that called the
+function.
+
+As a result, the above code prints:
+
+	3
+	7
+	10
+
+It's important to note that a function ends when "return" is used. Return can
+also be used by itself with no value, just to abruptly terminate the function.
+
+For example, running:
+
+	function foo() {
+	
+		console.log("Hello");
+		
+		return;
+	
+		console.log("Goodbye");
+	}
+	
+	foo();
+	
+will print:
+
+	Hello
+
+Before wrapping up with functions, we also need to revisit the concept of
+scope. Variables created outside of functions with var will be available inside
+of them, as will global variables. However, the only variables created within
+functions that will not disappear when said function ends are global variables.
+
+Also, it doesn't matter where function definitions are placed in a file. Even
+if you create a function at the bottom of a file, you can call it from the top.
+
+For example:
+
+	var x = 10;
+
+	foo(); // works
+	
+	console.log(x); // works
+	console.log(y); // crashes
+	console.log(z); // works
+	
+	function foo() {
+		
+		var y = 20;
+		z = 30;
+		
+		console.log(x); // works
+		console.log(y); // works
+		console.log(z); // works
+	}
+	
+Now, something that really should go without saying but is not always obvious
+is that functions can be called from within other functions.
+
+When a function calls itself, it's referred to as "recursion". You have to be
+careful with recursive functions, because if you call the function and it calls
+itself again always and without exception, it will go on forever. And, unlike
+an infinite loop, infinite recursion will actually crash the program. This is
+because every time a function calls another function, a reference to the
+function making the call is stored in a special part of memory called the
+"stack", which has limited space.
+
+Observe this example, which contains functions calling each other as well as
+recursion:
+	
+	function bar(x) {
+		
+		/*
+		
+			If you remove the "if" condition or change "x - 1" to "x", it will
+			cause infinite recursion and the program will crash.
+		
+		 */
+		
+		if(x > 1)
+			return x + bar(x - 1);
+		
+		return 1;
+	}
+
+	function foo() {
+		return bar(5);
+	}
+	
+	console.log(foo);
+
+Running the above code will print:
+
+	15
+
+which is 5 + 4 + 3 + 2 + 1.
+
+Finally, we need to establish one final point. The practice of laying out
+exactly what the function is expected to take, or its "parameters", is a relic
+of older languages which made that mandatory. The values given to a function
+when it is called are referred to as "arguments".
+
+In this example:
+
+	function foo(a, b, c) {
+		// code
+	}
+	
+	foo(1, 2, 3);
+	
+a, b, and c are the parameters while 1, 2, and 3 are the arguments.
+
+However, the arguments given do not have to match the parameters of a function
+in JavaScript. You can even pass in more or less arguments than the parameters
+ask for. You can actually get all of the arguments passed to the function just
+by calling the alias "arguments".
+
+For example, running this code:
+
+	function foo() {
+		
+		for(let i = 0; i < arguments.length; i++)
+			console.log(i);
+	}
+	
+	foo("abc", 123, "xyz");
+	
+will print:
+
+	abc
+	123
+	xyz
+
+If a requested parameter is requested by not enough arguments are given,
+attempting to access it by its alias from within a function will return a null
+value.
+
+For example, running this code:
+
+	function foo(x, y) {
+		console.log(x);
+		console.log(y);
+	}
+	
+	foo("abc");
+	
+will print:
+
+	abc
+	undefined
+
+Also, as a bonus point: console.log() is actually a function that is programmed
+to take indefinite arguments. Using it this way will cause it to print
+everything passed to it with spaces in between.
+
+For example, running:
+
+	console.log("abc", 123, "xyz");
+	
+will print:
+
+	abc 123 xyz
+
+[*]	- (4 - 12) JavaScript [Objects] - [*] _____________________________________
+	
+Thus far, we've been using an object every time we wrote:
+
+	console.log(/* something */);
+
+And we mentioned that objects are "groups of data and functions with a shared
+purpose". Now let's discuss objects in a more detailed way, and learn how to
+make our own.
+
+Here's something that we should establish right off the bat: Objects are lists,
+and lists are objects. Well, in JavaScript, but in the other languages, even if
+objects and lists aren't literally the same, they are analogous to one another.
+When using lists as objects, it is possible to give everything in the list its
+own alias.
+
+Objects have their own type of literal. The literal is enclosed within curly
+braces, with each element, or in the case of an object, each "field", separated
+by commas. A field that does not have an alias, which is usually a function or
+an expression that itself is just an alias, is merely written as is. A field
+that does have an alias consists of said alias followed by a colon, followed
+then by the expression that returns the value of the field. In the context of
+an object, the alias of a field is referred to as a "key".
+
+Here's an example of an object literal that could be said to represent a dog:
+
+	{ name: "Fido", weight: 5, bark: function() { console.log("Bark"); } }
+
+Now, observe the following code, which incorporates the literal above and uses
+dot notation to access its contents:
+
+	let dog = {
+	
+		name: "Fido",
+		weight: 5,
+		
+		bark: function() {
+			console.log("Bark");
+		}
+	};
+	
+	console.log("Name:", dog.name, "\nWeight: ", dog.weight);
+	dog.bark();
+
+Running it will print:
+
+	Name: Fido
+	Weight: 5
+	Bark
+	
+[STUB (More on Objects) { printing, prototypes, classes, this, extends, super } ]
+	
+[*]	- (4 - 13) JavaScript [Importing Code from Other Files] - [*] _____________
+	
+When using JavaScript in Kaeon United, you can separate your code across
+multiple files and access code in different files using a function called
+"require".
+
+Like the console object, there is also an object that, in when using JavaScript
+in Kaeon United, is always there. It's called "module". It doesn't do anything,
+but it has another object inside of it called "exports", which you can edit.
+
+Calling the require function, to which you pass the name of a file, runs the
+code in said file and returns whatever the module.exports object of that file
+was at the end.
+
+For example, let's say we had a file in the same folder as our "main" file with
+that name "foo.js" and the following content:
+
+	function foo(x, y, z) {
+		return x * y * z;
+	}
+
+	function bar(x, y, z) {
+		return foo(x, y, z) * 2;
+	}
+
+	function baz(x, y, z) {
+		return bar(x, y, z) * 2;
+	}
+	
+	module.exports = {
+		bar,
+		baz
+	};
+
+If we reference this file using the require function, it will run, declaring 3
+functions and placing two of them inside of module.exports, and will return
+said module.exports object to the main file.
+
+For example, if this is our main file:
+
+	// "./" means "in the same folder".
+	let myModule = require("./foo.js");
+	
+	// console.log(myModule.foo(1, 2, 3)); [wouldn't work]
+	console.log(myModule.bar(1, 2, 3));
+	console.log(myModule.baz(1, 2, 3));
+
+Then running it would print:
+
+	12
+	24
+	
+[*]	- (4 - 14) JavaScript [Input and Output (IO)] - [*] _______________________
+	
+JavaScript has several issues regarding code that may or may not work depending
+on what environment it's running in.
+
+IO (input and output), meaning getting responses from the user of your program
+and for reading from and writing to files, is one such area where JavaScript
+struggles to be consistent.
+
+To remedy this, we've created a module that you can download, place inside of
+the folder containing your Kaeon United project, and use with the require
+function.
+	
+A zipped folder with the necessary files can be found at the following link:
+
+https://drive.google.com/open?id=1aYdEEOSSypaSGe_b_DKFl0pw_LDxIxGE
+
+Once you have downloaded and unzipped it, place the files within it into your
+project folder.
+
+Now, observe this example, which demonstrates how to ask the user a question
+and receive an answer:
+
+	let io = require("./io.js");
+	
+	console.log("What is you favorite color?");
+	
+	/*
+	
+		When the following line executes, a text field will show up within the
+		console. The program will pause until the user enters text into it and
+		submits it by pressing enter. Their submitted text will then be
+		returned as a string to the program.
+		
+	 */
+	 
+	let answer = io.getInput();
+	
+	console.log("Your favorite color is:", answer);
+	
+For the next example, assume we have a file in our project folder called
+"data.txt", with the following content:
+
+	Programming is fun
+	I want to do it forever
+	and ever
+	and ever
+
+Thus, running this code:
+
+	let io = require("./io.js");
+	
+	let data = io.open("./data.txt");
+	
+	console.log("The file contains:\n");
+	console.log(data);
+
+will print:
+
+	The file contains:
+	
+	Programming is fun
+	I want to do it forever
+	and ever
+	and ever
+	
+[*]	- (4 - 15) JavaScript [Errors] - [*] _______________________
+
+There are 3 types of errors in programming: syntax errors, runtime errors, and
+logic errors.
+
+[STUB]
+	
+[*]	- (4 - 16) JavaScript [Simple Project Examples] - [*] _________________________
+
+Simple Game:
+	
+	var io = require("./io.js");
+	
+	console.log("Welcome to the game!");
+	
+	var playerHP = 100;
+	var opponentHP = 100;
+	
+	while(playerHP > 0 && opponentHP > 0) {
+	
+		console.log(
+			"Your HP: ", playerHP,
+			"\nOpponent's HP: ", opponentHP,
+			"\nChoose a move:\n1.) Tackle\n2.) Scratch");
+		
+		var move = io.getInput();
+		
+		if(move == "1") {
+			console.log("You used tackle,\nOpponent took 20 damage.");
+			opponentHP = opponentHP - 20;
+		}
+		
+		else if(move == "2") {
+			console.log("You used scratch,\nOpponent took 10 damage.");
+			opponentHP = opponentHP - 10;
+		}
+		
+		else {
+			console.log("Invalid option.");
+			continue;
+		}
+			
+		if(opponentHP > 0) {
+			console.log("Opponent used bite,\nYou took 15 damage.");
+			playerHP = playerHP - 15;
+		}
+	}
+	
+	if(playerHP > opponentHP)
+		console.log("Opponent was KO'd. You win.");
+	
+	else
+		console.log("You were KO'd. You lose.");
+		
+[STUB (Add Comments and More Examples)]
+
+[*]	- (5) The Nature of JavaScript - [*] ______________________________________
+
+[STUB]
+
+[*]	- (6) Simple JavaScript Exercises - [*] ___________________________________
+
+[STUB]
+
+[*]	- (7) Using JavaScript for Applications - [*] _____________________________
+
+[STUB]
+
+[*]	- (8) Advanced JavaScript Concepts - [*] __________________________________
+
+[STUB]
+
+[*]	- (9) Advanced JavaScript Exercises - [*] _________________________________
+
+[STUB]

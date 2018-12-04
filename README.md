@@ -48,4 +48,4 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20Un
 
 <h2 align="center">Additional Resources</h2>
 
-[Beginner's Guide to Kaeon United](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification/Kaeon%20United.op) (A work in progress.)
+[Beginner's Guide to Kaeon United](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Resources/Beginner's%20Guide%20to%20Kaeon%20United.txt) (A work in progress.)

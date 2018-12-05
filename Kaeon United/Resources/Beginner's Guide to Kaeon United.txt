@@ -961,6 +961,20 @@ While ASCII is generally useful for the most common characters, less common
 characters, ranging from chinese characters to emojis, are encoded with the
 ASCII characters in larger standards, the largest of which is Unicode.
 
+Here's another thing you should know: if you have a string containing a number
+and you want to process it as a number, you can generate a number from it using
+the Number function.
+
+Observe the following code:
+
+	console.log("123" + 456);
+	console.log(Number("123") + 456);
+
+Running this code will print:
+
+	123456
+	579
+
 [*]	- (4 - 11) JavaScript [Functions] - [*] ____________________________________
 	
 We already used functions that were stored inside objects, but what are they
@@ -1459,11 +1473,204 @@ Simple Game:
 
 [*]	- (6) Simple JavaScript Exercises - [*] ___________________________________
 
-[STUB]
+Below are several exercises for practicing basic JavaScript. A description will
+be given for each exercise as well as one or more samples of the program's
+expected output. As said output may request input from the user, portions of
+the output where input was given will be marked by a line consisting of said
+input encased in square brackets following the string "INPUT: ". To shorten
+long portions of repetitive output, a line with the string "..." followed by an
+explanation of what occurs in between the previous and following lines encased
+in parentheses will be used to indicate a pattern.
+
+Hints will be given for certain exercises. Do not be afraid to look back at the
+text for help, and feel free to ask a friend or look online if you're stuck.
+Remember, no one is forcing you to do these exercises. They are for your own
+enrichment.
+
+(*) Exercise #1 - Your own Hello, world! --------------------------------------
+
+Print whatever you want to the console.
+
+Sample Output:
+
+	Programming is awesome!
+
+(*) Exercise #2 - Count to 100 ------------------------------------------------
+
+Write a program that prints all numbers between 1 and 100.
+
+Sample output:
+
+	1
+	2
+	3
+	... (Numbers 4 - 99)
+	100
+
+(*) Exercise #3 - foobar ------------------------------------------------------
+
+This problem is one that is commonly used in introductory courses.
+
+Write a program that prints all numbers between 1 and 100, excpet that every
+number divisible by both 3 and 5 is replaced with "foobar", every number
+divisible by 3 but not by 5 is replaced with "foo" and every number that is
+divisible by 5 but not by 3 is replaced with "bar".
+
+Sample output:
+
+	1
+	2
+	foo
+	4
+	bar
+	foo
+	7
+	8
+	foo
+	bar
+	11
+	foo
+	13
+	14
+	foobar
+	16
+	17
+	foo
+	19
+	bar
+	... (Numbers 21 - 89)
+	foobar
+	91
+	92
+	foo
+	94
+	bar
+	foo
+	96
+	97
+	98
+	foo
+	bar
+	
+Hint: Remember the "modulus" operation.
+
+(*) Exercise #4 - Euler Problem #1 --------------------------------------------
+
+There is a set of challenge questions for programmers called the "Euler"
+problems. The harder ones can be extremely difficult even for advanced
+programmers.
+
+The archive of Euler problems can be found here:
+
+https://projecteuler.net/archives
+
+Euler problem #1 is fairly simple. It is to find the sum of all numbers less
+than 1000 that are divisible by 3 or 5.
+
+The answer is 233168, but we want you to attempt this using an actual program.
+
+If you were simply to write the program as:
+
+	console.log("233168");
+	
+you would only be cheating yourself. Although this is a good time to throw in
+some bonus trivia: the practice of simply having the computer return something
+without processing any data is referred to as "hard coding".
+
+If you're feeling adventerous, feel free to try the other euler problems.
 
 [*]	- (7) Using JavaScript for Applications - [*] _____________________________
 
-[STUB]
+This, is the fun part.
+
+Write the following code in your index.js file:
+
+	var spoke = false;
+	
+	function talk() {
+	
+		if(spoke)
+			return;
+	
+		spoke = true;
+	
+		document.documentElement.appendChild(button);
+	
+		let mus = document.createElement("Audio");
+		mus.src = "https://upload.wikimedia.org/wikipedia/commons/a/a1/Gettysburg_by_Britton.ogg";
+	
+		document.documentElement.appendChild(mus);
+	
+		mus.play();
+	}
+	
+	function makePic(src, width, height, absolute) {
+	
+		let pic = document.createElement("img");
+	
+		pic.src = src;
+	
+		pic.style.width = width;
+		pic.style.height = height;
+	
+		if(absolute) {
+	
+			pic.style.position = "absolute";
+	
+			pic.style.left = "0px";
+			pic.style.top = "0px";
+		}
+	
+		return pic;
+	}
+	
+	document.title = "AMERICA";
+	
+	document.documentElement.style.overflow = "hidden";
+	
+	document.documentElement.appendChild(makePic("https://i.gifer.com/1fqJ.gif", "100vw", "100vh", true));
+	
+	let button = document.createElement("button");
+	
+	button.appendChild(makePic("https://png2.kisspng.com/20171208/3e2/5a2aa0e1f2a148.2924777915127431379938.png", "50vw", "50vw", false));
+	
+	button.style.backgroundColor = "Transparent";
+	button.style.position = "absolute";
+	button.style.border = "none";
+	
+	button.onclick = talk;
+	
+	document.documentElement.appendChild(button);
+	
+	let text = document.createElement("p");
+	
+	text.innerHTML = "Click the Eagle";
+	
+	text.style.position = "absolute";
+	
+	text.style.left = "60vw";
+	text.style.top = "15vw";
+	
+	text.style.fontSize = "5vw";
+	text.style.color = "white";
+	text.style.textShadow = "5px 3px 1px #000000"
+	
+	document.documentElement.appendChild(text);
+	
+	let mus = document.createElement("Audio");
+	
+	mus.src = "https://upload.wikimedia.org/wikipedia/commons/8/80/The_Star-Spangled_Banner_-_U.S._Army_1st_Armored_Division_Band.ogg";
+	mus.loop = true;
+	
+	document.documentElement.appendChild(mus);
+	
+	mus.play();
+
+Now, open your index.html file in your browser (preferably Firefox).
+
+"WOAH"
+
+is what you just thought.
 
 [*]	- (8) Advanced JavaScript Concepts - [*] __________________________________
 

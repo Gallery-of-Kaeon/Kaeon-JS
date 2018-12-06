@@ -1585,21 +1585,26 @@ This, is the fun part.
 
 Write the following code in your index.js file:
 
-	var spoke = false;
+	var speech = document.createElement("Audio");
+	document.documentElement.appendChild(speech);
 	
 	function talk() {
 	
-		if(spoke)
-			return;
+		speech.pause();
+		speech.currentTime = 0;	
 	
-		spoke = true;
+		let num = Math.random();
 	
-		let mus = document.createElement("Audio");
-		mus.src = "https://upload.wikimedia.org/wikipedia/commons/a/a1/Gettysburg_by_Britton.ogg";
+		if(num < .33)
+			speech.src = "https://upload.wikimedia.org/wikipedia/commons/a/a1/Gettysburg_by_Britton.ogg";
 	
-		document.documentElement.appendChild(mus);
+		else if(num < .66)
+			speech.src = "http://audio.theguardian.tv/sys-audio/Guardian/audio/2007/04/20/Churchill.mp3";
 	
-		mus.play();
+		else
+			speech.src = "https://www.americanrhetoric.com/mp3clips/newmoviespeeches/moviespeechindependenceday3634964369.mp3";
+	
+		speech.play();
 	}
 	
 	function makePic(src, width, height, absolute) {

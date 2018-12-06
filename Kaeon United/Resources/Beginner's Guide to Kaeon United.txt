@@ -1594,8 +1594,6 @@ Write the following code in your index.js file:
 	
 		spoke = true;
 	
-		document.documentElement.appendChild(button);
-	
 		let mus = document.createElement("Audio");
 		mus.src = "https://upload.wikimedia.org/wikipedia/commons/a/a1/Gettysburg_by_Britton.ogg";
 	

@@ -1416,7 +1416,73 @@ will print:
 There are 3 types of errors in programming: syntax errors, runtime errors, and
 logic errors.
 
-[STUB]
+A syntax error is caused when the code is written in a way that breaks the
+rules of the language. Syntax errors are also called "compile" or "compiler"
+errors. The program won't start if syntax errors are present.
+
+For example, the following line would cause a syntax error:
+	
+	(:) + 2 = what?
+
+A runtime error is caused when the program tries to access something that
+doesn't exist or tries to perform impossible operations like dividing by zero.
+When a runtime error occurs, information about the error will usually appear on
+the console.
+
+The following code will cause a runtime error:
+
+	let x = 3;
+	
+	console.log(y); // Error: y does not exist
+
+Runtime errors are sometimes impossible to avoid, so while runtime errors
+normally force the program to instantly terminate, you can force a program to
+continue in spite of a runtime error by using try/catch blocks, which are
+written in the following format:
+
+	try {
+		// code that may cause a runtime error
+	}
+	
+	catch(error /* an object containing information about an error */) {
+		// code to run if a runtime error occurs within the preceding try block
+	}
+
+Calling the "message" field on the error object passed to the try block using
+dot notation will return a string containing the error message that would have
+normally been printed to the console.
+
+For example, running the following code:
+
+	try {
+		console.log("There was no error");
+	}
+	
+	catch(error) {
+		console.log("There was an error");
+	}
+
+	try {
+		console.log(y);
+	}
+	
+	catch(error) {
+		console.log("There was an error");
+	}
+
+	try {
+		console.log(y);
+	}
+	
+	catch(error) {
+		console.log(error.message);
+	}
+
+will print:
+
+	There was no error
+	There was an error
+	y is not defined
 	
 [*]	- (4 - 16) JavaScript [Simple Project Examples] - [*] _________________________
 

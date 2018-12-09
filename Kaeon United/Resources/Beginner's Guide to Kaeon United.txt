@@ -1617,7 +1617,8 @@ or any other environment with a web style visual interface, said visual
 interface can be accessed through an object called "document" just as the
 console object serves as an interface to the actual console. Through the
 document object, JavaScript alone can handle the whole of the visual interface
-just as HTML and CSS can.
+just as HTML and CSS can. The idea of representing the web page as an object in
+the form of "document" is referred to as the document object model or DOM.
 
 And, if you think about it, if you took away the navigation bar at the top of
 the browser, then a website could just as easily be a desktop app, or even a

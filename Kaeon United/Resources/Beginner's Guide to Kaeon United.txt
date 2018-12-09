@@ -20,7 +20,7 @@ For any questions or comments, please contact:
 
 	kaeon.ace@gmail.com
 
-[*]	- (2) Prerequites - [*] ___________________________________________________
+[*]	- (2) Prerequisites - [*] ___________________________________________________
 	
 Can you read, write, do basic math, and use a computer? Good.
 
@@ -1535,7 +1535,95 @@ Simple Game:
 
 [*]	- (5) The Nature of JavaScript - [*] ______________________________________
 
-[STUB]
+The goal of Kaeon United was to take JavaScript, and isolate it so that it may
+be used independently as a general purpose programming language and with
+consistent properties in any environment.
+
+JavaScript was originally meant to be a language that was to be used
+exclusively in browser to "script" the behavior on websites. It therefore has
+long served as a companion to the languages HTML (HyperText Markup Language)
+and CSS (Cascading Styling Sheet), which are not programming languages but
+rather specialized languages that establish what widgets appear on a web page
+and their visual properties.
+
+Thus, a normal "website" file is an HTML file consisting of a tree like
+structure of nodes, with bits of JavaScript, CSS and other information written
+into the middle of said nodes. So, HTML, CSS, and JavaScript, which as we ought
+to point out, is often abbreviated as "JS", serve as the "front end" (that is
+the part of the application that is displayed to the user) of the web
+development "stack" (the set of tools used for a given type of task).
+
+Most tutorials on JavaScript teach it exclusively for website use and mix in
+HTML and CSS.
+
+You may have noticed that Kaeon United contains several HTML files. These serve
+to direct the browser to the index.js file.
+
+The "Java" in JavaScript's name comes from the fact that Java, another
+programming language which functionally is very different from JavaScript, was
+once also used heavily used on websites, so it was thought at the time that
+Java would be used for the more intense tasks, and JavaScript would be used for
+the less intense tasks. Today, Java is still commonly used but almost never on
+the front end of websites.
+
+An area where both Java and JavaScript are both being used is on what is
+referred to as the "back end", which refers to programs that stay on the server
+that stores a website and processes data that is invisible to the end user.
+
+Originally it was not possible to use JavaScript on the back end, or anywhere
+outside of the browser for that matter, until 2009 when Ryan Dahl developed a
+program called node.js, which runs JavaScript code outside of the browser.
+
+One downside to this was that JavaScript operated slightly differently while
+running in node. For instance, among other things, node introduced the require
+function, which while being incredibly useful, does not normally exist within
+the browser. Kaeon United is one of several tools that bring require into the
+browser, but one of the only ones that allow require to be used mid runtime
+(that is in the middle of the program).
+
+JavaScript needs a separate program to run because JavaScript is what is
+referred to as an interpreted language. This means that when a program starts,
+the text that comprises the code is converted into instructions for another
+program, as opposed to instructions for the hardware. The advantage of this
+approach is that interpreted languages are often easier to use as the programs
+that run them, called interpreters or virtual machines (there is a difference
+but it can wait), will often do a lot of the programmer's work for them.
+
+The opposite approach, called a compiled language, converts into instructions
+for the hardware. Since there are many different types of hardware, the same
+code will have to be compiled separately for different machines. Two popular
+compiled languages are C and C++, both of which were used to make node.js.
+
+Of course, it is also possible to write the instructions for the hardware
+manually as binary code. While doing this, programmers often use mnemonics
+where each line has a 1 to 1 correlation with a given chunk of 1's and 0's.
+When such mnemonics are used, it is referred to as "assembly language".
+Individually, the 1's and 0's that comprise computer code are referred to as
+"bits", while groups of them have different names depending on their size, with
+groups of 8 usually being referred to as "bytes". Obviously, writing this sort
+of code is extremely complex and must be written differently for every
+different combination of hardware and operating system. When bytes are strung
+together to form programs, the code can be referred to as binary code, machine
+code, or native code.
+
+If you followed the example in the setup instructions, you ran JavaScript in
+the browser and rendered the output of you program to the console. The browser
+contains a console to help web developers debug their programs, but it's also
+useful for teaching basic programming without bringing the complexity of
+managing the visual interface of a program into the picture.
+
+But, regarding the visual interface, when JavaScript is running in the browser
+or any other environment with a web style visual interface, said visual
+interface can be accessed through an object called "document" just as the
+console object serves as an interface to the actual console. Through the
+document object, JavaScript alone can handle the whole of the visual interface
+just as HTML and CSS can.
+
+And, if you think about it, if you took away the navigation bar at the top of
+the browser, then a website could just as easily be a desktop app, or even a
+mobile app, and indeed there are tools available to convert websites to both
+desktop and mobile apps without changing any of the code. Namely, electron for
+desktop apps and cordova for mobile apps.
 
 [*]	- (6) Simple JavaScript Exercises - [*] ___________________________________
 

@@ -37,6 +37,8 @@ function getAtlas(stone) {
 	
 	if(Array.isArray(stone)) {
 		
+		stone = stone.slice(0);
+		
 		var atlas = [];
 		
 		for(var i = 0; i < stone.length; i++)
@@ -127,7 +129,11 @@ function connect(stone, connection, mutual, private) {
 	
 		if(Array.isArray(stone)) {
 		
+			stone = stone.slice(0);
+		
 			if(Array.isArray(connection)) {
+		
+				connection = connection.slice(0);
 			
 				for(var i = 0; i < stone.length; i++) {
 				
@@ -144,6 +150,8 @@ function connect(stone, connection, mutual, private) {
 		}
 	
 		else if(Array.isArray(connection)) {
+		
+			connection = connection.slice(0);
 			
 			for(var i = 0; i < connection.length; i++)
 				connect(stone, connection[i], mutual, private)
@@ -162,9 +170,75 @@ function connect(stone, connection, mutual, private) {
 	}
 }
 
+function disconnect(stone, connection, mutual) {
+
+	if(mutual) {
+		disconnect(stone, connection, false);
+		disconnect(connection, stone, false);
+	}
+
+	else {
+	
+		if(Array.isArray(stone)) {
+		
+			stone = stone.slice(0);
+		
+			if(Array.isArray(connection)) {
+		
+				connection = connection.slice(0);
+			
+				for(var i = 0; i < stone.length; i++) {
+				
+					for(var j = 0; j < connection.length; j++)
+						disconnect(stone[i], connection[j], mutual);
+				}
+			}
+			
+			else {
+			
+				for(var i = 0; i < stone.length; i++)
+					disconnect(stone[i], connection, mutual)
+			}
+		}
+	
+		else if(Array.isArray(connection)) {
+		
+			connection = connection.slice(0);
+			
+			for(var i = 0; i < connection.length; i++)
+				disconnect(stone, connection[i], mutual)
+		}
+		
+		else {
+			
+			for(var i = 0; i < stone.connections.length; i++) {
+			
+				if(stone.connections[i] === connection) {
+				
+					stone.connections.splice(i, 1);
+					
+					i--;
+				}
+			}
+			
+			for(var i = 0; i < stone.privateConnections.length; i++) {
+			
+				if(stone.privateConnections[i] === connection) {
+				
+					stone.privateConnections.splice(i, 1);
+					
+					i--;
+				}
+			}
+		}
+	}
+}
+
 function tag(stone, tags) {
 	
 	if(Array.isArray(stone)) {
+		
+		stone = stone.slice(0);
 		
 		for(var i = 0; i < stone.length; i++)
 			tag(stone[i], tags);
@@ -174,15 +248,55 @@ function tag(stone, tags) {
 	
 		if(Array.isArray(tags)) {
 		
+			tags = tags.slice(0);
+		
 			for(var i = 0; i < tags.length; i++) {
-			
-				if(stone.tag.includes(tags[i].toLowerCase()))
-					stone.tags.push(tags[i]);
+				
+				var tag = formatTag(tags[i]);
+				
+				if(!stone.tags.includes(tag))
+					stone.tags.push(tag);
 			}
 		}
 	
 		else
-			stone.tags.push(tags);
+			stone.tags.push(formatTag(tags));
+	}
+}
+
+function detag(stone, tags) {
+	
+	if(Array.isArray(stone)) {
+		
+		stone = stone.slice(0);
+		
+		for(var i = 0; i < stone.length; i++)
+			detag(stone[i], tags);
+	}
+	
+	else {
+	
+		if(!Array.isArray(tags))
+			tags = [tags];
+			
+		else
+			tags = tags.slice(0);
+
+		for(var i = 0; i < stone.tags.length; i++) {
+			
+			var tag = formatTag(stone.tags[i]);
+		
+			for(var j = 0; j < tags.length; j++) {
+			
+				if(tag == formatTag(tags[j])) {
+				
+					stone.tags.splice(i, 1);
+					
+					i--;
+					break;
+				}
+			}
+		}
 	}
 }
 
@@ -199,7 +313,11 @@ function isConnected(stone, connection, mutual, private) {
 	
 		if(Array.isArray(stone)) {
 		
+			stone = stone.slice(0);
+		
 			if(Array.isArray(connection)) {
+		
+				connection = connection.slice(0);
 				
 				for(var i = 0; i < stone.length; i++) {
 				
@@ -226,6 +344,8 @@ function isConnected(stone, connection, mutual, private) {
 		}
 	
 		else if(Array.isArray(connection)) {
+		
+			connection = connection.slice(0);
 			
 			for(var i = 0; i < connection.length; i++) {
 			
@@ -257,6 +377,8 @@ function isConnected(stone, connection, mutual, private) {
 function isTagged(stone, tags) {
 	
 	if(Array.isArray(stone)) {
+		
+		store = store.slice(0);
 		
 		for(var i = 0; i < stone.length; i++) {
 			
@@ -354,7 +476,9 @@ module.exports = {
 	getAtlas,
 	getAtlasTraversal,
 	connect,
+	disconnect,
 	tag,
+	detag,
 	isConnected,
 	isTagged,
 	call,

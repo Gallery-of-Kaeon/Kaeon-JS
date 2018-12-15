@@ -33,7 +33,7 @@ class PhilosophersStone {
 	}
 }
 
-function getAtlas(stone) {
+function getAtlas(stone, all) {
 	
 	if(Array.isArray(stone)) {
 		
@@ -42,7 +42,7 @@ function getAtlas(stone) {
 		var atlas = [];
 		
 		for(var i = 0; i < stone.length; i++)
-			atlas = atlas.concat(getAtlas(stone[i]));
+			atlas = atlas.concat(getAtlas(stone[i], all));
 		
 		for(var i = 0; i < atlas.length; i++) {
 		
@@ -70,14 +70,14 @@ function getAtlas(stone) {
 			projectedPath.push(stone.connections[i]);
 			
 			if(stone.onOutgoing(projectedPath))
-				getAtlasTraversal(stone.connections[i], atlas);
+				getAtlasTraversal(stone.connections[i], atlas, all);
 		}
 		
 		return atlas;
 	}
 }
 
-function getAtlasTraversal(stone, atlas) {
+function getAtlasTraversal(stone, atlas, all) {
 
 	for(var i = 0; i < atlas.length; i++) {
 		
@@ -85,14 +85,17 @@ function getAtlasTraversal(stone, atlas) {
 			return;
 	}
 	
-	var incoming = false;
+	var incoming = all;
 	
-	try {
-		incoming = stone.onIncoming(atlas);
-	}
-	
-	catch(error) {
+	if(!all) {
 		
+		try {
+			incoming = stone.onIncoming(atlas);
+		}
+		
+		catch(error) {
+			
+		}
 	}
 	
 	if(incoming)
@@ -103,14 +106,17 @@ function getAtlasTraversal(stone, atlas) {
 		var projectedPath = atlas.slice(0);
 		projectedPath.push(stone.connections[i]);
 		
-		var outgoing = false;
+		var outgoing = all;
 		
-		try {
-			outgoing = stone.onIncoming(projectedPath);
-		}
-		
-		catch(error) {
+		if(!all) {
 			
+			try {
+				outgoing = stone.onOutgoing(projectedPath);
+			}
+			
+			catch(error) {
+				
+			}
 		}
 		
 		if(outgoing)
@@ -416,33 +422,31 @@ function isTagged(stone, tags) {
 	}
 }
 
-function get(stone, tags) {
+function get(stones, tags) {
 	
 	var tagged = [];
-	var atlas = getAtlas(stone);
 	
-	for(var i = 0; i < atlas.length; i++) {
+	for(var i = 0; i < stones.length; i++) {
 		
-		if(isTagged(atlas[i], tags))
-			tagged.push(atlas[i]);
+		if(isTagged(stones[i], tags))
+			tagged.push(stones[i]);
 	}
 	
 	return tagged;
 }
 
-function call(stone, arg) {
+function call(stones, packet) {
 	
 	var call = [];
-	var atlas = getAtlas(stone);
 	
-	for(var i = 0; i < atlas.length; i++) {
+	for(var i = 0; i < stones.length; i++) {
 		
 		try {
 			
-			var obj = atlas[i].onCall(arg);
+			var value = stones[i].onCall(packet);
 			
-			if(obj != null)
-				call.push(obj);
+			if(value != null)
+				call.push(value);
 		}
 		
 		catch(error) {
@@ -459,7 +463,9 @@ function formatTag(tag) {
 	
 	for(var i = 0; i < tag.length; i++) {
 		
-		if(newTag.charAt(i) == " ") {
+		if(newTag.charAt(i) == " " ||
+			newTag.charAt(i) == "\t" ||
+			newTag.charAt(i) == "\n") {
 		
 			newTag = newTag.substring(0, i) + newTag.substring(i + 1);
 			

@@ -1291,7 +1291,93 @@ Running it will print:
 	Weight: 5
 	Bark
 	
-[STUB (More on Objects) { printing, prototypes, classes, this, extends, super } ]
+An interesting thing to note is that since objects can be represented as
+literals, that's exactly how they appear if you attempt to print them.
+
+As a rather humorous example of this, let's see what happens when you use the
+console.log function... to print the console itself.
+
+Running this code:
+
+	console.log(console);
+
+displays:
+
+	Console {
+		log: [Function: bound consoleCall],
+		debug: [Function: bound consoleCall],
+		info: [Function: bound consoleCall],
+		warn: [Function: bound consoleCall],
+		error: [Function: bound consoleCall],
+		dir: [Function: bound consoleCall],
+		time: [Function: bound consoleCall],
+		timeEnd: [Function: bound consoleCall],
+		trace: [Function: bound consoleCall],
+		assert: [Function: bound consoleCall],
+		clear: [Function: bound consoleCall],
+		count: [Function: bound consoleCall],
+		countReset: [Function: bound countReset],
+		group: [Function: bound consoleCall],
+		groupCollapsed: [Function: bound consoleCall],
+		groupEnd: [Function: bound consoleCall],
+		Console: [Function: Console],
+		dirxml: [Function: dirxml],
+		table: [Function: table],
+		markTimeline: [Function: markTimeline],
+		profile: [Function: profile],
+		profileEnd: [Function: profileEnd],
+		timeline: [Function: timeline],
+		timelineEnd: [Function: timelineEnd],
+		timeStamp: [Function: timeStamp],
+		context: [Function: context],
+		[Symbol(counts)]: Map {} }
+
+Well that's... interesting...
+
+Though as we can plainly see, the console is indeed an object, just like the
+dog object we created earlier, albeit a fair bit more complex.
+
+Given that an object can be rendered as text, it just so happens that there is
+a specialized text format specifically for depeicting JavaScript style objects
+called JSON (JavaScript Object Notation, pronounced "JAY-sahn").
+
+JSON can depict object literals as either lists where the values don't have
+aliases, or objects where the values do have aliases.
+
+The JSON format is represented as follows, where items surrounded by
+parentheses represent things to be filled it, and three dots denotes a
+repetitive pattern:
+
+Format for a list:
+	
+	[(value), (value), ... , (value)]
+	
+Format for an object:
+	
+	{ (key): (value), (key): (value), ... , (key): (value) }
+	
+Values may be numbers, booleans, null values, strings, lists, or objects. Keys
+must always be strings, and should usually not have spaces.
+
+Numbers, booleans, and null values may simply be written as they are. Strings
+must be surrounded in quotation marks and must use escape sequences for certain
+characters, and lists and objects must be written in the formats shown above.
+
+JSON is often used on its own to transfer data between applications, even those
+that were not written with JavaScript. Files that contain nothing but JSON
+usually have a ".json" file extension.
+
+It is also possible to use JavaScript to convert data between JSON text and
+actual JavaScript objects:
+
+For example:
+
+	let jsonText = "{ \"myList\": [1, 2, 3], \"myBoolean\": true }";
+	
+	let newObject = JSON.parse(jsonText); // Converting JSON text to an object.
+	let newText = JSON.stringify(newObject); // Back to JSON text.
+
+[STUB (More on Objects) { prototypes, this, static, classes, extends, super } ]
 	
 [*]	- (4 - 13) JavaScript [Importing Code from Other Files] - [*] _____________
 	
@@ -1483,7 +1569,42 @@ will print:
 	There was no error
 	There was an error
 	y is not defined
-	
+
+Logic errors are by far the most troublesome of the three. A logic error is
+when the program starts properly and doesn't crash while running, but doesn't
+do what it was intended to do.
+
+Given the nature of logic errors, the computer won't be able to help the
+programmer fix them because the fact that they are errors at all is determined
+by said programmer and not the computer.
+
+Now it may sound counter intuitive, but it's actually possible to force the
+program to have a runtime error. This is called "throwing" an exception.
+
+The reason for doing this is when your writing code that you want to abruptly
+stop if a problem arises before any real damage can be done. Think of it like
+this: it's better to have a plane fail to take off than to have an engine fail
+mid flight.
+
+The syntax for throwing an excpetion is the word "throw" followed by empty
+space, followed by an expression that returns a value. Said value will be part
+of the error object if the error is caught with a try/catch block.
+
+For example:
+
+	throw "We messed up.";
+
+So what do we do about errors? We debug them.
+
+(Fun fact: Computer errors are often referred to as "bugs" because back when
+computers were the size of rooms, there were problems with the machines cause
+by literal bugs crawling inside them.)
+
+Debugging for runtime and logic erros is often done simply by placing
+console.log calls at various points within a program and then running it over
+and over to see what they print out, if anything at all, helping you pinpoint
+exactly where the program fails and why.
+
 [*]	- (4 - 16) JavaScript [Simple Project Examples] - [*] _________________________
 
 Simple Game:

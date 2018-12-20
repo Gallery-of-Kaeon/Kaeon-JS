@@ -508,6 +508,8 @@ The "+=" operator also works on strings. For example:
 will print out:
 
 	abc123
+
+[STUB: Random numbers]
 	
 [*]	- (4 - 7) JavaScript [Flow Control] - [*] _________________________________
 	
@@ -1240,6 +1242,8 @@ For example, running:
 will print:
 
 	abc 123 xyz
+	
+[STUB: Function Constructor]
 
 [*]	- (4 - 12) JavaScript [Objects] - [*] _____________________________________
 	
@@ -1377,7 +1381,54 @@ For example:
 	let newObject = JSON.parse(jsonText); // Converting JSON text to an object.
 	let newText = JSON.stringify(newObject); // Back to JSON text.
 
-[STUB (More on Objects) { prototypes, this, static, classes, extends, super } ]
+Now let's say we're writing a very large program with very large objects. Lots
+of them. It wouldn't make sense to manually create the same object over and
+over again.
+
+Fortunately for us, there's an alternative. Functions can actually be used as
+blueprints for objects. That's right. For every function, there is an invisible
+structure attached to it called a prototype, which serves as a blueprint for an
+object.
+
+Within a function, you can reference the prototype with the key word "this",
+and manipulate its contents using dot notation.
+
+Once the function has been defined, you can create a new object based of its
+prototype by calling the function in front of the key word "new".
+
+For example, running this code:
+
+	function foo() {
+		this.bar = 5;
+		this.baz = "abc";
+	}
+	
+	console.log(new foo());
+
+will print:
+
+	foo { bar: 5, baz: 'abc' }
+
+As you can see, in addition to printing the contents of the object, it also
+printed the name of the prototype.
+
+If you have an object and you want to know what prototype it was created from,
+if any, you can retrieve it using the function Object.getPrototypeOf function.
+
+For example, running this code:
+
+	function foo() {
+		this.bar = 5;
+		this.baz = "abc";
+	}
+	
+	console.log(Object.getPrototypeOf(new foo()));
+
+will print:
+
+	foo {}
+
+[STUB (More on Objects) { static, methods, this, classes, extends, super } ]
 	
 [*]	- (4 - 13) JavaScript [Importing Code from Other Files] - [*] _____________
 	
@@ -1385,8 +1436,8 @@ When using JavaScript in Kaeon United, you can separate your code across
 multiple files and access code in different files using a function called
 "require".
 
-Like the console object, there is also an object that, in when using JavaScript
-in Kaeon United, is always there. It's called "module". It doesn't do anything,
+Like the console object, there is also an object that, when using JavaScript in
+Kaeon United, is always there. It's called "module". It doesn't do anything,
 but it has another object inside of it called "exports", which you can edit.
 
 Calling the require function, to which you pass the name of a file, runs the
@@ -1600,7 +1651,7 @@ So what do we do about errors? We debug them.
 computers were the size of rooms, there were problems with the machines cause
 by literal bugs crawling inside them.)
 
-Debugging for runtime and logic erros is often done simply by placing
+Debugging for runtime and logic errors is often done simply by placing
 console.log calls at various points within a program and then running it over
 and over to see what they print out, if anything at all, helping you pinpoint
 exactly where the program fails and why.

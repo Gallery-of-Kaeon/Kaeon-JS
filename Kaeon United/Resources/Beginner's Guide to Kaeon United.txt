@@ -1813,8 +1813,8 @@ For example:
 So what do we do about errors? We debug them.
 
 (Fun fact: Computer errors are often referred to as "bugs" because back when
-computers were the size of rooms, there were problems with the machines cause
-by literal bugs crawling inside them.)
+computers were the size of rooms, there were problems with the machines caused
+by literal bugs crawling around inside them.)
 
 Debugging for runtime and logic errors is often done simply by placing
 console.log calls at various points within a program and then running it over

@@ -206,6 +206,33 @@ or how much whitespace there is between tokens within your code.
 You will however encounter people who have VERY strong opinions regarding how
 much of either there ought to be.
 
+It should also be noted that semicolons are only necessary if you have multiple
+isolated expressions on the same line. If isolated expressions are on different
+lines, they are not necessary.
+
+For example, this code:
+
+	console.log("Hello"); console.log("World");
+
+this code:
+
+	console.log("Hello"); console.log("World")
+
+this code:
+
+	console.log("Hello");
+	console.log("World");
+
+and this code:
+
+	console.log("Hello")
+	console.log("World")
+
+will all print:
+
+	Hello
+	World
+
 [*]	- (4 - 4) JavaScript [Comments] - [*]
 	
 Observe the following code. It does exactly what the code in the last example
@@ -509,7 +536,18 @@ will print out:
 
 	abc123
 
-[STUB: Random numbers]
+Before we move on, we should also note that you can use the expression
+Math.random() to generate a random number between zero and one.'
+
+For example, running the following code:
+
+	console.log(Math.random());
+
+COULD print:
+
+	0.6906100924391625
+
+... or not.
 	
 [*]	- (4 - 7) JavaScript [Flow Control] - [*] _________________________________
 	
@@ -1242,8 +1280,6 @@ For example, running:
 will print:
 
 	abc 123 xyz
-	
-[STUB: Function Constructor]
 
 [*]	- (4 - 12) JavaScript [Objects] - [*] _____________________________________
 	
@@ -1294,7 +1330,27 @@ Running it will print:
 	Name: Fido
 	Weight: 5
 	Bark
+
+If you've already created an object and you want to add more variables to it,
+you can do so by using dot notation to access the new field as if it already
+existed.
+
+For example, running this code:
+
+	let dog = {
 	
+		name: "Fido",
+		weight: 5
+	};
+	
+	dog.breed = "Chesapeake Bay Retriever";
+	
+	console.log(dog.breed);
+	
+will print:
+
+	Chesapeake Bay Retriever
+
 An interesting thing to note is that since objects can be represented as
 literals, that's exactly how they appear if you attempt to print them.
 
@@ -1428,7 +1484,116 @@ will print:
 
 	foo {}
 
-[STUB (More on Objects) { static, methods, this, classes, extends, super } ]
+So the function foo serves as the blue print for the object based on said blue
+print created in the console.log function. It has its own bar and baz variables
+attached to it. If we were to create a second foo object, it would get new bar
+and baz variables as dictated by the foo function. Or perhaps, the foo function
+could be altered to take in parameters that would affect the initial values.
+
+Observe the following code:
+
+	function foo(x) {
+		this.bar = x;
+		this.baz = "abc";
+	}
+	
+	myFoo = new foo(5);
+	myFoo2 = new foo(10);
+	
+	console.log(myFoo.bar);
+	console.log(myFoo.baz);
+	
+	console.log(myFoo2.bar);
+	console.log(myFoo2.baz);
+	
+	myFoo.bar = 15;
+	
+	console.log(myFoo.bar);
+	console.log(myFoo2.bar);
+
+Running it will print:
+
+	5
+	abc
+	10
+	abc
+	15
+	10
+
+However, though each new instance of a prototype get new copies of the
+variables within said prototype, prototypes can also have shared or "static"
+variables, meaning that if you change the value of such a variable it will
+change for all objects based on said prototype. Static variables can be
+accessed by using dot notation on the name of a prototype.
+
+For example, running this code:
+
+	function foo(x) {
+		this.bar = x;
+		this.baz = "abc";
+	}
+	
+	foo.a = 1;
+	
+	let myFoo = new foo(5);
+	let myFoo2 = new foo(10);
+	
+	console.log(foo.a);
+	
+	console.log(myFoo.x);
+	console.log(myFoo2.x);
+	
+will print:
+
+	1
+	5
+	10
+
+Now, we mentioned that objects are collections of both data and functionality,
+and we demonstrated the use of a function within an object earlier. Functions
+within objects are referred to as "methods".
+
+Methods assigned to prototypes can be placed within functions used to define
+prototypes and can use the key word this to access the variables of the object
+it's being called from.
+
+For example, running this code:
+
+	function foo(x) {
+	
+		this.bar = x;
+		this.baz = "abc";
+		
+		this.foobar = function(y) {
+			return this.bar * y;
+		}
+	}
+	
+	console.log(new foo(5).foobar(10));
+	
+will print:
+
+	50
+	
+One final thing we should discuss is that in terms of how they work under the
+hood, functions in JavaScript work a lot like objects, and in JavaScript can
+actually be dynamically created from strings using what's called the function
+constructor, which follows the following format:
+
+	new Function("text of function");
+	
+For example, running this code:
+
+	var foo = new Function("console.log(\"Hello\", arguments[0]);");
+	
+	foo("world");
+
+will print:
+
+	Hello world
+
+Using the function constructor, it's possible for your program to modify its
+own code as it runs. This is called "metaprogramming".
 	
 [*]	- (4 - 13) JavaScript [Importing Code from Other Files] - [*] _____________
 	

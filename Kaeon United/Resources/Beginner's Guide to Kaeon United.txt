@@ -1146,10 +1146,10 @@ will print:
 
 	Hello
 
-Before wrapping up with functions, we also need to revisit the concept of
-scope. Variables created outside of functions with var will be available inside
-of them, as will global variables. However, the only variables created within
-functions that will not disappear when said function ends are global variables.
+Regarding functions, we also need to revisit the concept of scope. Variables
+created outside of functions with var will be available inside of them, as will
+global variables. However, the only variables created within functions that
+will not disappear when said function ends are global variables.
 
 Also, it doesn't matter where function definitions are placed in a file. Even
 if you create a function at the bottom of a file, you can call it from the top.
@@ -1215,10 +1215,9 @@ Running the above code will print:
 
 which is 5 + 4 + 3 + 2 + 1.
 
-Finally, we need to establish one final point. The practice of laying out
-exactly what the function is expected to take, or its "parameters", is a relic
-of older languages which made that mandatory. The values given to a function
-when it is called are referred to as "arguments".
+The practice of laying out exactly what the function is expected to take, or
+its "parameters", is a relic of older languages which made that mandatory. The
+values given to a function when it is called are referred to as "arguments".
 
 In this example:
 
@@ -1276,6 +1275,41 @@ everything passed to it with spaces in between.
 For example, running:
 
 	console.log("abc", 123, "xyz");
+	
+Now to finish up, functions can be treated like variables if referenced by
+their alias, and nameless functions can be created as literals within
+expressions. Such literals and variables can even be passed to other functions.
+
+If a function takes another function as an argument and calls the taken
+function inside itself, in the context of JavaScript it's referred to as a
+callback.
+
+An unnamed function literal looks like this:
+
+	function(/* arguments */) {
+		// code
+	}
+
+Now observe the following code:
+
+	function foo() {
+		console.log("foo");
+	}
+	
+	function bar(foo, baz) {
+		foo(); // callback
+		baz("baz"); // callback
+	}
+	
+	bar(
+		foo, // alias
+		function(arg) { console.log(arg); } // literal
+	);
+
+Running the above code will print:
+
+	foo
+	baz
 	
 will print:
 
@@ -1398,7 +1432,7 @@ Though as we can plainly see, the console is indeed an object, just like the
 dog object we created earlier, albeit a fair bit more complex.
 
 Given that an object can be rendered as text, it just so happens that there is
-a specialized text format specifically for depeicting JavaScript style objects
+a specialized text format specifically for depicting JavaScript style objects
 called JSON (JavaScript Object Notation, pronounced "JAY-sahn").
 
 JSON can depict object literals as either lists where the values don't have
@@ -1829,8 +1863,8 @@ Simple Game:
 	
 	console.log("Welcome to the game!");
 	
-	var playerHP = 100;
-	var opponentHP = 100;
+	let playerHP = 100;
+	let opponentHP = 100;
 	
 	while(playerHP > 0 && opponentHP > 0) {
 	
@@ -1839,7 +1873,7 @@ Simple Game:
 			"\nOpponent's HP: ", opponentHP,
 			"\nChoose a move:\n1.) Tackle\n2.) Scratch");
 		
-		var move = io.getInput();
+		let move = io.getInput();
 		
 		if(move == "1") {
 			console.log("You used tackle,\nOpponent took 20 damage.");
@@ -2169,8 +2203,24 @@ is what you just thought.
 
 [*]	- (8) Advanced JavaScript Concepts - [*] __________________________________
 
+[*]	- (8 - 1) Advanced JavaScript Concepts [Classes] - [*] ____________________
+
+[*]	- (8 - 2) Advanced JavaScript Concepts [Threads] - [*] ____________________
+
+[*]	- (8 - 3) Advanced JavaScript Concepts [Networking] - [*] _________________
+
+[*]	- (8 - 4) Advanced JavaScript Concepts [Databases] - [*] __________________
+
+[*]	- (8 - 5) Advanced JavaScript Concepts [Electron and Cordova] - [*] _______
+
+[*]	- (8 - 6) Advanced JavaScript Concepts [Advanced Graphics] - [*] __________
+
 [STUB]
 
 [*]	- (9) Advanced JavaScript Exercises - [*] _________________________________
+
+[STUB]
+
+[*]	- (10) Kaeon FUSION - [*] _________________________________________________
 
 [STUB]

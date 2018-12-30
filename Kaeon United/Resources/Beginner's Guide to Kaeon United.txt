@@ -1965,7 +1965,6 @@ for the hardware. Since there are many different types of hardware, the same
 code will have to be compiled separately for different machines. Two popular
 compiled languages are C and C++, both of which were used to make node.js.
 
-
 Because compiled languages run directly on the hardware instead of another
 program, applications written in them run several times faster than those
 written in interpreted languages. However, modern computers are fast enough

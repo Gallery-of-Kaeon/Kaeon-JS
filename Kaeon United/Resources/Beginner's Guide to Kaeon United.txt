@@ -1836,7 +1836,7 @@ stop if a problem arises before any real damage can be done. Think of it like
 this: it's better to have a plane fail to take off than to have an engine fail
 mid flight.
 
-The syntax for throwing an excpetion is the word "throw" followed by empty
+The syntax for throwing an exception is the word "throw" followed by empty
 space, followed by an expression that returns a value. Said value will be part
 of the error object if the error is caught with a try/catch block.
 
@@ -1964,6 +1964,15 @@ The opposite approach, called a compiled language, converts into instructions
 for the hardware. Since there are many different types of hardware, the same
 code will have to be compiled separately for different machines. Two popular
 compiled languages are C and C++, both of which were used to make node.js.
+
+
+Because compiled languages run directly on the hardware instead of another
+program, applications written in them run several times faster than those
+written in interpreted languages. However, modern computers are fast enough
+that high quality applications can still be built using interpreted languages.
+Applications that require as much speed as possible, such as operating systems,
+high end game engines, and browsers are almost always written in compiled
+languages.
 
 Of course, it is also possible to write the instructions for the hardware
 manually as binary code. While doing this, programmers often use mnemonics

@@ -17,8 +17,8 @@ function require(path) {
         if(path.startsWith(".")) {
             
             path =
-                module.filename.substring(0, module.filename.lastIndexOf('/')) +
-                path.substring(1);
+                module.filename.substring(0, module.filename.lastIndexOf('/') + 1) +
+                path;
         }
     }
 

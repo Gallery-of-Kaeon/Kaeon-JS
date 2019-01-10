@@ -23,7 +23,7 @@ function require(path) {
     }
 
     let lowerPath = path.toLowerCase();
-    let index = require.cache[0].indexOf(path.toLowerCase());
+    let index = require.cache[0].indexOf(lowerPath);
 
     if(index == -1) {
 

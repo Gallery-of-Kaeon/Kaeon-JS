@@ -1,6 +1,26 @@
-function require(path) {
+var module = {
+    id: '.',
+    exports: { },
+    parent: null,
+    filename: "",
+    loaded: false,
+    children: [],
+    paths: []
+};
 
+function require(path) {
+    
     require.cache = require.cache ? require.cache : [[], []];
+
+    if(module.parent != null) {
+
+        if(path.startsWith(".")) {
+            
+            path =
+                module.filename.substring(0, module.filename.lastIndexOf('/')) +
+                path.substring(1);
+        }
+    }
 
     let lowerPath = path.toLowerCase();
     let index = require.cache[0].indexOf(path.toLowerCase());
@@ -24,14 +44,39 @@ function require(path) {
 
         rawFile.send(null);
 
-        let module = (new Function("var module={exports:{}};" + allText + "return module.exports;"))();
+        let newModule = {
+            id: path,
+            exports: { },
+            parent: module,
+            filename: path,
+            loaded: false,
+            children: [],
+            paths: []
+        };
 
         require.cache[0].push(lowerPath);
-        require.cache[1].push(module);
+        require.cache[1].push(newModule);
 
-        return module;
+        let newModuleContents = (
+            new Function(
+                "var module = arguments[0];" +
+                require.toString() +
+                "require.cache = arguments[1];" +
+                allText +
+                "return module;"
+            )
+        )(newModule, require.cache);
+
+        for(key in newModuleContents)
+            newModule.exports[key] = newModuleContents.exports[key];
+
+        module.children.push(newModule);
+
+        newModule.loaded = true;
+
+        return newModule.exports;
     }
 
     else
-        return require.cache[1][index];
+        return require.cache[1][index].exports;
 }

@@ -1,9 +1,3 @@
-// FOR A JAVASCRIPT PROJECT, REPLACE ALL CODE WITH THE DESIRED JAVASCRIPT.
-// FOR A KAEON FUSION PROJECT, LEAVE THE FILE AS IS.
-
-var kaeonFUSION = require("./KaeonFUSION.js");
-var fusion = new kaeonFUSION.KaeonFUSION();
-
 var platform = "Browser";
 
 if(typeof process === 'object') {
@@ -16,17 +10,39 @@ if(typeof process === 'object') {
 	}
 }
 
-var data = "";
-
 if(platform.toLowerCase == "Node")
-	data = require("fs").readFileSync("./index.op", 'utf8');
+	data = require("fs").readFileSync("./main.js", 'utf8');
 
 else {
 
-	var rawFile = new XMLHttpRequest();
-	rawFile.open("GET", "./index.op", false);
+	let rawFile = new XMLHttpRequest();
+	rawFile.open("GET", "./main.js", false);
 
-	var allText = "";
+	rawFile.onreadystatechange = function() {
+
+		if(rawFile.readyState === 4) {
+
+			if(rawFile.status === 200 || rawFile.status == 0) {
+				data = rawFile.responseText;
+			}
+		}
+	}
+
+	rawFile.send(null);
+}
+
+eval(data);
+
+var kaeonFUSION = require("./KaeonFUSION.js");
+var fusion = new kaeonFUSION.KaeonFUSION();
+
+if(platform.toLowerCase == "Node")
+	data = require("fs").readFileSync("./main.op", 'utf8');
+
+else {
+
+	let rawFile = new XMLHttpRequest();
+	rawFile.open("GET", "./main.op", false);
 
 	rawFile.onreadystatechange = function() {
 

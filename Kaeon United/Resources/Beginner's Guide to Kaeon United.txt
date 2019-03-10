@@ -45,7 +45,7 @@ just don't already have one, download the Atom text editor here:
 For this little test run, and for everything you make with Kaeon United, we
 recommend making a copy of the unzipped Kaeon United folder.
 
-So in the copied folder, open the file called "index.js" in your plain text
+So in the copied folder, open the file called "main.js" in your plain text
 editor. Then, delete all of the text in it, and replace it with the following
 JavaScript code:
 
@@ -1928,7 +1928,7 @@ Most tutorials on JavaScript teach it exclusively for website use and mix in
 HTML and CSS.
 
 You may have noticed that Kaeon United contains several HTML files. These serve
-to direct the browser to the index.js file.
+to direct the browser to the main.js file.
 
 The "Java" in JavaScript's name comes from the fact that Java, another
 programming language which functionally is very different from JavaScript, was
@@ -2117,7 +2117,7 @@ If you're feeling adventerous, feel free to try the other euler problems.
 
 This, is the fun part.
 
-Write the following code in your index.js file:
+Write the following code in your main.js file:
 
 	var speech = document.createElement("Audio");
 	document.documentElement.appendChild(speech);

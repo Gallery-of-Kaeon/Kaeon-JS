@@ -26,9 +26,9 @@ To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-United
 Then,
 unzip said bundle into the desired directory.
 For a Javascript project,
-simply replace the code in the index.js file with the desired Javascript.
+place your JavaScript code in the main.js file.
 For a Kaeon FUSION project,
-replace the code in the index.op file with the desired Kaeon FUSION and do not edit the index.js file.
+place your Kaeon FUSION code in the main.op file.
 
 <h2 align="center">Porting</h2>
 

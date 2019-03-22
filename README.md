@@ -9,16 +9,16 @@
 
 Kaeon United is an HTML and JavaScript application framework designed to meet the following goals:
 
-* To allow the use of the node.js require function in the browser,
-even when the path is dynamic.
+* To allow the use of CommonJS in the browser,
+even when module paths are dynamic.
 
 * To allow an entire application to be developed without HTML or CSS,
 where a single JavaScript file serves as the main file,
-JavaScript dependencies are handled by the require function,
+where JavaScript dependencies are handled by CommonJS,
 and the entire frontend of the application is managed through the DOM.
 
 * To provide a JavaScript based [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md) interpreter,
-and to provide the option for a Kaeon FUSION file to act as the main file in place of a JavaScript file.
+and to provide the option for a Kaeon FUSION to be used in place of JavaScript.
 
 <h2 align="center">How to Use</h2>
 

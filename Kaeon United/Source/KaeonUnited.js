@@ -22,7 +22,11 @@ function require(path) {
         }
     }
 
-    let lowerPath = path.toLowerCase();
+	let lowerPath = path.toLowerCase();
+
+	while(lowerPath.startsWith("././"))
+		lowerPath = lowerPath.substring(2);
+
     let index = require.cache[0].indexOf(lowerPath);
 
     if(index == -1) {

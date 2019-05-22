@@ -1,493 +1,302 @@
-class PhilosophersStone {
+var connections = [];
 
-	constructor() {
+function call(operation) {
+
+	try {
+		return eval("" + operation);
+	}
 	
-		this.connections = [];
-		this.privateConnections = [];
+	catch(error) {
+	
+	}
+	
+	return null;
+}
+
+function getConnections(source) {
+	
+	source = Array.isArray(source) ? source : [source];
+	
+	let sourceConnections = [];
+	
+	for(let i = 0; i < connections.length; i++) {
+	
+		for(let j = 0; j < source.length; j++) {
 		
-		this.tags = [];
+			if(connections[i][0] === source[j]) {
+			
+				sourceConnections.push(connections[i][1]);
+				
+				break;
+			}
+		}
 	}
 	
-	onCall(packet) {
-		return null;
+	return sourceConnections;
+}
+
+function getConnectionPolicies(source, target) {
+
+	for(let i = 0; i < connections.length; i++) {
+
+		if(connections[i][0] === source && connections[i][1] === target)
+			return connections[i][2];
 	}
+
+	return [];
+}
+
+function isConnected(source, target, policies, mutual) {
 	
-	onIncoming(path) {
-		return true;
-	}
+	source = Array.isArray(source) ? source : [source];
+	target = Array.isArray(target) ? target : [target];
+
+	policies = Array.isArray(policies) ? policies : [];
 	
-	onOutgoing(path) {
+	for(let i = 0; i < source.length; i++) {
 		
-		if(path.length > 2) {
+		let sourceConnections = getConnections(source[i]);
+		
+		for(let j = 0; j < target.length; j++) {
 			
-			var stone = path[path.length - 1];
+			if(!sourceConnections.includes(target[j]))
+				return false;
 			
-			for(var i = 0; i < this.privateConnections.length; i++) {
-			
-				if(stone === this.privateConnections[i])
+			let connectionPolicies = getConnectionPolicies(source[i], target[j]);
+
+			if(policies.length != connectionPolicies.length)
+				return false;
+
+			for(let i = 0; i < policies.length; i++) {
+
+				if(policies[i] != connectionPolicies[i])
 					return false;
 			}
 		}
-	
-		return true;
 	}
+	
+	return true && (mutual ? isConnected(source, target, false) : true);
 }
 
-function getAtlas(stone, all) {
+function connect(source, target, policies, mutual) {
 	
-	if(Array.isArray(stone)) {
+	source = Array.isArray(source) ? source : [source];
+	target = Array.isArray(target) ? target : [target];
+
+	policies = Array.isArray(policies) ? policies : [];
+	
+	for(let i = 0; i < source.length; i++) {
 		
-		stone = stone.slice(0);
-		
-		var atlas = [];
-		
-		for(var i = 0; i < stone.length; i++)
-			atlas = atlas.concat(getAtlas(stone[i], all));
-		
-		for(var i = 0; i < atlas.length; i++) {
-		
-			for(var j = 0; j < atlas.length; j++) {
-				
-				if(atlas[i] === atlas[j]) {
-				
-					atlas.splice(j, 1);
-					
-					j--;
-				}
-			}
+		for(let j = 0; j < target.length; j++) {
+			
+			disconnect(source[i], target[j]);
+
+			connections.push([source[i], target[j], policies]);
 		}
-		
-		return atlas;
 	}
 	
-	else {
-		
-		var atlas = [stone];
-		
-		for(var i = 0; i < stone.connections.length; i++) {
-			
-			var projectedPath = atlas.slice(0);
-			projectedPath.push(stone.connections[i]);
-			
-			if(stone.onOutgoing(projectedPath))
-				getAtlasTraversal(stone.connections[i], atlas, all);
-		}
-		
-		return atlas;
-	}
+	if(mutual)
+		connect(source, target, policies, false);
 }
 
-function getAtlasTraversal(stone, atlas, all) {
-
-	for(var i = 0; i < atlas.length; i++) {
-		
-		if(atlas[i] === stone)
-			return;
-	}
+function disconnect(source, target, mutual) {
 	
-	var incoming = all;
+	source = Array.isArray(source) ? source : [source];
+	target = Array.isArray(target) ? target : [target];
 	
-	if(!all) {
-		
-		try {
-			incoming = stone.onIncoming(atlas);
+	for(let i = 0; i < connections.length; i++) {
+	
+		let valid = false;
+	
+		for(let j = 0; j < source.length && !valid; j++) {
+			
+			for(let k = 0; k < target.length && !valid; k++)
+				valid = connections[i][0] === source[j] && connections[i][1] === target[k];
 		}
 		
-		catch(error) {
+		if(valid) {
 			
-		}
-	}
-	
-	if(incoming)
-		atlas.push(stone);
-	
-	for(var i = 0; i < stone.connections.length; i++) {
-		
-		var projectedPath = atlas.slice(0);
-		projectedPath.push(stone.connections[i]);
-		
-		var outgoing = all;
-		
-		if(!all) {
-			
-			try {
-				outgoing = stone.onOutgoing(projectedPath);
-			}
-			
-			catch(error) {
-				
-			}
-		}
-		
-		if(outgoing)
-			getAtlasTraversal(stone.connections[i], atlas);
-	}
-}
-
-function connect(stone, connection, mutual, private) {
-
-	if(mutual) {
-		connect(stone, connection, false, private);
-		connect(connection, stone, false, private);
-	}
-
-	else {
-	
-		if(Array.isArray(stone)) {
-		
-			stone = stone.slice(0);
-		
-			if(Array.isArray(connection)) {
-		
-				connection = connection.slice(0);
-			
-				for(var i = 0; i < stone.length; i++) {
-				
-					for(var j = 0; j < connection.length; j++)
-						connect(stone[i], connection[j], mutual, private);
-				}
-			}
-			
-			else {
-			
-				for(var i = 0; i < stone.length; i++)
-					connect(stone[i], connection, mutual, private)
-			}
-		}
-	
-		else if(Array.isArray(connection)) {
-		
-			connection = connection.slice(0);
-			
-			for(var i = 0; i < connection.length; i++)
-				connect(stone, connection[i], mutual, private)
-		}
-		
-		else {
-		
-			if(isConnected(stone, connection, false))
-				return;
-				
-			stone.connections.push(connection);
-			
-			if(private && !isConnected(stone, connection, true))
-				stone.privateConnections.push(connection);
-		}
-	}
-}
-
-function disconnect(stone, connection, mutual) {
-
-	if(mutual) {
-		disconnect(stone, connection, false);
-		disconnect(connection, stone, false);
-	}
-
-	else {
-	
-		if(Array.isArray(stone)) {
-		
-			stone = stone.slice(0);
-		
-			if(Array.isArray(connection)) {
-		
-				connection = connection.slice(0);
-			
-				for(var i = 0; i < stone.length; i++) {
-				
-					for(var j = 0; j < connection.length; j++)
-						disconnect(stone[i], connection[j], mutual);
-				}
-			}
-			
-			else {
-			
-				for(var i = 0; i < stone.length; i++)
-					disconnect(stone[i], connection, mutual)
-			}
-		}
-	
-		else if(Array.isArray(connection)) {
-		
-			connection = connection.slice(0);
-			
-			for(var i = 0; i < connection.length; i++)
-				disconnect(stone, connection[i], mutual)
-		}
-		
-		else {
-			
-			for(var i = 0; i < stone.connections.length; i++) {
-			
-				if(stone.connections[i] === connection) {
-				
-					stone.connections.splice(i, 1);
-					
-					i--;
-				}
-			}
-			
-			for(var i = 0; i < stone.privateConnections.length; i++) {
-			
-				if(stone.privateConnections[i] === connection) {
-				
-					stone.privateConnections.splice(i, 1);
-					
-					i--;
-				}
-			}
-		}
-	}
-}
-
-function tag(stone, tags) {
-	
-	if(Array.isArray(stone)) {
-		
-		stone = stone.slice(0);
-		
-		for(var i = 0; i < stone.length; i++)
-			tag(stone[i], tags);
-	}
-	
-	else {
-	
-		if(Array.isArray(tags)) {
-		
-			tags = tags.slice(0);
-		
-			for(var i = 0; i < tags.length; i++) {
-				
-				var tag = formatTag(tags[i]);
-				
-				if(!stone.tags.includes(tag))
-					stone.tags.push(tag);
-			}
-		}
-	
-		else
-			stone.tags.push(formatTag(tags));
-	}
-}
-
-function detag(stone, tags) {
-	
-	if(Array.isArray(stone)) {
-		
-		stone = stone.slice(0);
-		
-		for(var i = 0; i < stone.length; i++)
-			detag(stone[i], tags);
-	}
-	
-	else {
-	
-		if(!Array.isArray(tags))
-			tags = [tags];
-			
-		else
-			tags = tags.slice(0);
-
-		for(var i = 0; i < stone.tags.length; i++) {
-			
-			var tag = formatTag(stone.tags[i]);
-		
-			for(var j = 0; j < tags.length; j++) {
-			
-				if(tag == formatTag(tags[j])) {
-				
-					stone.tags.splice(i, 1);
-					
-					i--;
-					break;
-				}
-			}
-		}
-	}
-}
-
-function isConnected(stone, connection, mutual, private) {
-
-	if(mutual) {
-	
-		return
-			isConnected(stone, connection, false, private) &&
-			isConnected(connection, stone, false, private);
-	}
-	
-	else {
-	
-		if(Array.isArray(stone)) {
-		
-			stone = stone.slice(0);
-		
-			if(Array.isArray(connection)) {
-		
-				connection = connection.slice(0);
-				
-				for(var i = 0; i < stone.length; i++) {
-				
-					for(var j = 0; j < connection.length; j++) {
-					
-						if(!isConnected(stone[i], connection[j], mutual, private))
-							return false;
-					}
-				}
-				
-				return true;
-			}
-			
-			else {
-			
-				for(var i = 0; i < stone.length; i++) {
-				
-					if(!isConnected(stone[i], connection, mutual, private))
-						return false;
-				}
-						
-				return true;
-			}
-		}
-	
-		else if(Array.isArray(connection)) {
-		
-			connection = connection.slice(0);
-			
-			for(var i = 0; i < connection.length; i++) {
-			
-				if(!isConnected(stone, connection[i], mutual, private))
-					return false;
-			}
-					
-			return true;
-		}
-		
-		else {
-		
-			var connections =
-				private ?
-					stone.privateConnections :
-					stone.connections;
-			
-			for(var i = 0; i < connections.length; i++) {
-				
-				if(connections[i] === connection)
-					return true;
-			}
-			
-			return false;
-		}
-	}
-}
-
-function isTagged(stone, tags) {
-	
-	if(Array.isArray(stone)) {
-		
-		store = store.slice(0);
-		
-		for(var i = 0; i < stone.length; i++) {
-			
-			if(!isTagged(stone[i]))
-				return false;
-		}
-		
-		return true;
-	}
-	
-	else {
-	
-		if(!Array.isArray(tags))
-			tags = [tags];
-	
-		for(var i = 0; i < tags.length; i++) {
-			
-			var found = false;
-			
-			for(var j = 0; j < stone.tags.length; j++) {
-				
-				if(formatTag(tags[i]) == formatTag(stone.tags[j])) {
-					
-					found = true;
-					
-					break;
-				}
-			}
-			
-			if(!found)
-				return false;
-		}
-		
-		return true;
-	}
-}
-
-function get(stones, tags) {
-	
-	var tagged = [];
-	
-	for(var i = 0; i < stones.length; i++) {
-		
-		if(isTagged(stones[i], tags))
-			tagged.push(stones[i]);
-	}
-	
-	return tagged;
-}
-
-function call(stones, packet) {
-	
-	var call = [];
-	
-	for(var i = 0; i < stones.length; i++) {
-		
-		try {
-			
-			var value = stones[i].onCall(packet);
-			
-			if(value != null)
-				call.push(value);
-		}
-		
-		catch(error) {
-			
-		}
-	}
-	
-	return call;
-}
-
-function formatTag(tag) {
-	
-	var newTag = tag.toLowerCase();
-	
-	for(var i = 0; i < tag.length; i++) {
-		
-		if(newTag.charAt(i) == " " ||
-			newTag.charAt(i) == "\t" ||
-			newTag.charAt(i) == "\n") {
-		
-			newTag = newTag.substring(0, i) + newTag.substring(i + 1);
+			connections.splice(i, 1);
 			
 			i--;
 		}
 	}
 	
-	return newTag;
+	if(mutual)
+		disconnect(source, target, false);
+}
+
+function traverse(source, path) {
+
+	path = path != null ? path : [];
+
+	if(path.includes(source))
+		return;
+
+	path.push(source);
+	
+	let sourceConnections = getConnections(source);
+	
+	for(let i = 0; i < sourceConnections.length; i++) {
+
+		let policies = getConnectionPolicies(source, sourceConnections[i]);
+		let valid = true;
+	
+		for(let j = 0; j < policies.length && valid; j++) {
+
+			if(!policies[j](path, sourceConnections[i]))
+				valid = false;
+		}
+
+		if(valid)
+			traverse(sourceConnections[i], path);
+	}
+	
+	return path;
+}
+
+function abide(target, medium, override) {
+
+	let multiple = Array.isArray(target);
+
+	target = Array.isArray(target) ? target : [target];
+	medium = Array.isArray(medium) ? medium : [medium];
+
+	for(let i = 0; i < target.length; i++) {
+		
+		for(let j = 0; j < medium.length; j++) {
+		
+			let keys = Object.keys(medium[j]);
+			
+			for(let k = 0; k < keys.length; k++) {
+			
+				target[i][keys[k]] =
+					override ?
+						medium[j][keys[k]] :
+						target[i][keys[k]] == null ?
+							medium[j][keys[k]] :
+							target[i][keys[k]];
+			}
+		}
+	}
+
+	return multiple ? target : target[0];
+}
+
+function retrieve(set, criteria) {
+	
+	let newSet = set.slice(0);
+	
+	for(let i = 0; i < newSet.length; i++) {
+	
+		let valid = true;
+	
+		for(let j = 0; j < criteria.length && valid; j++)
+			valid = criteria[j](newSet[i]);
+			
+		if(!valid) {
+		
+			newSet.splice(i, 1);
+			
+			i--;
+		}
+	}
+	
+	return newSet;
+}
+
+function standard() {
+
+	this.tags = [];
+
+	this.standard = function(packet) {
+		return null;
+	}
+
+	this.modify = function(alias, value) {
+		this[alias] = value;
+	}
+
+	this.serialize = function() {
+		return "";
+	}
+
+	this.deserialize = function(data) {
+		
+	}
+	
+	this.tag = function(tagStrings) {
+		
+		for(let i = 0; i < tagStrings; i++) {
+		
+			if(!isTagged(this, tagStrings[i]))
+				this.tags.push(tagStrings[i].toLowerCase().replace(" ", ""));
+		}
+	}
+	
+	this.untag = function(tagStrings) {
+		
+		for(let i = 0; i < tagStrings; i++) {
+		
+			let format = tagStrings[i].toLowerCase().replace(" ", "");
+
+			for(let i = 0; i < this.tags.length && !found; i++) {
+				
+				if(format == this.tags[i].toLowerCase().replace(" ", "")) {
+
+					this.tags.splice(i, 1);
+
+					i--;
+				}
+			}
+		}
+	}
+}
+	
+function isTagged(stone, tagStrings) {
+
+	if(this.tagStrings != null)
+		this.tagStrings = Array.isArray(tagStrings) ? tagStrings : [tagStrings];
+	
+	if(stone == null)
+		return false;
+	
+	for(let i = 0; i < this.tagStrings.length; i++) {
+	
+		let format = this.tagStrings[i].toLowerCase().replace(" ", "");
+
+		let valid = false;
+
+		for(let j = 0; j < stone.tags.length && valid; j++) {
+			
+			if(format == stone.tags[i].toLowerCase().replace(" ", ""))
+				valid = true;
+		}
+
+		if(!valid)
+			return false;
+	}
+	
+	return true;
+}
+
+function privateConnection(path, connection) {
+	return path.length <= 1;
 }
 
 module.exports = {
 
-	PhilosophersStone,
-	getAtlas,
-	getAtlasTraversal,
+	connections,
+	call,
+	getConnections,
+	getConnectionPolicies,
+	isConnected,
 	connect,
 	disconnect,
-	tag,
-	detag,
-	isConnected,
+	traverse,
+	abide,
+	retrieve,
+	standard,
 	isTagged,
-	call,
-	get,
-	formatTag
+	privateConnection
 };

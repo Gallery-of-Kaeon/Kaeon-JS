@@ -1,0 +1,32 @@
+Kaeon United
+
+	Philosophy
+	
+		-
+			Kaeon United is an HTML and JavaScript based application framework that allows the
+			developer to construct a cross platform application using either a single JavaScript
+			file or a single Kaeon FUSION file as the main file.
+		-
+	
+	Principles
+		
+		Main Files
+		
+			-
+				Among the several files within the framework, which shall all be stored in the same
+				folder, the user is only to modify the main.js file in the case that they wish to
+				develop in JavaScript, or the main.op file in the case that they wish to develop in
+				Kaeon FUSION, or both, in which case the contents of the main.js file shall execute
+				first.
+				
+				An indefinite number of dependencies may be added to the project to support the
+				contents of the main files.
+			-
+	
+		JavaScript Cross Platform Functionality
+		
+			-
+				In a JavaScript file, CommonJS style modules as well as the CommonJS require
+				function will be usable when running on the browser, and will work even when module
+				paths are generated at runtime.
+			-

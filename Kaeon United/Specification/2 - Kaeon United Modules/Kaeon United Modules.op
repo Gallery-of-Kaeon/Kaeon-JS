@@ -1,0 +1,9 @@
+Kaeon United Modules
+	
+	Philosophy
+		
+		-
+			A Kaeon United module is a CommonJS module where the exports are different for each
+			possible platform. The aliases of the contents each platform specific variation of said
+			exports must be the same, but their implementations may differ.
+		-

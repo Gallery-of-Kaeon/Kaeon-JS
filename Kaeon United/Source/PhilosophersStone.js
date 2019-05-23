@@ -96,7 +96,7 @@ function connect(source, target, policies, mutual) {
 	}
 	
 	if(mutual)
-		connect(source, target, policies, false);
+		connect(target, source, policies, false);
 }
 
 function disconnect(source, target, mutual) {
@@ -123,7 +123,7 @@ function disconnect(source, target, mutual) {
 	}
 	
 	if(mutual)
-		disconnect(source, target, false);
+		disconnect(target, source, false);
 }
 
 function traverse(source, path) {
@@ -186,6 +186,7 @@ function abide(target, medium, override) {
 function retrieve(set, criteria) {
 	
 	let newSet = set.slice(0);
+	criteria = Array.isArray(criteria) ? criteria : [criteria];
 	
 	for(let i = 0; i < newSet.length; i++) {
 	
@@ -253,28 +254,28 @@ function standard() {
 	}
 }
 	
-function isTagged(stone, tagStrings) {
+function isTagged(stones, tagStrings) {
 
-	if(this.tagStrings != null)
-		this.tagStrings = Array.isArray(tagStrings) ? tagStrings : [tagStrings];
+	stones = Array.isArray(stones) ? stones : [stones];
+	tagStrings = Array.isArray(tagStrings) ? tagStrings : [tagStrings];
 	
-	if(stone == null)
-		return false;
-	
-	for(let i = 0; i < this.tagStrings.length; i++) {
-	
-		let format = this.tagStrings[i].toLowerCase().replace(" ", "");
+	for(let i = 0; i < stones.length; i++) {
 
-		let valid = false;
+		for(let j = 0; j < tagStrings.length; j++) {
+		
+			let format = tagStrings[j].toLowerCase().replace(" ", "");
 
-		for(let j = 0; j < stone.tags.length && valid; j++) {
-			
-			if(format == stone.tags[i].toLowerCase().replace(" ", ""))
-				valid = true;
+			let valid = false;
+
+			for(let k = 0; k < stones[i].tags.length && !valid; k++) {
+				
+				if(format == stones[i].tags[k].toLowerCase().replace(" ", ""))
+					valid = true;
+			}
+
+			if(!valid)
+				return false;
 		}
-
-		if(!valid)
-			return false;
 	}
 	
 	return true;

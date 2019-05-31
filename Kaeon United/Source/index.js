@@ -1,4 +1,4 @@
-var platform = "Browser";
+let platform = "Browser";
 
 if(typeof process === 'object') {
 
@@ -10,59 +10,73 @@ if(typeof process === 'object') {
 	}
 }
 
-if(platform.toLowerCase == "Node")
-	data = require("fs").readFileSync("./main.js", 'utf8');
+try {
 
-else {
+	if(platform.toLowerCase() == "node")
+		data = require("fs").readFileSync("./main.js", 'utf8');
 
-	let rawFile = new XMLHttpRequest();
-	rawFile.open("GET", "./main.js", false);
+	else {
 
-	rawFile.onreadystatechange = function() {
+		let rawFile = new XMLHttpRequest();
+		rawFile.open("GET", "./main.js", false);
 
-		if(rawFile.readyState === 4) {
+		rawFile.onreadystatechange = function() {
 
-			if(rawFile.status === 200 || rawFile.status == 0) {
-				data = rawFile.responseText;
+			if(rawFile.readyState === 4) {
+
+				if(rawFile.status === 200 || rawFile.status == 0) {
+					data = rawFile.responseText;
+				}
 			}
+		}
+
+		rawFile.send(null);
+	}
+
+	eval(data);
+}
+
+catch(error) {
+
+}
+
+try {
+	
+	let kaeonFUSION = require("./KaeonFUSION.js");
+	let fusion = new kaeonFUSION.KaeonFUSION();
+
+	if(platform.toLowerCase() == "node")
+		data = require("fs").readFileSync("./main.op", 'utf8');
+
+	else {
+
+		let rawFile = new XMLHttpRequest();
+		rawFile.open("GET", "./main.op", false);
+
+		rawFile.onreadystatechange = function() {
+
+			if(rawFile.readyState === 4) {
+
+				if(rawFile.status === 200 || rawFile.status == 0) {
+					data = rawFile.responseText;
+				}
+			}
+		}
+
+		rawFile.send(null);
+	}
+
+	for(let i = 0; i < data.length; i++) {
+
+		if(data.charCodeAt(i) == 13) {
+			data = data.substring(0, i) + data.substring(i + 1);
+			i--;
 		}
 	}
 
-	rawFile.send(null);
+	fusion.process(require("./ONEPlus.js").readONEPlus(data));
 }
 
-eval(data);
+catch(error) {
 
-var kaeonFUSION = require("./KaeonFUSION.js");
-var fusion = new kaeonFUSION.KaeonFUSION();
-
-if(platform.toLowerCase == "Node")
-	data = require("fs").readFileSync("./main.op", 'utf8');
-
-else {
-
-	let rawFile = new XMLHttpRequest();
-	rawFile.open("GET", "./main.op", false);
-
-	rawFile.onreadystatechange = function() {
-
-		if(rawFile.readyState === 4) {
-
-			if(rawFile.status === 200 || rawFile.status == 0) {
-				data = rawFile.responseText;
-			}
-		}
-	}
-
-	rawFile.send(null);
 }
-
-for(var i = 0; i < data.length; i++) {
-
-	if(data.charCodeAt(i) == 13) {
-		data = data.substring(0, i) + data.substring(i + 1);
-		i--;
-	}
-}
-
-fusion.process(require("./ONEPlus.js").readONEPlus(data));

@@ -5,9 +5,15 @@ function readONEPlus(data) {
 
 	if(data.trim().startsWith("-[")) {
 
-		return require(
-			data.substring(data.indexOf("-[") + 2, data.indexOf("]\n")))(
-				data.substring(data.indexOf("]\n") + 2));
+		let path = data.substring(data.indexOf("-[") + 2, data.indexOf("]\n"));
+
+		if(path.indexOf("/") == -1)
+			path = "./" + path;
+
+		if(!path.toLowerCase().endsWith(".js"))
+			path += ".js";
+
+		return require(path)(data.substring(data.indexOf("]\n") + 2));
 	}
 
 	tokens = getTokens(data);
@@ -786,7 +792,16 @@ class Use extends DirectiveUnit {
 			var child = directive.directive.children[i];
 
 			try {
-				directiveUnits = directiveUnits.concat(require(child.content)());
+
+				let path = child.content;
+		
+				if(path.indexOf("/") == -1)
+					path = "./" + path;
+		
+				if(!path.toLowerCase().endsWith(".js"))
+					path += ".js";
+
+				directiveUnits = directiveUnits.concat(require(path)());
 			}
 
 			catch(error) {

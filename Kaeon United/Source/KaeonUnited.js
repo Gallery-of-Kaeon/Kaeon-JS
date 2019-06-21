@@ -67,7 +67,7 @@ function require(path) {
                 require.toString() +
                 "require.cache = arguments[1];" +
                 allText +
-                "return module;"
+                ";return module;"
             )
         )(newModule, require.cache);
 

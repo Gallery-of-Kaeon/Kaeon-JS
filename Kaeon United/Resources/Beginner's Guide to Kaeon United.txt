@@ -36,9 +36,9 @@ unzip zip folders, see here:
 	https://www.wikihow.com/Unzip-a-File
 
 Secondly, you'll need a plain text editor. If you don't know what that is, or
-just don't already have one, download the Atom text editor here:
+just don't already have one, download the Visual Studio Code text editor here:
 
-	https://atom.io/
+	https://code.visualstudio.com/
 
 [*]	- (3 - 1) Setup [Test] - [*] ______________________________________________
 	

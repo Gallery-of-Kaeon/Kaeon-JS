@@ -23,6 +23,8 @@ to provide the option for a Kaeon FUSION to be used in place of JavaScript,
 and to provide JavaScript implementations of Kaeon FUSION's most essential utilities,
 including and especially the standard interface.
 
+* To provide a JavaScript implementation of the [Philosopher's Stone](https://github.com/Gallery-of-Kaeon/Philosophers-Stone/blob/master/README.md).
+
 * To establish a standard for writing CommonJS utilities that provided the same interface for modules that require different implementations between the browser and Node.js.
 
 * To provide various other miscellaneous JavaScript utilities for convenience.

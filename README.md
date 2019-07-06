@@ -62,4 +62,4 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20Un
 <h2 align="center">Specification</h2>
 
 To view the specification,
-click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20United/Specification/Kaeon%20United.op).
+click [here](https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification).

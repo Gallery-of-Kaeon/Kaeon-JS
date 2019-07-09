@@ -78,6 +78,8 @@ like this:
     let path = prompt("Enter a module path:");
     let myModule = require(path);
 
+Most other CommonJS browser emulation tools will not allow for dynamic paths as shown above.
+
 <h2 align="center">Porting</h2>
 
 It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.

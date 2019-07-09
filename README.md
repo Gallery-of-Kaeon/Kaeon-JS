@@ -48,6 +48,36 @@ Firefox works best for offline testing.
 To run a Kaeon United application in the command line,
 run the index.js file with Node.js.
 
+<h2 align="center">The Require Function</h2>
+
+Of course when running the project in Node.js or electron,
+the require command is available by default,
+but when running [index.html](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Source/index.html) in the browser,
+the site will automatically be redirected to [indexBrowser.html](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Source/indexBrowser.html),
+which integrates [KaeonUnited.js](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Source/KaeonUnited.js),
+which globally defines a require function that mimics the Node.js version.
+
+The in-browser require function will take a path to a CommonJS module and return the module.exports value,
+but the path must begin with a relative path and end with the proper file extension.
+For example,
+if in a CommonJS module called "foo.js" was placed in the project folder,
+it could be accessed in the browser like this:
+
+    require("./foo.js");
+
+While this is the only way to make it work in the browser,
+Node.js will also accept this method.
+
+Like the Node.js require function,
+the in-browser require function will globally declare the module object which includes an exports field,
+will cache any module you import to make subsequent calls to it more efficient,
+which will also prevent infinite recursion in the event of a circular dependency,
+and will accept dynamically generated paths,
+Like this:
+
+    let path = prompt("Enter a module path:");
+    let myModule = require(path);
+
 <h2 align="center">Porting</h2>
 
 It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.

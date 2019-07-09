@@ -73,7 +73,7 @@ the in-browser require function will globally declare the module object which in
 will cache any module you import to make subsequent calls to it more efficient,
 which will also prevent infinite recursion in the event of a circular dependency,
 and will accept dynamically generated paths,
-Like this:
+like this:
 
     let path = prompt("Enter a module path:");
     let myModule = require(path);

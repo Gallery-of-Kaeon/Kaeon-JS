@@ -7,7 +7,7 @@
 
 <h2 align="center">What is Kaeon United?</h2>
 
-Kaeon United is JavaScript framework designed to meet the following goals:
+Kaeon United (pronounced "KAI-on") is JavaScript framework designed to meet the following goals:
 
 * To allow the use of CommonJS in the browser,
 even when module paths are dynamic,

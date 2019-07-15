@@ -16,7 +16,7 @@ without any precompilation required.
 * To allow an entire application to be developed without HTML or CSS,
 where a single JavaScript file serves as the main file,
 where JavaScript dependencies are handled by CommonJS,
-and the entire frontend of the application is managed through the DOM.
+and where the entire frontend of the application is managed through the DOM.
 
 * To provide a JavaScript based [Kaeon FUSION](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/README.md) interpreter,
 to provide the option for a Kaeon FUSION to be used in place of JavaScript,

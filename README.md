@@ -41,7 +41,7 @@ JavaScript infamous for having been designed in only ten days.
 It is inconsistent and heavily dependent upon other technologies.
 For these reasons it is rarely taught in required college computer science classes,
 usually being reserved for electives.
-Many developers don't learn it at all util they do web development for the first time.
+Many developers don't learn it at all until they do web development for the first time.
 Currently,
 Python is the typical choice for first time coders.
 
@@ -53,8 +53,8 @@ vanilla JavaScript with Kaeon United can do everything that vanilla JavaScript a
 while also being just as good a first language as Python,
 albeit with a vastly greater range of application.
 It could even be said that,
-unless they with to work on performance critical applications requiring native code,
-that a programmer who learns JavaScript with Kaeon United as their first language may never need to learn another language.
+unless they wish to work on performance critical applications requiring native code,
+that a programmer who learns JavaScript with Kaeon United as their first language may never need to learn another.
 
 <h2 align="center">How to Use</h2>
 

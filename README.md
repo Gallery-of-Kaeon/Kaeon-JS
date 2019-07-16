@@ -52,9 +52,13 @@ As an independent and consistent language,
 vanilla JavaScript with Kaeon United can do everything that vanilla JavaScript already does,
 while also being just as good a first language as Python,
 albeit with a vastly greater range of application.
-It could even be said that,
+
+In conclusion,
+vanilla JavaScript with Kaeon United could easily constitute the entire language stack for the vast majority of applications that do not require native code,
+while remaining consistent on all levels of said stack.
+Furthermore,
 unless they wish to work on performance critical applications requiring native code,
-that a programmer who learns JavaScript with Kaeon United as their first language may never need to learn another.
+a programmer who learns JavaScript with Kaeon United as their first language may never need to learn another.
 
 <h2 align="center">How to Use</h2>
 

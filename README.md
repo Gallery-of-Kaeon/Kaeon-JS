@@ -29,6 +29,33 @@ including and especially the standard interface.
 
 * To provide various other miscellaneous JavaScript utilities for convenience.
 
+<h2 align="center">Why Kaeon United?</h2>
+
+Atwood's Law: "Any application that can be written in JavaScript, will eventually be written in JavaScript."
+
+It is an undeniable fact that JavaScript is rapidly becomming THE fullstack language.
+However,
+one doesn't have to look far to find developers unhappy about this.
+
+JavaScript infamous for having been designed in only ten days.
+It is inconsistent and heavily dependent upon other technologies.
+For these reasons it is rarely taught in required college computer science classes,
+usually being reserved for electives.
+Many developers don't learn it at all util they do web development for the first time.
+Currently,
+Python is the typical choice for first time coders.
+
+Kaeon United allows vanilla JavaScript code to be consistent between different environments,
+and removes its dependency on HTML and CSS for frontend tasks,
+all without any precompilation.
+As an independent and consistent language,
+vanilla JavaScript with Kaeon United can do everything that vanilla JavaScript already does,
+while also being just as good a first language as Python,
+albeit with a vastly greater range of application.
+It could even be said that,
+unless they with to work on performance critical applications requiring native code,
+that a programmer who learns JavaScript with Kaeon United as their first language may never need to learn another language.
+
 <h2 align="center">How to Use</h2>
 
 To begin, download the [bundle](https://github.com/Gallery-of-Kaeon/Kaeon-United/raw/master/Kaeon%20United/Bundle/Kaeon%20United.zip).

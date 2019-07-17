@@ -67,10 +67,10 @@ Then,
 unzip said bundle into the desired directory.
 
 For a JavaScript project,
-place your JavaScript code in the main.js file.
+place your JavaScript code in the source.js file.
 
 For a Kaeon FUSION project,
-place your Kaeon FUSION code in the main.op file.
+place your Kaeon FUSION code in the source.op file.
 
 To run a Kaeon United application in the browser,
 open the index.html file in the browser of your choice.

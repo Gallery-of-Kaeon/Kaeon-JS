@@ -80,7 +80,7 @@ To run a Kaeon United application in the command line,
 run the index.js file with Node.js.
 
 Due to CORS related restrictions on local files in most browsers,
-it is recommended that electron be used for testing.
+it is recommended that testing either be done using local hosting or electron.
 
 <h2 align="center">The Require Function</h2>
 

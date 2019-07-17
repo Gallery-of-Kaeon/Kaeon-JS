@@ -13,12 +13,12 @@ if(typeof process === 'object') {
 try {
 
 	if(platform.toLowerCase() == "node")
-		data = require("fs").readFileSync("./main.js", 'utf8');
+		data = require("fs").readFileSync("./source.js", 'utf8');
 
 	else {
 
 		let rawFile = new XMLHttpRequest();
-		rawFile.open("GET", "./main.js", false);
+		rawFile.open("GET", "./source.js", false);
 
 		rawFile.onreadystatechange = function() {
 
@@ -46,12 +46,12 @@ try {
 	let fusion = new kaeonFUSION.KaeonFUSION();
 
 	if(platform.toLowerCase() == "node")
-		data = require("fs").readFileSync("./main.op", 'utf8');
+		data = require("fs").readFileSync("./source.op", 'utf8');
 
 	else {
 
 		let rawFile = new XMLHttpRequest();
-		rawFile.open("GET", "./main.op", false);
+		rawFile.open("GET", "./source.op", false);
 
 		rawFile.onreadystatechange = function() {
 

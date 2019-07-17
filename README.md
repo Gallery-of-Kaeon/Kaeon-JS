@@ -118,6 +118,13 @@ Most other CommonJS browser emulation tools will not allow for dynamic paths as 
 
 It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.
 
+To use Kaeon United with electron,
+set up an electron quick start project,
+then copy all of the files in the bundle except for the node_modules folder and the package-lock.json file into the electron folder,
+and finally use npm to install the [node-cmd](https://www.npmjs.com/package/node-cmd),
+[readline-sync](https://www.npmjs.com/package/readline-sync),
+and [xmlhttprequest](https://www.npmjs.com/package/xmlhttprequest) modules into the electron project.
+
 <h2 align="center">Source</h2>
 
 To view the source files individually,

@@ -79,6 +79,9 @@ Firefox works best for offline testing.
 To run a Kaeon United application in the command line,
 run the index.js file with Node.js.
 
+Due to CORS related restrictions on local files in most browsers,
+it is recommended that electron be used for testing.
+
 <h2 align="center">The Require Function</h2>
 
 Of course when running the project in Node.js or electron,
@@ -114,8 +117,6 @@ Most other CommonJS browser emulation tools will not allow for dynamic paths as 
 <h2 align="center">Porting</h2>
 
 It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.
-
-<!-- <h2 align="center">Notes for Javascript Projects</h2> -->
 
 <h2 align="center">Source</h2>
 

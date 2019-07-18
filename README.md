@@ -117,6 +117,10 @@ like this:
 
 Most other CommonJS browser emulation tools will not allow for dynamic paths as shown above.
 
+If you want to use the require function as shown above without using the Kaeon United framework,
+just download [KaeonUnited.js](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Source/KaeonUnited.js),
+and reference it in your HTML.
+
 <h2 align="center">Porting</h2>
 
 It is recommended that [electron](https://electronjs.org/) be used for porting Kaeon United apps to desktop apps and that [cordova](https://cordova.apache.org/) be used for porting Kaeon United apps to mobile apps.

@@ -10,6 +10,8 @@ if(typeof process === 'object') {
 	}
 }
 
+let data = "";
+
 try {
 
 	if(platform.toLowerCase() == "node")
@@ -24,9 +26,8 @@ try {
 
 			if(rawFile.readyState === 4) {
 
-				if(rawFile.status === 200 || rawFile.status == 0) {
+				if(rawFile.status === 200 || rawFile.status == 0)
 					data = rawFile.responseText;
-				}
 			}
 		}
 
@@ -40,26 +41,27 @@ catch(error) {
 
 }
 
+data = "";
+
 try {
 	
 	let kaeonFUSION = require("./KaeonFUSION.js");
 	let fusion = new kaeonFUSION.KaeonFUSION();
 
 	if(platform.toLowerCase() == "node")
-		data = require("fs").readFileSync("./source.op", 'utf8');
+		data = require("fs").readFileSync("./source.txt", 'utf8');
 
 	else {
 
 		let rawFile = new XMLHttpRequest();
-		rawFile.open("GET", "./source.op", false);
+		rawFile.open("GET", "./source.txt", false);
 
 		rawFile.onreadystatechange = function() {
 
 			if(rawFile.readyState === 4) {
 
-				if(rawFile.status === 200 || rawFile.status == 0) {
+				if(rawFile.status === 200 || rawFile.status == 0)
 					data = rawFile.responseText;
-				}
 			}
 		}
 

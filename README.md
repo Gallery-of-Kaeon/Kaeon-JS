@@ -70,7 +70,10 @@ For a JavaScript project,
 place your JavaScript code in the source.js file.
 
 For a Kaeon FUSION project,
-place your Kaeon FUSION code in the source.op file.
+place your Kaeon FUSION code in the source.txt file.
+
+Any text or code files placed into the project folder by the developer other than JavaScript files should use a ".txt" file extension.
+This is because certain web servers cannot access said files by xmlhttprequest otherwise.
 
 To run a Kaeon United application in the browser,
 open the index.html file in the browser of your choice.

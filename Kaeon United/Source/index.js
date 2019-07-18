@@ -49,12 +49,12 @@ try {
 	let fusion = new kaeonFUSION.KaeonFUSION();
 
 	if(platform.toLowerCase() == "node")
-		data = require("fs").readFileSync("./source.txt", 'utf8');
+		data = require("fs").readFileSync("./source.op", 'utf8');
 
 	else {
 
 		let rawFile = new XMLHttpRequest();
-		rawFile.open("GET", "./source.txt", false);
+		rawFile.open("GET", "./source.op", false);
 
 		rawFile.onreadystatechange = function() {
 

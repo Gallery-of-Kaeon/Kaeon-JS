@@ -74,7 +74,6 @@ place your Kaeon FUSION code in the source.op file.
 
 To run a Kaeon United application in the browser,
 open the index.html file in the browser of your choice.
-Firefox works best for offline testing.
 
 To run a Kaeon United application in the command line,
 run the index.js file with Node.js.

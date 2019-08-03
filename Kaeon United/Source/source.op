@@ -1,9 +1,1 @@
-Use: Standard
-
-Direct: Literal
-
-	-
-		var ui = require("./ui.js");
-
-		ui.extend(document.documentElement, ui.fill(ui.create("p"), "XP - 123"));
-	-
+# YOUR CODE HERE

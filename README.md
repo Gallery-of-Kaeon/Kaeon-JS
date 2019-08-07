@@ -140,13 +140,13 @@ This command can be used in node using the following command:
     node ONEPreview.js myONEPlusCode.op
 
 For example,
-if you had a Kaeon FUSION file called "source.op" containing the following:
+if you had a Kaeon FUSION file called "source.op" containing the following ONE+ code:
 
     Use: Standard
 
     Log Line: "Hello, world!"
 
-And then ran the following commandL:
+And then ran the following command:
 
     node ONEPreview.js source.op
 

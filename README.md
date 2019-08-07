@@ -128,6 +128,43 @@ and finally use npm to install the [node-cmd](https://www.npmjs.com/package/node
 [readline-sync](https://www.npmjs.com/package/readline-sync),
 and [xmlhttprequest](https://www.npmjs.com/package/xmlhttprequest) modules into the electron project.
 
+<h2 align="center">Previewing ONE+ Code</h2>
+
+The Kaeon United framework comes with a utility for previewing how any file written in [ONE+](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/2%20-%20ONE%2B/README.md),
+which is the format that Kaeon FUSION uses,
+translates to [ONE](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/1%20-%20ONE/README.md),
+in the file ONEPreview.js.
+
+This command can be used in node using the following command:
+
+    node ONEPreview.js myONEPlusCode.op
+
+For example,
+if you had a Kaeon FUSION file called "source.op" containing the following:
+
+    Use: Standard
+
+    Log Line: "Hello, world!"
+
+And then ran the following commandL:
+
+    node ONEPreview.js source.op
+
+Then the following ONE code would print to the terminal:
+
+    -
+    	Use
+    -
+    	-
+    		Standard
+    	-
+    -
+    	Log Line
+    -
+    	-
+    		"Hello, world!"
+    	-
+
 <h2 align="center">Source</h2>
 
 To view the source files individually,
@@ -137,3 +174,16 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-JS/tree/master/Kaeon%20Un
 
 To view the specification,
 click [here](https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification).
+
+<h2 align="center">Disclaimer</h2>
+
+The Kaeon United framework comes with several additional miscellaneous utilities for convinience,
+including dataMap.js,
+io.js,
+ioBrowser.js,
+ioNode.js,
+server.js,
+and ui.js.
+
+These utilities are all as of now experimental and undocumented.
+These issues will be remedied in future updates.

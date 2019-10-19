@@ -1,3 +1,13 @@
+var root = null;
+
+try {
+	root = document.documentElement;
+}
+
+catch(error) {
+
+}
+
 var styles = [];
 
 function load() {
@@ -208,6 +218,7 @@ function interpolate(value, target, increment) {
 
 module.exports = {
 
+	root,
 	styles,
 	load,
 	loadStyle,

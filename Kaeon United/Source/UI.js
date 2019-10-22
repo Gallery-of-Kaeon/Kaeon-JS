@@ -11,6 +11,8 @@ catch(error) {
 var styles = [];
 
 function load() {
+
+	load.cache = load.cache != null ? load.cache : [];
 	
 	for(let i = 0; i < arguments.length; i++) {
 
@@ -18,6 +20,11 @@ function load() {
 			arguments[i] = [arguments[i]];
 
 		for(let j = 0; j < arguments[i].length; j++) {
+
+			if(load.cache.includes(arguments[i][j]))
+				continue;
+			
+			load.cache.push(arguments[i][j]);
 
 			if(arguments[i][j].endsWith(".js"))
 				loadScript(arguments[i][j]);

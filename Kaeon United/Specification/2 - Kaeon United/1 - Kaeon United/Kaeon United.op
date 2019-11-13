@@ -21,11 +21,10 @@ Kaeon United
 				An indefinite number of dependencies may be added to the project to support the
 				contents of the main files.
 			-
-	
-		JavaScript Cross Platform Functionality
-		
+
+		United JavaScript
+
 			-
-				In a JavaScript file, CommonJS style modules as well as the CommonJS require
-				function will be usable when running on the browser, and will work even when module
-				paths are generated at runtime.
+				JavaScript code in the Kaeon United framework shall conform to the United
+				JavaScript convention.
 			-

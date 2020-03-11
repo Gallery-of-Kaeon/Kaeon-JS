@@ -1385,6 +1385,7 @@ function returnCommand() {
 
 	this.tags.push("Return");
 
+	this.fusion = null;
 	this.returnValue = null;
 	this.isReturning = false;
 
@@ -1395,6 +1396,17 @@ function returnCommand() {
 	}
 
 	this.verify = function(element) {
+
+		if(reference.fusion == null) {
+
+			reference.fusion =
+				philosophersStone.retrieve(
+					philosophersStone.traverse(reference),
+					function(item) {
+						return philosophersStone.isTagged(item, "FUSION");
+					}
+				)[0];
+		}
 		return element.content.toLowerCase() == "return";
 	}
 
@@ -1408,6 +1420,7 @@ function returnCommand() {
 					processed);
 		
 		reference.isReturning = true;
+		reference.fusion.returnValue = reference.returnValue;
 
 		return reference.returnValue;
 	}
@@ -4810,6 +4823,7 @@ function executeFunction(element, fusion, state, argumentsCommand, returnCommand
 
 	let currentArguments = argumentsCommand.args;
 	let currentState = state.data;
+	let currentReturnValue = fusion.returnValue;
 
 	argumentsCommand.args = argumentsList;
 	state.data = [currentState[0], [], []];
@@ -4834,6 +4848,8 @@ function executeFunction(element, fusion, state, argumentsCommand, returnCommand
 
 	argumentsCommand.args = currentArguments;
 	state.data = currentState;
+	fusion.returnValue = currentReturnValue;
+
 	returnCommand.returnValue = null;
 	returnCommand.isReturning = false;
 
@@ -4960,657 +4976,195 @@ function sortString(string, numerical) {
 	}
 }
 
-// DIRECTIVES
-
-function alternate() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-	
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "alternate") {
-
-			let index = one.getIndex(element);
-			
-			let syntax = directive.header[0].content;
-			
-			for(let i = 0; i < directive.body.length; i++) {
-				
-				try {
-					
-					let document = require(syntax)(directive.body[i].content);
-					
-					for(let j = 0; j < document.children.length; j++) {
-						
-						one.addChild(
-								element.parent,
-								document.children[i],
-								index + i + 1);
-					}
-				}
-				
-				catch(error) {
-					
-				}
-			}
-		}
-	}
-}
-
-function callDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-			
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "call") {
-			
-			let call =
-				getDefinition(
-					directiveUnits,
-					element.children[0].content);
-			
-			if(call != null) {
-				
-				applyArguments(directives, call, element.children[0].children);
-				
-				let start = 0;
-				let end = call.children.length - 1;
-				
-				if(element.children.length == 2) {
-					start = Number(element.children[1].content) - 1;
-					end = start;
-				}
-				
-				if(element.children.length == 3) {
-					start = Number(element.children[1].content) - 1;
-					end = Number(element.children[2].content) - 1;
-				}
-				
-				for(let i = start; i <= end; i++) {
-					
-					one.addChild(
-						element.parent,
-						call.children[i],
-						one.getIndex(element) + (i - start) + 1);
-				}
-			}
-		}
-	}
-}
-
-function defineDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-	
-	this.isDefine = true;
-	this.definitions = [];
-
-	var reference = this;
-			
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "define") {
-
-			let define = one.copyElement(element.children[0]);
-			
-			for(let i = 1; i < element.children.length; i++)
-				one.addChild(define, one.copyElement(element.children[i]));
-			
-			reference.definitions.push(define);
-		}
-	}
-}
-
-function ifDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-			
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "if") {
-			
-			for(let i = 0; i < directive.header.length - 1; i++) {
-				
-				if(!one.equals(directive.header[i], directive.header[i + 1]))
-					return;
-			}
-			
-			let index = one.getIndex(element);
-			
-			for(let i = 0; i < directive.body.length; i++) {
-				
-				one.addChild(
-					element.parent,
-					directive.body[i],
-					index + i + 1);
-			}
-		}
-	}
-}
-
-function forDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-			
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "for") {
-			
-			let body = directive.body;
-			
-			if(directive.header.length == 0)
-				return;
-			
-			let start = 0;
-			let end = 0;
-			
-			if(directive.header.length == 1) {
-				start = 0;
-				end = Number(directive.header[0].content) - 1;
-			}
-			
-			if(directive.header.length == 2) {
-				start = Number(directive.header[0].content) - 1;
-				end = Number(directive.header[1].content) - 1;
-			}
-			
-			let index = one.getIndex(element);
-			
-			for(let i = start; i <= end; i++) {
-				
-				let apply = applyIndex(directives, body, i);
-				
-				for(let j = 0; j < apply.length; j++) {
-					
-					one.addChild(
-						element.parent,
-						apply[i],
-						index + (body.length * (i - start)) + j + 1);
-				}
-			}
-		}
-	}
-}
-
-function importDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-			
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "import") {
-			
-			let define = new defineDirective();
-			
-			for(let i = 0; i < directiveUnits.length; i++) {
-				
-				if(typeof directiveUnits[i].isDefine != undefined) {
-					
-					define = directiveUnits[i];
-					
-					break;
-				}
-			}
-			
-			importDirectives(define, element);
-		}
-	}
-}
-
-function sizeDirective() {
-
-	philosophersStone.abide(this, new onePlus.DirectiveUnit());
-	
-	this.apply = function(directiveUnits, directives, directive) {
-		
-		let element = directive.directive;
-		
-		if(element.content.toLowerCase() == "size") {
-			
-			let call = new one.Element();
-			
-			call.content =
-				"" +
-				getDefinition(
-					directiveUnits,
-					element.children[0].content).children.length;
-			
-			one.addChild(
-					element.parent,
-					call,
-					one.getIndex(element) + 1);
-		}
-	}
-}
-
-// DIRECTIVE UTILITY FUNCTIONS
-	
-function isDirective(directives, element) {
-		
-	for(let i = 0; i < directives.length; i++) {
-		
-		if(directives[i].directive == element)
-			return true;
-	}
-	
-	return false;
-}
-
-function getDefinition(directiveUnits, definition) {
-	
-	let define = new defineDirective();
-	
-	for(let i = 0; i < directiveUnits.length; i++) {
-		
-		if(typeof directiveUnits[i].isDefine != undefined) {
-			
-			define = directiveUnits[i];
-			
-			break;
-		}
-	}
-	
-	for(let i = 0; i < define.definitions.length; i++) {
-		
-		if(definition.equalsIgnoreCase(define.definitions[i].content)) {
-			
-			let element = one.copyElement(define.definitions[i]);
-			element.content = "";
-			
-			return element;
-		}
-	}
-	
-	return null;
-}
-
-function applyArguments(directives, element, args) {
-
-	for(let i = 0; i < element.children.length; i++) {
-		
-		if(isDirective(directives, element.children[i])) {
-			
-			if(element.children[i].content.toLowerCase() == "arguments") {
-				
-				one.addChild(
-					element,
-					one.copyElement(
-						args[
-							Number(
-								element.
-								children.
-								splice(i, 1)[0].
-								children[0].
-								content) - 1]));
-			}
-			
-			continue;
-		}
-		
-		applyArguments(directives, element.children[i], args);
-	}
-}
-	
-function applyIndex(directives, elements, index) {
-	
-	let apply = [];
-	
-	for(let i = 0; i < elements.length; i++) {
-		
-		let copy = new one.Element();
-		copy.content = elements[i].content;
-		
-		if(isDirective(directives, elements[i])) {
-			
-			if(elements[i].content.toLowerCase() == "index")
-				copy.content = "" + index;
-			
-			else {
-				
-				let directive = new onePlus.Directive();
-				directive.directive = copy;
-				
-				directives.push(directive);
-			}
-		}
-		
-		one.addChild(
-			copy,
-			applyIndex(directives, elements[i].children, index));
-		
-		apply.push(copy);
-	}
-	
-	return apply;
-}
-	
-function importDirectives(define, element) {
-	
-	for(let i = 0; i < element.children.length; i++) {
-		
-		let directiveElements = getDirectives(io.open(element.children[i].content));
-		
-		for(let j = 0; j < directiveElements.length; j++) {
-			
-			if(directiveElements[j].directive.content.toLowerCase() == "define") {
-
-				let defineElement = directiveElements[i].directive;
-				let definition = one.copyElement(directiveElements[j].directive.children[0]);
-				
-				for(let k = 1; k < defineElement.children.length; k++)
-					one.addChild(definition, one.copyElement(defineElement.children[k]));
-				
-				define.definitions.push(definition);
-			}
-			
-			if(directiveElements[j].directive.content.toLowerCase() == "import")
-				importDirectives(define, directiveElements[j].directive);
-		}
-	}
-}
-
-function getDirectives(string) {
-	
-	let tokens = onePlus.getTokens(string);
-	let tokenize = tokenizer.tokenize(tokens, string);
-	
-	let nestToken = onePlus.getIndentToken(string);
-	
-	let directives = [];
-	
-	let element = new one.Element();
-	
-	let currentElement = element;
-	
-	let previousNest = 0;
-	let previousElement = element;
-	
-	let baseElements = [];
-	
-	let inLiteralBlock = false;
-	let literalNest = 0;
-	let literalString = "";
-	
-	for(let i = 0; i < tokenize.length;) {
-		
-		let line = onePlus.getLine(tokenize, i);
-		let nest = onePlus.getNest(line, nestToken);
-		
-		if(!inLiteralBlock) {
-			
-			if(nest > previousNest) {
-				
-				baseElements.push(currentElement);
-				
-				currentElement = previousElement;
-			}
-			
-			else if(nest < previousNest) {
-				
-				for(let j = nest; j < previousNest && baseElements.length > 0; j++)
-					currentElement = baseElements.splice(baseElements.length - 1, 1)[0];
-			}
-			
-			previousNest = nest;
-		}
-		
-		let literal =
-				onePlus.isLiteralBlock(line, nest) &&
-				!(inLiteralBlock && nest != literalNest);
-		
-		if(literal) {
-			inLiteralBlock = !inLiteralBlock;
-			literalNest = nest;
-		}
-		
-		if(inLiteralBlock) {
-			
-			if(!literal) {
-				
-				for(let j = literalNest + 1; j < line.length; j++)
-					literalString += line[j];
-				
-				literalString += '\n';
-			}
-		}
-		
-		else if(literal) {
-			
-			previousElement = onePlus.cropElement(onePlus.getElement(literalString), true);
-			one.addChild(currentElement, previousElement);
-			
-			literalString = "";
-		}
-		
-		else if(line.length > 0)
-			previousElement = onePlus.processLine(tokens, line, currentElement, directives);
-		
-		i += line.length + 1;
-	}
-	
-	return onePlus.generateDirectives(directives);
-}
-
 // EXPORT FUNCTION
 
 module.exports = function(fusion) {
 
-	if(fusion != null) {
+	let use = getStone(fusion, "Use");
 
-		let use = getStone(fusion, "Use");
+	philosophersStone.disconnect(fusion, use, true);
 
-		philosophersStone.disconnect(fusion, use, true);
+	philosophersStone.connect(fusion, new useCommand(), [], true);
 
-		philosophersStone.connect(fusion, new useCommand(), [], true);
+	philosophersStone.connect(fusion, new state(), [], true);
+	philosophersStone.connect(fusion, new priority(), [], true);
 
-		philosophersStone.connect(fusion, new state(), [], true);
-		philosophersStone.connect(fusion, new priority(), [], true);
+	philosophersStone.connect(fusion, new literal(), [], true);
+	philosophersStone.connect(fusion, new variable(), [], true);
 
-		philosophersStone.connect(fusion, new literal(), [], true);
-		philosophersStone.connect(fusion, new variable(), [], true);
+	philosophersStone.connect(fusion, new define(), [], true);
+	philosophersStone.connect(fusion, new global(), [], true);
+	philosophersStone.connect(fusion, new doCommand(), [], true);
+	philosophersStone.connect(fusion, new argumentsCommand(), [], true);
+	philosophersStone.connect(fusion, new thisCommand(), [], true);
+	philosophersStone.connect(fusion, new newCommand(), [], true);
+	philosophersStone.connect(fusion, new nullCommand(), [], true);
+	philosophersStone.connect(fusion, new literalCommand(), [], true);
+	philosophersStone.connect(fusion, new type(), [], true);
+	philosophersStone.connect(fusion, new form(), [], true);
+	philosophersStone.connect(fusion, new isCommand(), [], true);
+	philosophersStone.connect(fusion, new isVariable(), [], true);
+	philosophersStone.connect(fusion, new destroy(), [], true);
+	philosophersStone.connect(fusion, new variables(), [], true);
+	philosophersStone.connect(fusion, new getCode(), [], true);
+	philosophersStone.connect(fusion, new getCodeIndex(), [], true);
+	philosophersStone.connect(fusion, new disable(), [], true);
+	philosophersStone.connect(fusion, new enable(), [], true);
+	philosophersStone.connect(fusion, new lockDown(), [], true);
+	philosophersStone.connect(fusion, new reflect(), [], true);
+	philosophersStone.connect(fusion, new interpreter(), [], true);
+	philosophersStone.connect(fusion, new listen(), [], true);
+	philosophersStone.connect(fusion, new be(), [], true);
+	philosophersStone.connect(fusion, new call(), [], true);
+	philosophersStone.connect(fusion, new direct(), [], true);
+	
+	philosophersStone.connect(fusion, new returnCommand(), [], true);
+	philosophersStone.connect(fusion, new catchCommand(), [], true);
+	philosophersStone.connect(fusion, new catchEnabled(), [], true);
+	philosophersStone.connect(fusion, new scope(), [], true);
+	philosophersStone.connect(fusion, new execute(), [], true);
+	philosophersStone.connect(fusion, new breakCommand(), [], true);
+	philosophersStone.connect(fusion, new elseCommand(), [], true);
+	philosophersStone.connect(fusion, new loop(), [], true);
+	philosophersStone.connect(fusion, new wait(), [], true);
+	philosophersStone.connect(fusion, new run(), [], true);
+	philosophersStone.connect(fusion, new automaticCatch(), [], true);
+	philosophersStone.connect(fusion, new throwCommand(), [], true);
+	philosophersStone.connect(fusion, new exit(), [], true);
+	philosophersStone.connect(fusion, new exception(), [], true);
+	philosophersStone.connect(fusion, new retrieve(), [], true);
+	philosophersStone.connect(fusion, new shift(), [], true);
+	philosophersStone.connect(fusion, new flip(), [], true);
+	philosophersStone.connect(fusion, new block(), [], true);
+	philosophersStone.connect(fusion, new ternary(), [], true);
+	philosophersStone.connect(fusion, new isolate(), [], true);
+	philosophersStone.connect(fusion, new vanish(), [], true);
 
-		philosophersStone.connect(fusion, new define(), [], true);
-		philosophersStone.connect(fusion, new global(), [], true);
-		philosophersStone.connect(fusion, new doCommand(), [], true);
-		philosophersStone.connect(fusion, new argumentsCommand(), [], true);
-		philosophersStone.connect(fusion, new thisCommand(), [], true);
-		philosophersStone.connect(fusion, new newCommand(), [], true);
-		philosophersStone.connect(fusion, new nullCommand(), [], true);
-		philosophersStone.connect(fusion, new literalCommand(), [], true);
-		philosophersStone.connect(fusion, new type(), [], true);
-		philosophersStone.connect(fusion, new form(), [], true);
-		philosophersStone.connect(fusion, new isCommand(), [], true);
-		philosophersStone.connect(fusion, new isVariable(), [], true);
-		philosophersStone.connect(fusion, new destroy(), [], true);
-		philosophersStone.connect(fusion, new variables(), [], true);
-		philosophersStone.connect(fusion, new getCode(), [], true);
-		philosophersStone.connect(fusion, new getCodeIndex(), [], true);
-		philosophersStone.connect(fusion, new disable(), [], true);
-		philosophersStone.connect(fusion, new enable(), [], true);
-		philosophersStone.connect(fusion, new lockDown(), [], true);
-		philosophersStone.connect(fusion, new reflect(), [], true);
-		philosophersStone.connect(fusion, new interpreter(), [], true);
-		philosophersStone.connect(fusion, new listen(), [], true);
-		philosophersStone.connect(fusion, new be(), [], true);
-		philosophersStone.connect(fusion, new call(), [], true);
-		philosophersStone.connect(fusion, new direct(), [], true);
-		
-		philosophersStone.connect(fusion, new returnCommand(), [], true);
-		philosophersStone.connect(fusion, new catchCommand(), [], true);
-		philosophersStone.connect(fusion, new catchEnabled(), [], true);
-		philosophersStone.connect(fusion, new scope(), [], true);
-		philosophersStone.connect(fusion, new execute(), [], true);
-		philosophersStone.connect(fusion, new breakCommand(), [], true);
-		philosophersStone.connect(fusion, new elseCommand(), [], true);
-		philosophersStone.connect(fusion, new loop(), [], true);
-		philosophersStone.connect(fusion, new wait(), [], true);
-		philosophersStone.connect(fusion, new run(), [], true);
-		philosophersStone.connect(fusion, new automaticCatch(), [], true);
-		philosophersStone.connect(fusion, new throwCommand(), [], true);
-		philosophersStone.connect(fusion, new exit(), [], true);
-		philosophersStone.connect(fusion, new exception(), [], true);
-		philosophersStone.connect(fusion, new retrieve(), [], true);
-		philosophersStone.connect(fusion, new shift(), [], true);
-		philosophersStone.connect(fusion, new flip(), [], true);
-		philosophersStone.connect(fusion, new block(), [], true);
-		philosophersStone.connect(fusion, new ternary(), [], true);
-		philosophersStone.connect(fusion, new isolate(), [], true);
-		philosophersStone.connect(fusion, new vanish(), [], true);
+	philosophersStone.connect(fusion, new log(), [], true);
+	philosophersStone.connect(fusion, new logLine(), [], true);
+	philosophersStone.connect(fusion, new logError(), [], true);
+	philosophersStone.connect(fusion, new logLineError(), [], true);
+	philosophersStone.connect(fusion, new input(), [], true);
+	
+	philosophersStone.connect(fusion, new operatingSystem(), [], true);
+	philosophersStone.connect(fusion, new time(), [], true);
+	philosophersStone.connect(fusion, new year(), [], true);
+	philosophersStone.connect(fusion, new month(), [], true);
+	philosophersStone.connect(fusion, new day(), [], true);
+	philosophersStone.connect(fusion, new hour(), [], true);
+	philosophersStone.connect(fusion, new minute(), [], true);
+	philosophersStone.connect(fusion, new second(), [], true);
+	philosophersStone.connect(fusion, new weekday(), [], true);
+	
+	philosophersStone.connect(fusion, new open(), [], true);
+	philosophersStone.connect(fusion, new save(), [], true);
+	philosophersStone.connect(fusion, new deleteCommand(), [], true);
+	philosophersStone.connect(fusion, new directory(), [], true);
+	philosophersStone.connect(fusion, new localDirectory(), [], true);
+	philosophersStone.connect(fusion, new rootDirectories(), [], true);
+	philosophersStone.connect(fusion, new parentDirectory(), [], true);
+	philosophersStone.connect(fusion, new absolutePath(), [], true);
+	philosophersStone.connect(fusion, new createDirectory(), [], true);
+	philosophersStone.connect(fusion, new isDirectory(), [], true);
+	philosophersStone.connect(fusion, new fileExists(), [], true);
+	philosophersStone.connect(fusion, new separator(), [], true);
+	philosophersStone.connect(fusion, new isHidden(), [], true);
+	philosophersStone.connect(fusion, new fileSize(), [], true);
+	philosophersStone.connect(fusion, new rename(), [], true);
+	philosophersStone.connect(fusion, new pathSeparator(), [], true);
+	philosophersStone.connect(fusion, new sourceWorkspaces(), [], true);
+	philosophersStone.connect(fusion, new buildWorkspace(), [], true);
 
-		philosophersStone.connect(fusion, new log(), [], true);
-		philosophersStone.connect(fusion, new logLine(), [], true);
-		philosophersStone.connect(fusion, new logError(), [], true);
-		philosophersStone.connect(fusion, new logLineError(), [], true);
-		philosophersStone.connect(fusion, new input(), [], true);
-		
-		philosophersStone.connect(fusion, new operatingSystem(), [], true);
-		philosophersStone.connect(fusion, new time(), [], true);
-		philosophersStone.connect(fusion, new year(), [], true);
-		philosophersStone.connect(fusion, new month(), [], true);
-		philosophersStone.connect(fusion, new day(), [], true);
-		philosophersStone.connect(fusion, new hour(), [], true);
-		philosophersStone.connect(fusion, new minute(), [], true);
-		philosophersStone.connect(fusion, new second(), [], true);
-		philosophersStone.connect(fusion, new weekday(), [], true);
-		
-		philosophersStone.connect(fusion, new open(), [], true);
-		philosophersStone.connect(fusion, new save(), [], true);
-		philosophersStone.connect(fusion, new deleteCommand(), [], true);
-		philosophersStone.connect(fusion, new directory(), [], true);
-		philosophersStone.connect(fusion, new localDirectory(), [], true);
-		philosophersStone.connect(fusion, new rootDirectories(), [], true);
-		philosophersStone.connect(fusion, new parentDirectory(), [], true);
-		philosophersStone.connect(fusion, new absolutePath(), [], true);
-		philosophersStone.connect(fusion, new createDirectory(), [], true);
-		philosophersStone.connect(fusion, new isDirectory(), [], true);
-		philosophersStone.connect(fusion, new fileExists(), [], true);
-		philosophersStone.connect(fusion, new separator(), [], true);
-		philosophersStone.connect(fusion, new isHidden(), [], true);
-		philosophersStone.connect(fusion, new fileSize(), [], true);
-		philosophersStone.connect(fusion, new rename(), [], true);
-		philosophersStone.connect(fusion, new pathSeparator(), [], true);
-		philosophersStone.connect(fusion, new sourceWorkspaces(), [], true);
-		philosophersStone.connect(fusion, new buildWorkspace(), [], true);
-
-		philosophersStone.connect(fusion, new list(), [], true);
-		philosophersStone.connect(fusion, new size(), [], true);
-		philosophersStone.connect(fusion, new at(), [], true);
-		philosophersStone.connect(fusion, new append(), [], true);
-		philosophersStone.connect(fusion, new set(), [], true);
-		philosophersStone.connect(fusion, new insert(), [], true);
-		philosophersStone.connect(fusion, new remove(), [], true);
-		philosophersStone.connect(fusion, new concatenate(), [], true);
-		philosophersStone.connect(fusion, new crop(), [], true);
-		philosophersStone.connect(fusion, new contains(), [], true);
-		philosophersStone.connect(fusion, new index(), [], true);
-		philosophersStone.connect(fusion, new count(), [], true);
-		philosophersStone.connect(fusion, new cut(), [], true);
-		philosophersStone.connect(fusion, new reverse(), [], true);
-		philosophersStone.connect(fusion, new convertSequenceCommand(), [], true);
-		philosophersStone.connect(fusion, new listToElement(), [], true);
-		philosophersStone.connect(fusion, new elementToList(), [], true);
-		philosophersStone.connect(fusion, new tokenize(), [], true);
-		philosophersStone.connect(fusion, new appendAll(), [], true);
-		philosophersStone.connect(fusion, new insertAll(), [], true);
-		philosophersStone.connect(fusion, new indexes(), [], true);
-		philosophersStone.connect(fusion, new swap(), [], true);
-		philosophersStone.connect(fusion, new sortAlphabetical(), [], true);
-		philosophersStone.connect(fusion, new sortNumerical(), [], true);
-		philosophersStone.connect(fusion, new isSortedAlphabetical(), [], true);
-		philosophersStone.connect(fusion, new isSortedNumerical(), [], true);
-		philosophersStone.connect(fusion, new keyIndex(), [], true);
-		philosophersStone.connect(fusion, new keyIndexes(), [], true);
-		philosophersStone.connect(fusion, new replace(), [], true);
-		philosophersStone.connect(fusion, new rank(), [], true);
-		philosophersStone.connect(fusion, new shuffle(), [], true);
-		philosophersStone.connect(fusion, new setAlias(), [], true);
-		philosophersStone.connect(fusion, new getByAlias(), [], true);
-		philosophersStone.connect(fusion, new getAliasIndices(), [], true);
-		philosophersStone.connect(fusion, new getAlias(), [], true);
-		
-		philosophersStone.connect(fusion, new characterToNumber(), [], true);
-		philosophersStone.connect(fusion, new numberToCharacter(), [], true);
-		philosophersStone.connect(fusion, new upper(), [], true);
-		philosophersStone.connect(fusion, new lower(), [], true);
-		philosophersStone.connect(fusion, new trim(), [], true);
-		philosophersStone.connect(fusion, new patternMatch(), [], true);
-		
-		philosophersStone.connect(fusion, new not(), [], true);
-		philosophersStone.connect(fusion, new is(), [], true);
-		philosophersStone.connect(fusion, new equal(), [], true);
-		philosophersStone.connect(fusion, new and(), [], true);
-		philosophersStone.connect(fusion, new or(), [], true);
-		philosophersStone.connect(fusion, new exclusiveOr(), [], true);
-		philosophersStone.connect(fusion, new greater(), [], true);
-		philosophersStone.connect(fusion, new greaterOrEqual(), [], true);
-		philosophersStone.connect(fusion, new less(), [], true);
-		philosophersStone.connect(fusion, new lessOrEqual(), [], true);
-		
-		philosophersStone.connect(fusion, new add(), [], true);
-		philosophersStone.connect(fusion, new subtract(), [], true);
-		philosophersStone.connect(fusion, new multiply(), [], true);
-		philosophersStone.connect(fusion, new divide(), [], true);
-		philosophersStone.connect(fusion, new modulus(), [], true);
-		philosophersStone.connect(fusion, new random(), [], true);
-		philosophersStone.connect(fusion, new negative(), [], true);
-		philosophersStone.connect(fusion, new power(), [], true);
-		philosophersStone.connect(fusion, new sine(), [], true);
-		philosophersStone.connect(fusion, new cosine(), [], true);
-		philosophersStone.connect(fusion, new tangent(), [], true);
-		philosophersStone.connect(fusion, new squareRoot(), [], true);
-		philosophersStone.connect(fusion, new naturalLogarithm(), [], true);
-		philosophersStone.connect(fusion, new floor(), [], true);
-		philosophersStone.connect(fusion, new ceiling(), [], true);
-		philosophersStone.connect(fusion, new toRadians(), [], true);
-		philosophersStone.connect(fusion, new toDegrees(), [], true);
-		philosophersStone.connect(fusion, new absoluteValue(), [], true);
-		philosophersStone.connect(fusion, new infinity(), [], true);
-		philosophersStone.connect(fusion, new arcSine(), [], true);
-		philosophersStone.connect(fusion, new arcCosine(), [], true);
-		philosophersStone.connect(fusion, new arcTangent(), [], true);
-		philosophersStone.connect(fusion, new hyperbolicSine(), [], true);
-		philosophersStone.connect(fusion, new hyperbolicCosine(), [], true);
-		philosophersStone.connect(fusion, new hyperbolicTangent(), [], true);
-		philosophersStone.connect(fusion, new theta(), [], true);
-		philosophersStone.connect(fusion, new maximum(), [], true);
-		philosophersStone.connect(fusion, new minimum(), [], true);
-		philosophersStone.connect(fusion, new mean(), [], true);
-		philosophersStone.connect(fusion, new median(), [], true);
-		philosophersStone.connect(fusion, new range(), [], true);
-		philosophersStone.connect(fusion, new summation(), [], true);
-		philosophersStone.connect(fusion, new decimalToBinary(), [], true);
-		philosophersStone.connect(fusion, new decimalToHexadecimal(), [], true);
-		philosophersStone.connect(fusion, new binaryToDecimal(), [], true);
-		philosophersStone.connect(fusion, new hexadecimalToDecimal(), [], true);
-		philosophersStone.connect(fusion, new binaryToHexadecimal(), [], true);
-		philosophersStone.connect(fusion, new hexadecimalToBinary(), [], true);
-	}
-
-	else {
-
-		let directives = [
-			new alternate(),
-			new callDirective(),
-			new defineDirective(),
-			new forDirective(),
-			new ifDirective(),
-			new importDirective(),
-			new sizeDirective()
-		];
-		
-		return directives;
-	}
+	philosophersStone.connect(fusion, new list(), [], true);
+	philosophersStone.connect(fusion, new size(), [], true);
+	philosophersStone.connect(fusion, new at(), [], true);
+	philosophersStone.connect(fusion, new append(), [], true);
+	philosophersStone.connect(fusion, new set(), [], true);
+	philosophersStone.connect(fusion, new insert(), [], true);
+	philosophersStone.connect(fusion, new remove(), [], true);
+	philosophersStone.connect(fusion, new concatenate(), [], true);
+	philosophersStone.connect(fusion, new crop(), [], true);
+	philosophersStone.connect(fusion, new contains(), [], true);
+	philosophersStone.connect(fusion, new index(), [], true);
+	philosophersStone.connect(fusion, new count(), [], true);
+	philosophersStone.connect(fusion, new cut(), [], true);
+	philosophersStone.connect(fusion, new reverse(), [], true);
+	philosophersStone.connect(fusion, new convertSequenceCommand(), [], true);
+	philosophersStone.connect(fusion, new listToElement(), [], true);
+	philosophersStone.connect(fusion, new elementToList(), [], true);
+	philosophersStone.connect(fusion, new tokenize(), [], true);
+	philosophersStone.connect(fusion, new appendAll(), [], true);
+	philosophersStone.connect(fusion, new insertAll(), [], true);
+	philosophersStone.connect(fusion, new indexes(), [], true);
+	philosophersStone.connect(fusion, new swap(), [], true);
+	philosophersStone.connect(fusion, new sortAlphabetical(), [], true);
+	philosophersStone.connect(fusion, new sortNumerical(), [], true);
+	philosophersStone.connect(fusion, new isSortedAlphabetical(), [], true);
+	philosophersStone.connect(fusion, new isSortedNumerical(), [], true);
+	philosophersStone.connect(fusion, new keyIndex(), [], true);
+	philosophersStone.connect(fusion, new keyIndexes(), [], true);
+	philosophersStone.connect(fusion, new replace(), [], true);
+	philosophersStone.connect(fusion, new rank(), [], true);
+	philosophersStone.connect(fusion, new shuffle(), [], true);
+	philosophersStone.connect(fusion, new setAlias(), [], true);
+	philosophersStone.connect(fusion, new getByAlias(), [], true);
+	philosophersStone.connect(fusion, new getAliasIndices(), [], true);
+	philosophersStone.connect(fusion, new getAlias(), [], true);
+	
+	philosophersStone.connect(fusion, new characterToNumber(), [], true);
+	philosophersStone.connect(fusion, new numberToCharacter(), [], true);
+	philosophersStone.connect(fusion, new upper(), [], true);
+	philosophersStone.connect(fusion, new lower(), [], true);
+	philosophersStone.connect(fusion, new trim(), [], true);
+	philosophersStone.connect(fusion, new patternMatch(), [], true);
+	
+	philosophersStone.connect(fusion, new not(), [], true);
+	philosophersStone.connect(fusion, new is(), [], true);
+	philosophersStone.connect(fusion, new equal(), [], true);
+	philosophersStone.connect(fusion, new and(), [], true);
+	philosophersStone.connect(fusion, new or(), [], true);
+	philosophersStone.connect(fusion, new exclusiveOr(), [], true);
+	philosophersStone.connect(fusion, new greater(), [], true);
+	philosophersStone.connect(fusion, new greaterOrEqual(), [], true);
+	philosophersStone.connect(fusion, new less(), [], true);
+	philosophersStone.connect(fusion, new lessOrEqual(), [], true);
+	
+	philosophersStone.connect(fusion, new add(), [], true);
+	philosophersStone.connect(fusion, new subtract(), [], true);
+	philosophersStone.connect(fusion, new multiply(), [], true);
+	philosophersStone.connect(fusion, new divide(), [], true);
+	philosophersStone.connect(fusion, new modulus(), [], true);
+	philosophersStone.connect(fusion, new random(), [], true);
+	philosophersStone.connect(fusion, new negative(), [], true);
+	philosophersStone.connect(fusion, new power(), [], true);
+	philosophersStone.connect(fusion, new sine(), [], true);
+	philosophersStone.connect(fusion, new cosine(), [], true);
+	philosophersStone.connect(fusion, new tangent(), [], true);
+	philosophersStone.connect(fusion, new squareRoot(), [], true);
+	philosophersStone.connect(fusion, new naturalLogarithm(), [], true);
+	philosophersStone.connect(fusion, new floor(), [], true);
+	philosophersStone.connect(fusion, new ceiling(), [], true);
+	philosophersStone.connect(fusion, new toRadians(), [], true);
+	philosophersStone.connect(fusion, new toDegrees(), [], true);
+	philosophersStone.connect(fusion, new absoluteValue(), [], true);
+	philosophersStone.connect(fusion, new infinity(), [], true);
+	philosophersStone.connect(fusion, new arcSine(), [], true);
+	philosophersStone.connect(fusion, new arcCosine(), [], true);
+	philosophersStone.connect(fusion, new arcTangent(), [], true);
+	philosophersStone.connect(fusion, new hyperbolicSine(), [], true);
+	philosophersStone.connect(fusion, new hyperbolicCosine(), [], true);
+	philosophersStone.connect(fusion, new hyperbolicTangent(), [], true);
+	philosophersStone.connect(fusion, new theta(), [], true);
+	philosophersStone.connect(fusion, new maximum(), [], true);
+	philosophersStone.connect(fusion, new minimum(), [], true);
+	philosophersStone.connect(fusion, new mean(), [], true);
+	philosophersStone.connect(fusion, new median(), [], true);
+	philosophersStone.connect(fusion, new range(), [], true);
+	philosophersStone.connect(fusion, new summation(), [], true);
+	philosophersStone.connect(fusion, new decimalToBinary(), [], true);
+	philosophersStone.connect(fusion, new decimalToHexadecimal(), [], true);
+	philosophersStone.connect(fusion, new binaryToDecimal(), [], true);
+	philosophersStone.connect(fusion, new hexadecimalToDecimal(), [], true);
+	philosophersStone.connect(fusion, new binaryToHexadecimal(), [], true);
+	philosophersStone.connect(fusion, new hexadecimalToBinary(), [], true);
 };

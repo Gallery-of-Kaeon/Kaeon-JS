@@ -1,0 +1,14 @@
+ONE Utilities
+
+	Philosophy
+
+		-
+			The ONE utilities application is a command line developer tool that comes with Kaeon
+			United.
+
+			It may will take the name of the operation being performed as the first command line
+			argument along with any additional arguments required by said operation.
+
+			It can parse ONE+ with the universal preprocessor to ONE, run the universal
+			preprocessor on miscellaneous files, and run Kaeon FUSION code.
+		-

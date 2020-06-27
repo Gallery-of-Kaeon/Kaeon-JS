@@ -1,0 +1,18 @@
+{
+  "name": "kaeon-united",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "readline-sync": "^1.4.9",
+    "node-cmd": "^3.0.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "description": ""
+}

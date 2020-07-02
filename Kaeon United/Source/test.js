@@ -1,0 +1,1 @@
+(] JS [> console.log("module.exports = function() { this.x = 0; console.log(123); };") <)

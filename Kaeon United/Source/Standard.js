@@ -107,13 +107,43 @@ function useCommand() {
 
 // UTILITY STONES
 
+function getState(element) {
+
+	while(element.stateData == null) {
+
+		if(element.parent == null) {
+
+			element.stateData = [[], [], []]; // [Global, Base Scope, Sub Scope 1, ..., Sub Scope N]
+
+			break;
+		}
+
+		element = element.parent;
+	}
+
+	return element.stateData;
+}
+
+function setState(element, data) {
+
+	while(element.stateData == null) {
+
+		if(element.parent == null)
+			break;
+
+		element = element.parent;
+	}
+
+	element.stateData = data;
+}
+
 function state() {
 
 	philosophersStone.abide(this, new fusion.FUSIONUnit());
 
 	this.tags.push("State");
 
-	this.data = [[], [], []]; // [Global, Base Scope, Sub Scope 1, ..., Sub Scope N]
+	// this.data = [[], [], []]; // [Global, Base Scope, Sub Scope 1, ..., Sub Scope N]
 
 	var reference = this;
 
@@ -123,23 +153,23 @@ function state() {
 	
 	this.trickleDown = function(element) {
 		
-		reference.push();
+		reference.push(element);
 		
 		return true;
 	}
 	
 	this.jump = function(element, processed) {
 		
-		reference.pop();
+		reference.pop(element);
 		
 		return null;
 	}
 
-	this.getAlias = function(alias, scope /* true = global ; false = local */) {
+	this.getAlias = function(element, alias, scope /* true = global ; false = local */) {
 
 		let lower = alias.toLowerCase();
 
-		let start = reference.data.length - 1;
+		let start = getState(element).length - 1;
 		let end = 0;
 
 		if(scope != null) {
@@ -153,21 +183,21 @@ function state() {
 
 		for(let i = start; i >= end; i--) {
 
-			for(let j = reference.data[i].length - 1; j >= 0; j--) {
+			for(let j = getState(element)[i].length - 1; j >= 0; j--) {
 				
-				if(reference.data[i][j][0].toLowerCase() == lower)
-					return reference.data[i][j];
+				if(getState(element)[i][j][0].toLowerCase() == lower)
+					return getState(element)[i][j];
 			}
 		}
 
 		return null;
 	}
 
-	this.getAllAliases = function(scope /* true = global ; false = local */) {
+	this.getAllAliases = function(element, scope /* true = global ; false = local */) {
 
 		let aliases = [];
 
-		let start = reference.data.length - 1;
+		let start = getState(element).length - 1;
 		let end = 0;
 
 		if(scope != null) {
@@ -181,21 +211,21 @@ function state() {
 
 		for(let i = start; i >= end; i--) {
 
-			for(let j = reference.data[i].length - 1; j >= 0; j--) {
+			for(let j = getState(element)[i].length - 1; j >= 0; j--) {
 
-				if(!aliases.includes(reference.data[i][j]))
-					aliases.push(reference.data[i][j]);
+				if(!aliases.includes(getState(element)[i][j]))
+					aliases.push(getState(element)[i][j]);
 			}
 		}
 
 		return aliases;
 	}
 
-	this.delete = function(alias, scope /* true = global ; false = local */) {
+	this.delete = function(element, alias, scope /* true = global ; false = local */) {
 
 		let lower = alias.toLowerCase();
 
-		let start = reference.data.length - 1;
+		let start = getState(element).length - 1;
 		let end = 0;
 
 		if(scope != null) {
@@ -209,11 +239,11 @@ function state() {
 
 		for(let i = start; i >= end; i--) {
 
-			for(let j = reference.data[i].length - 1; j >= 0; j--) {
+			for(let j = getState(element)[i].length - 1; j >= 0; j--) {
 				
-				if(reference.data[i][j][0].toLowerCase() == lower) {
+				if(getState(element)[i][j][0].toLowerCase() == lower) {
 
-					reference.data[i].splice(j, 1);
+					getState(element)[i].splice(j, 1);
 
 					return;
 				}
@@ -223,57 +253,57 @@ function state() {
 		return null;
 	}
 
-	this.has = function(alias, scope /* true = global ; false = local */) {
-		return reference.getAlias(alias, scope) != null;
+	this.has = function(element, alias, scope /* true = global ; false = local */) {
+		return reference.getAlias(element, alias, scope) != null;
 	}
 
-	this.get = function(alias) {
+	this.get = function(element, alias) {
 		
-		let item = reference.getAlias(alias);
+		let item = reference.getAlias(element, alias);
 
 		return item != null ? item[1] : null;
 	}
 
-	this.set = function(alias, value) {
+	this.set = function(element, alias, value) {
 
-		let item = reference.getAlias(alias);
+		let item = reference.getAlias(element, alias);
 
 		if(item == null)
-			reference.data[reference.data.length - 2].push([alias, value]);
+			getState(element)[getState(element).length - 2].push([alias, value]);
 
 		else
 			item[1] = value
 	}
 
-	this.globalize = function(alias, value) {
+	this.globalize = function(element, alias) {
 
-		let item = reference.getAlias(alias);
+		let item = reference.getAlias(element, alias);
 
-		reference.delete(alias);
+		reference.delete(element, alias);
 
 		if(item != null)
-			reference.data[0].push(item);
+			getState(element)[0].push(item);
 		
 		else
-			reference.data[0].push([alias, null]);
+			getState(element)[0].push([alias, null]);
 	}
 
 	this.serialize = function() {
-		return reference.data.slice(0);
+		return getState(element).slice(0);
 	}
 
-	this.deserialize = function(data) {
-		reference.data = data.slice(0);
+	this.deserialize = function(element, data) {
+		setState(element, data.slice(0));
 	}
 
-	this.push = function() {
-		reference.data.push([]);
+	this.push = function(element) {
+		getState(element).push([]);
 	}
 
-	this.pop = function() {
+	this.pop = function(element) {
 		
-		if(reference.data.length > 2)
-			reference.data.splice(reference.data.length - 1, 1);
+		if(getState(element).length > 2)
+			getState(element).splice(getState(element).length - 1, 1);
 	}
 }
 
@@ -406,7 +436,7 @@ function variable() {
 				}
 			}
 
-			return element.children.length > 0 || reference.state.has(element.content);
+			return element.children.length > 0 || reference.state.has(element, element.content);
 		}
 
 		catch(error) {
@@ -419,9 +449,9 @@ function variable() {
 	this.process = function(element, processed) {
 
 		if(processed.length > 0)
-			reference.state.set(element.content, processed[0]);
+			reference.state.set(element, element.content, processed[0]);
 
-		return reference.state.get(element.content);
+		return reference.state.get(element, element.content);
 	}
 }
 
@@ -482,7 +512,7 @@ function global() {
 	this.process = function(element, processed) {
 
 		for(let i = 0; i < element.children.length; i++)
-			reference.state.globalize(element.children[i].content);
+			reference.state.globalize(element, element.children[i].content);
 
 		return null;
 	}
@@ -493,9 +523,6 @@ function doCommand() {
 	philosophersStone.abide(this, new fusion.FUSIONUnit());
 
 	this.fusion = null;
-	this.state = null;
-	this.argumentsCommand = null;
-	this.returnCommand = null;
 
 	var reference = this;
 
@@ -507,21 +534,6 @@ function doCommand() {
 				reference.fusion == null ?
 					getStone(reference, "FUSION") :
 					reference.fusion;
-
-			reference.state =
-				reference.state == null ?
-					getStone(reference, "State") :
-					reference.state;
-
-			reference.argumentsCommand =
-				reference.argumentsCommand == null ?
-					getStone(reference, "Arguments") :
-					reference.argumentsCommand;
-
-			reference.returnCommand =
-				reference.returnCommand == null ?
-					getStone(reference, "Return") :
-					reference.returnCommand;
 		}
 
 		catch(error) {
@@ -536,9 +548,6 @@ function doCommand() {
 		return executeFunction(
 			element,
 			reference.fusion,
-			reference.state,
-			reference.argumentsCommand,
-			reference.returnCommand,
 			one.toElement(processed[0]),
 			processed.length > 1 ? processed[1] : null
 		);
@@ -560,6 +569,10 @@ function argumentsCommand() {
 	}
 
 	this.process = function(element, processed) {
+
+		if(getState(element).args != null)
+			return getState(element).args;
+
 		return reference.args == null ? process.argv.slice(2) : reference.args;
 	}
 }
@@ -589,7 +602,7 @@ function thisCommand() {
 	}
 
 	this.process = function(element, processed) {
-		return reference.state.serialize();
+		return reference.state.serialize(element);
 	}
 }
 
@@ -765,7 +778,7 @@ function isVariable() {
 		if(processed.length > 1)
 			scope = ("" + processed[1]).toLowerCase() == "true";
 
-		return reference.state.has("" + processed[0], scope);
+		return reference.state.has(element, "" + processed[0], scope);
 	}
 }
 
@@ -807,7 +820,7 @@ function destroy() {
 		if(processed.length > 1)
 			scope = ("" + processed[1]).toLowerCase() == "true";
 
-		return reference.state.delete("" + processed[0], scope);
+		return reference.state.delete(element, "" + processed[0], scope);
 	}
 }
 
@@ -849,7 +862,7 @@ function variables() {
 		if(processed.length > 1)
 			scope = ("" + processed[1]).toLowerCase() == "true";
 		
-		let aliases = reference.state.getAllAliases(scope);
+		let aliases = reference.state.getAllAliases(element, scope);
 		let value = [];
 
 		for(let i = aliases.length - 1; i >= 0; i--)
@@ -1024,9 +1037,6 @@ function reflect() {
 	philosophersStone.abide(this, new fusion.FUSIONUnit());
 
 	this.fusionStone = null;
-	this.state = null;
-	this.argumentsCommand = null;
-	this.returnCommand = null;
 
 	var reference = this;
 
@@ -1038,21 +1048,6 @@ function reflect() {
 				reference.fusionStone == null ?
 					getStone(reference, "FUSION") :
 					reference.fusionStone;
-
-			reference.state =
-				reference.state == null ?
-					getStone(reference, "State") :
-					reference.state;
-
-			reference.argumentsCommand =
-				reference.argumentsCommand == null ?
-					getStone(reference, "Arguments") :
-					reference.argumentsCommand;
-
-			reference.returnCommand =
-				reference.returnCommand == null ?
-					getStone(reference, "Return") :
-					reference.returnCommand;
 		}
 
 		catch(error) {
@@ -1086,9 +1081,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(deny),
 				[one.toList(element)],
 				unit);
@@ -1104,9 +1096,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(verify),
 				[one.toList(element)],
 				unit);
@@ -1122,9 +1111,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(trickleDown),
 				[one.toList(element)],
 				unit);
@@ -1140,9 +1126,6 @@ function reflect() {
 			return executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(processFunction),
 				[one.toList(element), processed],
 				unit);
@@ -1156,9 +1139,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(terminate),
 				[one.toList(element), processed],
 				unit);
@@ -1174,9 +1154,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(isAdded),
 				[one.toList(element), processed],
 				unit);
@@ -1192,9 +1169,6 @@ function reflect() {
 			let result = executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(jump),
 				[one.toList(element), processed],
 				unit);
@@ -1210,9 +1184,6 @@ function reflect() {
 			executeFunction(
 				element,
 				innerReference.reference.fusionStone,
-				innerReference.reference.state,
-				innerReference.reference.argumentsCommand,
-				innerReference.reference.returnCommand,
 				one.toElement(handleError),
 				[one.toList(element), processed, exception],
 				unit);
@@ -1288,7 +1259,7 @@ function listen() {
 			lists[i].push(packet);
 		
 		return null;
-}
+	}
 }
 
 function be() {
@@ -1318,7 +1289,7 @@ function be() {
 	this.process = function(element, processed) {
 
 		if(Array.isArray(processed[0]))
-			reference.state.deserialize(processed[0]);
+			reference.state.deserialize(element, processed[0]);
 
 		return null;
 	}
@@ -1392,6 +1363,10 @@ function returnCommand() {
 	var reference = this;
 
 	this.deny = function(element) {
+
+		if(getState(element).returnTarget != null)
+			return getState(element).returnTarget.isReturning == true;
+
 		return reference.isReturning;
 	}
 
@@ -1407,17 +1382,34 @@ function returnCommand() {
 					}
 				)[0];
 		}
+		
 		return element.content.toLowerCase() == "return";
 	}
 
 	this.process = function(element, processed) {
+
+		if(getState(element).returnTarget != null) {
+
+			getState(element).returnTarget.value =
+				processed.length == 0 ?
+					null :
+					(processed.length == 1 ?
+						processed[0] :
+						processed
+					);
+
+			getState(element).returnTarget.isReturning = true;
+
+			return getState(element).returnTarget.value;
+		}
 
 		reference.returnValue =
 			processed.length == 0 ?
 				null :
 				(processed.length == 1 ?
 					processed[0] :
-					processed);
+					processed
+				);
 		
 		reference.isReturning = true;
 		reference.fusion.returnValue = reference.returnValue;
@@ -1634,13 +1626,13 @@ function breakCommand() {
 		if(condition) {
 			
 			for(let i = 0; i < popState; i++)
-				reference.state.pop();
+				reference.state.pop(element);
 			
 			current = current.parent;
 			
 			while(current.parent != null) {
 				
-				reference.state.pop();
+				reference.state.pop(element);
 				
 				let parentIndex = one.getIndex(current);
 
@@ -1804,10 +1796,10 @@ function loop() {
 		if(condition) {
 			
 			for(let i = 0; i < popState; i++)
-				reference.state.pop();
+				reference.state.pop(element);
 			
-			reference.state.pop();
-			reference.state.push();
+			reference.state.pop(element);
+			reference.state.push(element);
 			
 			return current.parent.children[0];
 		}
@@ -1829,6 +1821,61 @@ function wait() {
 		let go = (new Date()).getTime() + (Number("" + processed[0]) * 1000);
 
 		while((new Date()).getTime() < go);
+
+		return null;
+	}
+}
+
+function split() {
+
+	philosophersStone.abide(this, new fusion.FUSIONUnit());
+
+	this.fusion = null;
+
+	var reference = this;
+
+	this.verify = function(element) {
+
+		try {
+
+			if(reference.fusion == null) {
+
+				reference.fusion =
+					philosophersStone.retrieve(
+						philosophersStone.traverse(reference),
+						function(item) {
+							return philosophersStone.isTagged(item, "FUSION");
+						}
+					)[0];
+			}
+		}
+
+		catch(error) {
+
+		}
+
+		return element.content.toLowerCase() == "split";
+	}
+
+	this.trickleDown = function(element) {
+		return false;
+	}
+
+	this.process = function(element, processed) {
+
+		let thread = one.copyElement(element);
+		thread.content = "";
+		
+		let state = getState(element);
+
+		thread.stateData = [];
+
+		for(let i = 0; i < state.length; i++)
+			thread.stateData.push(state[i].slice(0));
+
+		thread.stateData.push([]);
+
+		reference.fusion.addThread(thread);
 
 		return null;
 	}
@@ -1941,7 +1988,7 @@ function exception() {
 	}
 
 	this.process = function(element, processed) {
-		return reference.error != null ? reference.error.message : null;
+		return reference.error != null ? reference.error.stack : null;
 	}
 	
 	this.handleError = function(element, processed, error) {
@@ -4819,44 +4866,32 @@ function getStone(reference, tags) {
 	)[0];
 }
 
-function executeFunction(element, fusion, state, argumentsCommand, returnCommand, code, argumentsList, unit) {
+function executeFunction(element, fusion, code, argumentsList, unit) {
+	
+	setState(code, [getState(element)[0].slice(0), [], []]);
 
-	let currentArguments = argumentsCommand.args;
-	let currentState = state.data;
-	let currentReturnValue = fusion.returnValue;
+	element.savedState = getState(code).slice(0);
+	element.savedState[0] = [];
 
-	argumentsCommand.args = argumentsList;
-	state.data = [currentState[0], [], []];
+	getState(code).args = argumentsList;
 
-	let verify = null;
+	getState(code).returnTarget = {
+		value: null,
+		toString: function() {
+			return this.value;
+		}
+	};
 
 	if(unit != null) {
 
-		verify = unit.verify;
-
-		unit.verify = function(element) {
+		unit.verify = function() {
 			return false;
 		}
 	}
 
-	fusion.internalProcess(code, true);
-
-	let value = returnCommand.returnValue;
-
-	element.savedState = state.data.slice(0);
-	element.savedState[0] = [];
-
-	argumentsCommand.args = currentArguments;
-	state.data = currentState;
-	fusion.returnValue = currentReturnValue;
-
-	returnCommand.returnValue = null;
-	returnCommand.isReturning = false;
-
-	if(unit != null)
-		unit.verify = verify;
-
-	return value;
+	fusion.pushThread(element, code);
+	
+	return getState(code).returnTarget;
 }
 	
 function reverseElement(element) {
@@ -5027,6 +5062,7 @@ module.exports = function(fusion) {
 	philosophersStone.connect(fusion, new elseCommand(), [], true);
 	philosophersStone.connect(fusion, new loop(), [], true);
 	philosophersStone.connect(fusion, new wait(), [], true);
+	philosophersStone.connect(fusion, new split(), [], true);
 	philosophersStone.connect(fusion, new run(), [], true);
 	philosophersStone.connect(fusion, new automaticCatch(), [], true);
 	philosophersStone.connect(fusion, new throwCommand(), [], true);

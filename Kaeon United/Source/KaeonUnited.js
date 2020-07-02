@@ -17,7 +17,10 @@ function require(path) {
 		if(path.startsWith(".")) {
 
 			path =
-				module.filename.substring(0, module.filename.lastIndexOf('/') + 1) +
+				module.filename.substring(
+					0,
+					module.filename.lastIndexOf('/') + 1
+				) +
 				path;
 		}
 	}
@@ -60,6 +63,9 @@ function require(path) {
 		require.cache[0].push(lowerPath);
 		require.cache[1].push(newModule);
 
+		if(require.universalPreprocessor != null)
+			allText = require.universalPreprocessor.preprocess(allText);
+
 		let newModuleContents = (
 			new Function(
 				"var module = arguments[0];" +
@@ -82,4 +88,12 @@ function require(path) {
 
 	else
 		return require.cache[1][index].exports;
+}
+
+try {
+	require.universalPreprocessor = require("./UniversalPreprocessor.js");
+}
+
+catch(error) {
+
 }

@@ -1,20 +1,6 @@
 var philosophersStone = require("./PhilosophersStone.js");
 var fusion = require("./FUSION.js");
 
-var io = require("./io.js");
-
-var platform = "Browser";
-
-if(typeof process === 'object') {
-
-	if(typeof process.versions === 'object') {
-
-		if(typeof process.versions.node !== 'undefined') {
-			platform = "Node";
-		}
-	}
-}
-
 function Use() {
 
 	philosophersStone.abide(this, new fusion.FUSIONUnit());
@@ -49,28 +35,16 @@ function Use() {
 
 				let path = element.children[i].content;
 
-				if(
-					!(path.startsWith("http://") || path.startsWith("https://")) ||
-					platform.toLowerCase() == "browser") {
+				if(!(path.startsWith("http://") || path.startsWith("https://"))) {
+					
+					if(path.indexOf("/") == -1)
+						path = "./" + path;
 
-					if(!(path.startsWith("http://") || path.startsWith("https://"))) {
-						
-						if(path.indexOf("/") == -1)
-							path = "./" + path;
-
-						if(!path.toLowerCase().endsWith(".js"))
-							path += ".js";
-					}
-
-					require(path)(reference.fusion);
+					if(!path.toLowerCase().endsWith(".js"))
+						path += ".js";
 				}
 
-				else {
-
-					io.save(io.open(path), "./OnlineInterface.js")
-
-					require("./OnlineInterface.js")(reference.fusion);
-				}
+				require(path)(reference.fusion);
 
 				reference.fusion.update();
 			}

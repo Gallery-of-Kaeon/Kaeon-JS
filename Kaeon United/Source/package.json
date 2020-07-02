@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "node-cmd": "^3.0.0",
     "readline-sync": "^1.4.9",
     "xmlhttprequest": "^1.8.0"
   },

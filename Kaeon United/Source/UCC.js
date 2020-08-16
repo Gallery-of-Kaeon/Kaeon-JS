@@ -29,7 +29,7 @@ try {
 
 	let code = oneSuite.preprocess(io.open(path));
 
-	io.save(code, process.argv[2] + ".c");
+	io.save(code, appName + ".c");
 	io.save(makefile.split("[APP_NAME]").join(appName), "Makefile");
 
 	cmd.run("make");

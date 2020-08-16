@@ -134,7 +134,7 @@ require.cache = { };
 				let input = io.getInput("Enter code (Enter 'q' to quit): ");
 
 				if(input.toLowerCase() == "q")
-					break;
+					return;
 
 				console.log("\n" + ONESuite.process(ONESuite.preprocess(input), state));
 			}
@@ -159,10 +159,9 @@ require.cache = { };
 				let input = io.getInput("Enter code (Enter 'q' to quit): ");
 
 				if(input.toLowerCase() == "q")
-					break;
+					return;
 
 				console.log(
-					"\n" +
 					await eval(
 						"(async () => {\n" +
 						oneSuite.preprocess(input) +
@@ -176,8 +175,19 @@ require.cache = { };
 	if(operation == "ucc") {
 		
 		var cmd = require("node-cmd");
+		var path = require("path");
 
-		cmd.run("node UCC.js " + data);
+		cmd.get(
+			"node \"" +
+				path.dirname(__filename) +
+				"\\UCC.js\" " +
+				data,
+			function(error, data, stderr) {
+
+				if(data.trim().length != 0)
+					console.log(data);
+			}
+		);
 	}
 
 	if(result == null)

@@ -190,6 +190,17 @@ require.cache = { };
 		);
 	}
 
+	if(operation == "assemble") {
+
+		if(!Array.isArray(data))
+			data = ONESuite.preprocess("(] KF [> Use: CSB <)\n" + data);
+		
+		fs.writeFileSync(process.argv[5], new Uint8Array(Buffer.from(data)));
+	}
+
+	if(operation == "disassemble")
+		io.save(require("./CSB.js").disassemble(fs.readFileSync(data)), process.argv[5]);
+
 	if(result == null)
 		result = "";
 

@@ -417,7 +417,7 @@ function getSequences(tokens) {
 	if(currentSequence.join("").trim().length > 0)
 		sequences.push(currentSequence);
 
-	return formatSequences(sequences);
+	return sequences;
 }
 
 function getMainSequence(sequences) {
@@ -640,6 +640,8 @@ function processFunction(tokens, main) {
 
 	let functions = getFunctionSequences(sequences);
 	removeSequences(sequences, functions);
+
+	sequences = formatSequences(sequences);
 
 	if(main)
 		processMain(sequences);

@@ -105,6 +105,8 @@ function create(object) {
 }
 
 function set(element, object) {
+
+	object = object != null ? object : { };
 	
 	if(object.tag != null && object.tag != element.tagName)
 		element = document.createElement(object.tag);
@@ -131,7 +133,10 @@ function set(element, object) {
 
 		for(let i = 0; i < object.children.length; i++) {
 
-			if(typeof object.children[i] == "object")
+			if(object.children[i].nodeName != null)
+				element.appendChild(object.children[i]);
+
+			else if(typeof object.children[i] == "object")
 				element.appendChild(create(object.children[i]));
 
 			else {

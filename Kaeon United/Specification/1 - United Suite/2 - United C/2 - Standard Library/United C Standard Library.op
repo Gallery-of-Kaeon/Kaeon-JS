@@ -1,0 +1,13 @@
+United C Standard Library
+
+	Philosophy
+
+		-
+			The United C standard library shall define functions for C and C++ that provide certain
+			functionality that normally requires different implementations for each language,
+			allowing functions that provide said functionality to have the same interface, that is
+			the same alias, parameters, and return type, in each language.
+
+			This shall include but shall not necessarily be limited to console IO, file IO, dynamic
+			lists, memory management, string processing, and multithreading.
+		-

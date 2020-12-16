@@ -1,0 +1,54 @@
+Dynamic UI Framework
+
+	Philosophy
+
+		-
+			The dynamic UI framework is a set of conventions for managing the HTML DOM through
+			JavaScript
+		-
+
+	Principles
+
+		DOM JSON
+
+			-
+				The dynamic UI framework shall provide utilities for converting DOM JSON elements
+				into DOM element objects, and vice versa.
+			-
+
+		Scripts
+
+			-
+				The dynamic UI framework shall provide the ability to attach scripts to DOM element
+				objects in the form of functions which may be called by a looping script engine,
+				and it shall also provide functions for managing said script engine.
+
+				Each of said functions shall take the element object that it is intended to act on
+				as an argument.
+
+				Two of these functions shall be an on start and an on update function.
+			-
+
+		Selector Scripts
+
+			-
+				The dynamic UI framework shall allow for the specification, via DOM JSON objects,
+				of sets of properties that should be applied to elements matching certain CSS
+				selectors upon their detection.
+			-
+
+		Dynamic UI Script Reference
+
+			-
+				A dynamic UI script reference is a JSON object specifying a set of selector
+				scripts, where the alias of each field specifies a CSS selector and the value of
+				each field is a DOM JSON object specifying the properties to apply to elements
+				matching said selector upon their detection.
+			-
+
+		Loading
+
+			-
+				The dynamic UI framework shall provide functions that allow for the dynamic loading
+				of external JavaScript scripts and CSS stylesheets.
+			-

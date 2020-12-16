@@ -1,0 +1,20 @@
+United JavaScript
+
+	Philosphy
+
+		-
+			United JavaScript is a convention for JavaScript where, regardless of the environment
+			it is running in, JavaScript may use the CommonJS require function to dynamically load
+			CommonJS style modules, ES6 style modules, and to load non-module scripts, where an
+			isolated JavaScript file may serve as the main file of an application, where the await
+			operator shall be usable outside of async functions, and where the universal
+			preprocessor shall be applied to the code when interpreted.
+
+			ES6 style modules loaded in the aforemention way shall have their exports mapped to an
+			object which shall be returned by the require function.
+
+			Furthermore, the CommonJS require function's path parameter may be either a path on the
+			local system or a URL to an online resource, and the require function may also take a
+			boolean as an additional parameter, which if true, indicates that the module specified
+			by the path parameter is to be deleted from the cache and reloaded.
+		-

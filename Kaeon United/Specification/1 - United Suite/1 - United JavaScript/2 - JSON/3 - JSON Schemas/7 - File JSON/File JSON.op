@@ -1,0 +1,26 @@
+File JSON
+
+	Philosophy
+
+		-
+			An file JSON object is a JSON object that corresponds to a folder and its contents.
+		-
+
+	Principles
+
+		Structure
+
+			-
+				Each field within a file JSON object corresponds to a resource within the folder
+				that it represents, where the value of a field representing a folder shall be a
+				file JSON object, and where the value of a field representing a file shall be a
+				string containing the content of said file.
+			-
+
+		Virtual File Systems
+
+			-
+				A file JSON object may be used as an object representation of a file system and its
+				contents in the set resource function of a file storage system interface in a
+				virtual file system.
+			-

@@ -1,1 +1,0 @@
-CALL node "%~dp0/UnitedUtilities.js" %*

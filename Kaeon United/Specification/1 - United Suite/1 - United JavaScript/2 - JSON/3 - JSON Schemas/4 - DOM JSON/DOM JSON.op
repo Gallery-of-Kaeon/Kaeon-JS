@@ -1,0 +1,21 @@
+DOM JSON
+
+	Philosophy
+
+		-
+			A DOM JSON object is an extension of an X-JSON object that may be used to represent an
+			HTML DOM element.
+
+			If no tag is specified, the element will be assigned the tag "div" by default.
+			
+			A DOM JSON object may have a field with the key "style", the value of which must be a
+			field JSON object, where each field thereof specifies a CSS style, where the key is the
+			style alias and the value is the style content.
+			
+			A DOM JSON object may also have a field with the key "fields", the value of which must
+			be a field JSON object, where each field thereof specifies a JavaScript variable, where
+			the key is the variable alias and the value is the variable value.
+
+			The "fields" object may specify some variables as functions using function JSON
+			objects.
+		-

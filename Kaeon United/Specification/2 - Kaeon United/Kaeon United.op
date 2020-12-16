@@ -1,0 +1,98 @@
+Kaeon United
+
+	Philosophy
+	
+		-
+			Kaeon United is a an API that provides a unified interface to Kaeon FUSION and the
+			United Suite.
+		-
+	
+	Principles
+
+		Format
+
+			-
+				Kaeon United shall be implemented as a JavaScript file, which may be executed as a
+				command line utility, imported into an HTML document using a script tag, imported
+				as a CommonJS module, used as a Kaeon FUSION interface, or used as a shadow host
+				via a JavaScript shadow host for other applications.
+			-
+
+		Hosting
+
+			-
+				Kaeon United shall be hosted online so that users can use it via CDN regardless of
+				the environment they are operating in.
+			-
+
+		Functionality
+
+			Command Line
+
+				-
+					Running Kaeon United from the command line shall allow for the used of the
+					United suite in the terminal.
+
+					It shall take the following arguments:
+
+					The first argument shall be the name of the utility within the united suite
+					being used.
+					
+					Said utilities include "process", which runs Kaeon FUSION code, "parse", which
+					converts ONE+ code to ONE, "preprocess", which runs the Universal Preprocessor,
+					"js", which runs United JavaScript, "ucc", which runs the United C compiler,
+					"assemble", which compiles CSB, and "disassemble", which disassembles CSB.
+
+					To dynamically specify source text to the utility, the second argument must be
+					"read", and the third argument must be said text itself.
+
+					To load the source text to the utility from a file, the second argument must be
+					"open", and the third argument must be the file path.
+
+					To save the output of the utility to a file, there must be a fourth argument
+					specifying the path of said file.
+
+					Both the process and js utilities, if run without specified source text, will
+					run as console REPLs.
+				-
+
+			HTML Script
+
+				-
+					Importing Kaeon United into an HTML document through a script tag shall allow
+					the dynamic use of CommonJS on the page.
+				-
+
+			CommonJS Module
+
+				-
+					Importing Kaeon United as a CommonJS module shall return an object containing
+					all of the CommonJS modules relevant to the United suite.
+				-
+
+			Kaeon FUSION Interface
+
+				-
+					Using Kaeon United as a Kaeon FUSION interface shall cause the Kaeon FUSION
+					interpreter to use all of the most generally relevant Kaeon FUSION interfaces.
+				-
+
+			Shadow Host
+
+				-
+					If Kaeon United is used as a shadow host, it may have the URL arguments
+					"UnitedJS", "UnitedOP", and "HTML".
+
+					UnitedJS, if present, shall specify the path to a United JavaScript file which
+					shall be executed.
+
+					UnitedOP, if present, shall specify the path to a Kaeon FUSION file which shall
+					be executed.
+
+					HTML, if present, shall specify the path to an HTML file which shall be
+					rendered.
+
+					If both more than one of the aforementioned arguments are present, the
+					JavaScript, if given, shall execute first, the Kaeon FUSION, if given, shall
+					execute next, and the HTML, if given, shall be rendered last.
+				-

@@ -1,0 +1,53 @@
+HTTP JSON
+
+	Philosophy
+
+		-
+			An HTTP JSON object is a JSON object that corresponds to either an HTTP request or
+			response.
+		-
+
+	Principles
+
+		Definition Object
+
+			-
+				An HTTP JSON object must have a field containing a definition object.
+				
+				The alias of said field shall be "request" for an HTTP JSON object representing an
+				HTTP request, and "response" for and HTTP JSON object representing an HTTP
+				response.
+
+				A definition object shall itself be a JSON field object, the contents of which
+				shall differ depending on whether the HTTP JSON object containing it represents an
+				HTTP request or response.
+
+				For a request, a definition object shall have a field with the key "method", where
+				the value shall be the method of the request, and shall havea field with the key
+				"uri", where the value shall be the URI of the request, and may optionally have a
+				field with the key "version", where the value shall be the version of the HTTP
+				protocol.
+
+				For a request, a definition object shall have a field with the key "version", where
+				the value shall be the version of the HTTP protocol, and shall have a field with
+				the key "status", where the value shall be the status of the response, and may also
+				have a field with the key "reason", where the value is the reason phrase of the
+				response.
+			-
+
+		Headers Object
+
+			-
+				An HTTP JSON object may optionally have a field with the key "headers" containing a
+				JSON field object.
+
+				For each field of said field object, the key shall specify the alias of an HTTP
+				header, and the value shall specify the header's value.
+			-
+
+		Body Field
+
+			-
+				An HTTP JSON object may optionally have a field with the key "body" containing a
+				string representing the body of the HTTP call.
+			-

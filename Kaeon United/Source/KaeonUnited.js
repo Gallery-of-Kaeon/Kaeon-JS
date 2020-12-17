@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var linkHTTP = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js";
 var linkIO = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioNode.js";
 var linkONESuite = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js";
@@ -64,7 +66,7 @@ function getXMLHTTPRequest() {
 	var http = require("http");
 	var https = require("https");
 
-	return function() {
+	let XMLHttpRequqst = function() {
 
 		"use strict";
 
@@ -605,16 +607,27 @@ function getXMLHTTPRequest() {
 			}
 		};
 	};
+
+	return { "XMLHttpRequest": XMLHttpRequqst };
 }
 
 function establishNodeRequire() {
 
 	var Module = require("module");
 
+	if(Module.prototype.require.kaeonUnited)
+		return;
+
 	var requireDefault = Module.prototype.require;
 	var xhr = getXMLHTTPRequest();
 
 	nodeRequire = function(path, reload) {
+
+		if(path == "xmlhttprequest")
+			return xhr;
+
+		if(path.toLowerCase().endsWith("kaeonunited") || path.toLowerCase().endsWith("kaeonunited.js"))
+			return executeModule("node");
 
 		if(reload) {
 
@@ -660,7 +673,7 @@ function establishNodeRequire() {
 
 		let data = "";
 
-		let rawFile = new xhr();
+		let rawFile = new xhr.XMLHttpRequest();
 		
 		rawFile.open("GET", path, false);
 
@@ -688,6 +701,8 @@ function establishNodeRequire() {
 	catch(error) {
 
 	}
+
+	nodeRequire.kaeonUnited = true;
 	
 	Module.prototype.require = nodeRequire;
 }
@@ -707,7 +722,7 @@ function executeCommand(args) {
 			
 			let flag = args[1].toLowerCase();
 
-			data = ONESuite.preprocess(flag == "open" ? io.open(args[2]) : srgs[2]);
+			data = ONESuite.preprocess(flag == "open" ? io.open(args[2]) : args[2]);
 		}
 
 		let result = "";

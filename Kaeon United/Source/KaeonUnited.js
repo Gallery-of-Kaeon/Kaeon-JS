@@ -899,14 +899,12 @@ function executeScript() {
 			if(require.universalPreprocessor != null)
 				allText = require.universalPreprocessor.preprocess(allText);
 	
-			let newModuleContents = (
-				new Function(
-					"var module = arguments[0];" +
-					require.toString() +
-					"require.cache = arguments[1];" +
-					allText +
-					";return module;"
-				)
+			let newModuleContents = eval(
+				"()=>{var module = arguments[0];" +
+				require.toString() +
+				"require.cache = arguments[1];" +
+				allText +
+				";return module;}"
 			)(newModule, require.cache);
 	
 			for(key in newModuleContents)

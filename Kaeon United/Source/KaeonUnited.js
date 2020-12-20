@@ -841,7 +841,7 @@ function executeScript() {
 		paths: []
 	};
 	
-	require = function(path) {
+	function unitedRequire(path) {
 	
 		require.cache = require.cache ? require.cache : [[], []];
 	
@@ -899,13 +899,15 @@ function executeScript() {
 			if(require.universalPreprocessor != null)
 				allText = require.universalPreprocessor.preprocess(allText);
 	
-			let newModuleContents = eval(
-				"()=>{var module = arguments[0];" +
+			let moduleFunction = new Function(
+				"var module = arguments[0];" +
 				require.toString() +
 				"require.cache = arguments[1];" +
 				allText +
-				";return module;}"
-			)(newModule, require.cache);
+				";return module;"
+			);
+			
+			let newModuleContents = moduleFunction(newModule, require.cache);
 	
 			for(key in newModuleContents)
 				newModule.exports[key] = newModuleContents.exports[key];
@@ -920,6 +922,8 @@ function executeScript() {
 		else
 			return require.cache[1][index].exports;
 	}
+
+	require = unitedRequire;
 	
 	try {
 		require.universalPreprocessor = require("./UniversalPreprocessor.js");

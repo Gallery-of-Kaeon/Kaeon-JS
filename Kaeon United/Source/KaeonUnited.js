@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 
+// <script> document.documentElement.innerHTML = "";
+
 var linkHTTP = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js";
 var linkIO = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioNode.js";
 var linkONESuite = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js";
+
+var rawLink = "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Source/KaeonUnited.js";
+var sourceLink = "https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Source/KaeonUnited.js";
+var specLink = "https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification";
 
 function getEnvironment() {
 
@@ -28,11 +34,9 @@ function getPlatform(environment) {
 
 			if(module.parent != null)
 				return "module";
-
-			return "cdn";
 		}
 
-		return "script";
+		return document.documentElement.innerHTML == "<head></head><body></body>" ? "cdn" : "script";
 	}
 
 	else {
@@ -611,6 +615,44 @@ function getXMLHTTPRequest() {
 	return { "XMLHttpRequest": XMLHttpRequqst };
 }
 
+function getURLArguments() {
+
+	let vars = {};
+
+	window.location.href.replace(
+		/[?&]+([^=&]+)=([^&]*)/gi,
+		function(m, key, value) {
+			vars[decodeURIComponent(key).toLowerCase()] = decodeURIComponent(value);
+		}
+	);
+
+	return vars;
+}
+
+function makeOnlineRequest(path, cors) {
+
+	if(cors)
+		path = "https://cors-anywhere.herokuapp.com/" + path;
+	
+	let rawFile = new XMLHttpRequest();
+	rawFile.open("GET", path, false);
+
+	let allText = "";
+
+	rawFile.onreadystatechange = function() {
+
+		if(rawFile.readyState === 4) {
+
+			if(rawFile.status === 200 || rawFile.status == 0)
+				allText = rawFile.responseText;
+		}
+	}
+
+	rawFile.send(null);
+
+	return allText;
+}
+
 function establishNodeRequire() {
 
 	var Module = require("module");
@@ -831,6 +873,12 @@ function executeCommand(args) {
 
 function executeScript() {
 
+	if(typeof require != typeof undefined) {
+
+		if(require.kaeonUnited)
+			return;
+	}
+
 	module = {
 		id: '.',
 		exports: { },
@@ -866,22 +914,8 @@ function executeScript() {
 		let index = require.cache[0].indexOf(lowerPath);
 	
 		if(index == -1) {
-	
-			let rawFile = new XMLHttpRequest();
-			rawFile.open("GET", path, false);
-	
-			let allText = "";
-	
-			rawFile.onreadystatechange = function() {
-	
-				if(rawFile.readyState === 4) {
-	
-					if(rawFile.status === 200 || rawFile.status == 0)
-						allText = rawFile.responseText;
-				}
-			}
-	
-			rawFile.send(null);
+
+			let allText = makeOnlineRequest(path);
 	
 			let newModule = {
 				id: path,
@@ -896,8 +930,8 @@ function executeScript() {
 			require.cache[0].push(lowerPath);
 			require.cache[1].push(newModule);
 	
-			if(require.universalPreprocessor != null)
-				allText = require.universalPreprocessor.preprocess(allText);
+			if(require.ONESuite != null)
+				allText = require.ONESuite.preprocess(allText);
 	
 			let moduleFunction = new Function(
 				"var module = arguments[0];" +
@@ -924,9 +958,11 @@ function executeScript() {
 	}
 
 	require = unitedRequire;
+
+	require.kaeonUnited = true;
 	
 	try {
-		require.universalPreprocessor = require("./UniversalPreprocessor.js");
+		require.ONESuite = require("https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js");
 	}
 	
 	catch(error) {
@@ -934,8 +970,100 @@ function executeScript() {
 	}
 }
 
+function executeJS(code) {
+	
+	eval(
+		"(async () => {" +
+		require.ONESuite.preprocess(code) +
+		"})()"
+	);
+}
+
+function executeOP(code) {
+	require.ONESuite.process(code);
+}
+
+function executeHTML(code) {
+
+	// document.write(code);
+
+	document.documentElement.innerHTML = code;
+}
+
 function executeCDN() {
 
+	let args = getURLArguments();
+
+	if(args["unitedjs"] != null ||
+		args["unitedjsraw"] != null ||
+		args["unitedop"] != null ||
+		args["unitedopraw"] != null) {
+
+		executeScript();
+	}
+
+	if(args["unitedjs"] != null)
+		executeJS(makeOnlineRequest(args["unitedjs"], true));
+
+	if(args["unitedjsraw"] != null)
+		executeJS(args["unitedjsraw"]);
+
+	if(args["unitedop"] != null)
+		executeOP(makeOnlineRequest(args["unitedop"], true));
+
+	if(args["unitedopraw"] != null)
+		executeOP(args["unitedopraw"]);
+
+	if(args["html"] != null)
+		executeHTML(makeOnlineRequest(args["html"], true));
+
+	if(args["htmlraw"] != null)
+		executeHTML(args["htmlraw"]);
+
+	if(args["unitedjs"] == null &&
+		args["unitedjsraw"] == null &&
+		args["unitedop"] == null &&
+		args["unitedopraw"] == null &&
+		args["html"] == null &&
+		args["htmlraw"] == null) {
+
+		document.documentElement.innerHTML =
+`
+
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 align="center">Kaeon United</h1>
+<h2 align="center">It just works.</h2>
+<p align="center">
+	<img src="https://raw.githubusercontent.com/Library-of-Kaeon/Library-of-Kaeon/master/Library%20of%20Kaeon/3%20-%20Collection/3%20-%20Angaian/1%20-%20Art/1%20-%20Visual/1%20-%20Angaian/Angaian%20Crest.png" style="max-width:15%;"></a>
+</p>
+<h2 align="center">What is Kaeon United?</h2>
+<p>Kaeon United (pronounced "KAI-on") is an API that provides developers access to <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a>,
+<a href="https://github.com/Gallery-of-Kaeon/Kaeon-ACE">Kaeon ACE</a>,
+the United Suite,
+and various other miscellaneous utilities through a single JavaScript interface.</p>
+<p>It may be used as a command line utility,
+an HTML script,
+a CommonJS module,
+a Kaeon FUSION interface,
+or as a CDN utility for JavaScript and Kaeon FUSION applications.</p>
+<p>Its functionality will differ depending on which of the aforementioned options it is used through.</p>
+<h2 align="center">API</h2>
+<p>The interface to the Kaeon United API is through a single JavaScript File.</p>
+<p>To use it, just reference it via the following link:</p>
+<pre><code>	` + rawLink + `
+</code></pre>
+<p>In order to use it as an HTML script,
+pass the aforementioned link through the <a href="https://www.jsdelivr.com/" rel="nofollow">jsDelivr CDN</a> or another similar service.</p>
+<h2 align="center">Source</h2>
+<p>To view the source code for Kaeon United,
+click <a href="` + sourceLink + `">here</a>.</p>
+<h2 align="center">Specification</h2>
+<p>To view the specification for Kaeon United,
+click <a href="` + specLink + `">here</a>.</p>
+
+</article>
+
+`;
+	}
 }
 
 function executeModule(environment) {
@@ -971,3 +1099,5 @@ if(platform == "module")
 	module.exports = executeModule(environment);
 
 // STUB
+
+// </script>

@@ -409,9 +409,18 @@ function moduleExists(file, fs) {
 let environment = getEnvironment();
 let platform = getPlatform(environment);
 
-var requireDefault = require;
+var requireDefault = null;
 
-if(environment == "node" && !require.kaeonUnited) {
+let united = false;
+
+if(typeof require != typeof undefined) {
+
+	requireDefault = require;
+
+	united = require.kaeonUnited;
+}
+
+if(environment == "node" && !united) {
 
 	var execSync = require('child_process').execSync;
 	var fs = require('fs');

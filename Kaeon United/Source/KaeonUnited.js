@@ -381,26 +381,23 @@ function executeModule(environment) {
 	return library;
 }
 
-function fileExists(file, fs) {
+function fileExists(file) {
 
-    try {
-
-		fs.existsSync(file);
-		
-        return true;
+	try {
+		return fs.existsSync(file);
 	}
 	
-	catch(err) {
+	catch(error) {
 		return false;
 	}
 }
 
-function moduleExists(file, fs) {
+function moduleExists(file) {
 
-	if(fileExists(file, fs))
+	if(fileExists(file))
 		return true;
 
-	if(fileExists(file + ".js", fs))
+	if(fileExists(file + ".js"))
 		return true;
 
 	return false;
@@ -424,6 +421,9 @@ if(environment == "node" && !united) {
 
 	var execSync = require('child_process').execSync;
 	var fs = require('fs');
+	var path = require('path');
+
+	module.paths.push(process.cwd() + path.sep + "node_modules");
 
 	var installedModules = [
 		"assert",
@@ -464,13 +464,13 @@ if(environment == "node" && !united) {
 		
 	}
 
-	try {
-		installedModules = installedModules.concat(Object.keys(JSON.parse(execSync('npm ls -g --json').toString()).dependencies));
-	}
+	// try {
+	// 	installedModules = installedModules.concat(Object.keys(JSON.parse(execSync('npm ls -g --json').toString()).dependencies));
+	// }
 	
-	catch(error) {
+	// catch(error) {
 		
-	}
+	// }
 
 	if(!installedModules.includes("xmlhttprequest"))
 		execSync('npm install xmlhttprequest');
@@ -496,14 +496,13 @@ if(environment == "node" && !united) {
 
 		if(!path.startsWith("http://") && !path.startsWith("https://")) {
 
-			if(moduleExists(path)) {
-
+			if(!moduleExists(path) && !installedModules.includes(path)) {
+		
 				try {
-		
-					let item = requireDefault(path);
-					require.cache[path] = item;
-		
-					return item;
+
+					execSync('npm install ' + path);
+
+					installedModules.push(path);
 				}
 	
 				catch(error) {
@@ -511,30 +510,23 @@ if(environment == "node" && !united) {
 				}
 			}
 
-			else {
-
-				if(!installedModules.includes(path)) {
-		
-					try {
-						execSync('npm install ' + path);
-					}
-		
-					catch(error) {
-						console.log(error);
-					}
-				}
-
-				try {
-		
-					let item = requireDefault(path);
-					require.cache[path] = item;
-		
-					return item;
-				}
+			try {
 	
-				catch(error) {
+				let item = null;
+				
+				if(installedModules.includes(path))
+					item = requireDefault(path);
 
-				}
+				else
+					item = requireDefault("module").prototype.require(path);
+
+				require.cache[path] = item;
+	
+				return item;
+			}
+
+			catch(error) {
+				return { };
 			}
 		}
 

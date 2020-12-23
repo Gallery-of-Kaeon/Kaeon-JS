@@ -2,11 +2,32 @@
 
 // <script> document.documentElement.innerHTML = "";
 
-var linkHTTP = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js";
-var linkIO = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioNode.js";
-var linkONESuite = "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js";
+var settings = {
+	libraries: {
+		common: {
+			httpUtils: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js",
+			ONESuite: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js"
+		},
+		browser: {
+			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioBrowser.js",
+		},
+		node: {
+			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioNode.js",
+		}
+	},
+	interfaces: {
+		common: {
+			standard: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/Standard.js",
+		},
+		browser: {
 
-var linkDoc = null;
+		},
+		node: {
+
+		}
+	},
+	documentation: null
+};
 
 function getEnvironment() {
 
@@ -86,8 +107,8 @@ function makeOnlineRequest(path, cors) {
 
 function executeCommand(args) {
 
-	var ONESuite = require(linkONESuite);
-	var io = require(linkIO);
+	var ONESuite = require(settings.libraries.common.ONESuite);
+	var io = require(settings.libraries.node.io);
 
 	(async () => {
 
@@ -225,6 +246,11 @@ function executeScript() {
 	};
 	
 	function unitedRequire(path) {
+
+		let lowerPath = path.toLowerCase().split("-").join("");
+
+		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
+			return executeModule("browser");
 	
 		require.cache = require.cache ? require.cache : [[], []];
 	
@@ -241,7 +267,7 @@ function executeScript() {
 			}
 		}
 	
-		let lowerPath = path.toLowerCase();
+		lowerPath = path.toLowerCase();
 	
 		while(lowerPath.startsWith("././"))
 			lowerPath = lowerPath.substring(2);
@@ -297,7 +323,7 @@ function executeScript() {
 	require.kaeonUnited = true;
 	
 	try {
-		require.ONESuite = require(linkONESuite);
+		require.ONESuite = require(settings.libraries.common.ONESuite);
 	}
 	
 	catch(error) {
@@ -319,9 +345,6 @@ function executeOP(code) {
 }
 
 function executeHTML(code) {
-
-	// document.write(code);
-
 	document.documentElement.innerHTML = code;
 }
 
@@ -362,20 +385,40 @@ function executeCDN() {
 		args["html"] == null &&
 		args["htmlraw"] == null) {
 
-		if(linkDoc != null)
-			executeHTML(makeOnlineRequest(linkDoc, true));
+		if(settings.documentation != null)
+			executeHTML(makeOnlineRequest(settings.documentation, true));
 	}
 }
 
 function executeModule(environment) {
 
-	function library(item) {
+	var library = (item) => {
 
+		Object.keys(settings.interfaces.common).forEach((key) => {
+			require(settings.interfaces.common[key])(item);
+		});
+	
+		let environmentInterfaces =
+			environment == "browser" ?
+				settings.interfaces.browser :
+				settings.interfaces.node;
+	
+		Object.keys(environmentInterfaces).forEach((key) => {
+			require(environmentInterfaces[key])(item);
+		});
 	}
 
-	Object.assign(library, {
-		http: require(linkHTTP),
-		io: require(linkIO)
+	Object.keys(settings.libraries.common).forEach((key) => {
+		library[key] = () => { return require(settings.libraries.common[key]); };
+	});
+
+	let environmentLinks =
+		environment == "browser" ?
+			settings.libraries.browser :
+			settings.libraries.node;
+
+	Object.keys(environmentLinks).forEach((key) => {
+		library[key] = () => { return require(environmentLinks[key]); };
 	});
 
 	return library;
@@ -464,14 +507,6 @@ if(environment == "node" && !united) {
 		
 	}
 
-	// try {
-	// 	installedModules = installedModules.concat(Object.keys(JSON.parse(execSync('npm ls -g --json').toString()).dependencies));
-	// }
-	
-	// catch(error) {
-		
-	// }
-
 	if(!installedModules.includes("xmlhttprequest"))
 		execSync('npm install xmlhttprequest');
 
@@ -482,7 +517,9 @@ if(environment == "node" && !united) {
 		if(path == "xmlhttprequest")
 			return xhr;
 
-		if(path.toLowerCase().endsWith("kaeonunited") || path.toLowerCase().endsWith("kaeonunited.js"))
+		let lowerPath = path.toLowerCase().split("-").join("");
+
+		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
 			return executeModule("node");
 
 		if(reload) {
@@ -572,7 +609,7 @@ if(environment == "node" && !united) {
 	}
 
 	try {
-		require.oneSuite = require(linkONESuite);
+		require.oneSuite = require(settings.libraries.common.ONESuite);
 	}
 
 	catch(error) {
@@ -595,7 +632,5 @@ if(platform == "cdn")
 
 if(platform == "module")
 	module.exports = executeModule(environment);
-
-// STUB
 
 // </script>

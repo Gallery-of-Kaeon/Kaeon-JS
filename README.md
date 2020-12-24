@@ -74,6 +74,10 @@ click [here](https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%
 To view the specification for Kaeon United,
 click [here](https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification).
 
+<h2 align="center">Contact Info</h2>
+
+For any questions or comments, please email the following address: kaeon.ace@gmail.com
+
 <h2>Disclaimer</h2>
 
 Please note,

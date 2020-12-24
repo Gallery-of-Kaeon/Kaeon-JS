@@ -2,7 +2,7 @@
 <h2 align="center">It just works.</h2>
 
 <p align="center">
-	<img src="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px" style = "background: white; border-radius: 100%"/>
+	<img src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px" style = "background: white; border-radius: 100%"/>
 </p>
 
 <h2 align="center">What is Kaeon United?</h2>

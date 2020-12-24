@@ -1,8 +1,17 @@
+<style>
+
+	#united-logo {
+		background: white;
+		border-radius: 100%
+	}
+
+</style>
+
 <h1 align="center">Kaeon United</h1>
 <h2 align="center">It just works.</h2>
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px" style="background: white; border-radius: 100%"/>
+	<img id="united-logo" src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px"/>
 </p>
 
 <h2 align="center">What is Kaeon United?</h2>

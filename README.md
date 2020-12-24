@@ -19,10 +19,10 @@ but it is written in such a way that its functionality differs according to how 
 as an HTML script,
 as a CLI,
 or as a CommonJS module.</p>
-<h3 align="center">As a CDN</h3>
+<h3>As a CDN</h3>
 
 <p>See <a href="https://github.com/Gallery-of-Kaeon/Gallery-of-Kaeon.github.io">Kaeon United GhostHost</a>.</p>
-<h3 align="center">As an HTML Script</h3>
+<h3>As an HTML Script</h3>
 
 <p>To use Kaeon United as a script,
 reference it via <a href="https://www.jsdelivr.com/">jsDelivr</a> or another similar service.</p>
@@ -35,13 +35,13 @@ Kaeon United shall allow the use of the CommonJS require function to import Comm
 unlike other libraries which also provide this functionality,
 Kaeon United shall allow the dynamic use of the require function such that modules may be referenced via URLs generated or retrieved at runtime,
 and shall also allow cross origin access to said modules.</p>
-<h3 align="center">As a CLI</h3>
+<h3>As a CLI</h3>
 
 <p>Kaeon United is available on npm under the alias &quot;kaeon-united&quot;,
 and as such,
 it may be used as a command line utility via npx.</p>
 <!-- STUB -->
-<h3 align="center">As a Module</h3>
+<h3>As a Module</h3>
 
 <p>If using JavaScript through Kaeon United&#39;s CDN,
 Script,

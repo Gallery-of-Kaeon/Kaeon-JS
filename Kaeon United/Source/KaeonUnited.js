@@ -95,26 +95,33 @@ function getURLArguments() {
 
 function makeOnlineRequest(path, cors) {
 
-	if(cors)
-		path = "https://cors-anywhere.herokuapp.com/" + path;
-	
-	let rawFile = new XMLHttpRequest();
-	rawFile.open("GET", path, false);
+	try {
 
-	let allText = "";
+		if(cors)
+			path = "https://cors-anywhere.herokuapp.com/" + path;
+		
+		let rawFile = new XMLHttpRequest();
+		rawFile.open("GET", path, false);
 
-	rawFile.onreadystatechange = function() {
+		let allText = "";
 
-		if(rawFile.readyState === 4) {
+		rawFile.onreadystatechange = function() {
 
-			if(rawFile.status === 200 || rawFile.status == 0)
-				allText = rawFile.responseText;
+			if(rawFile.readyState === 4) {
+
+				if(rawFile.status === 200 || rawFile.status == 0)
+					allText = rawFile.responseText;
+			}
 		}
+
+		rawFile.send(null);
+
+		return allText;
 	}
 
-	rawFile.send(null);
-
-	return allText;
+	catch(error) {
+		return "";
+	}
 }
 
 function executeCommand(args) {
@@ -357,7 +364,19 @@ function executeOP(code) {
 }
 
 function executeHTML(code) {
+
 	document.documentElement.innerHTML = code;
+
+	var scripts = document.querySelectorAll("script");
+
+	for (var i = 0; i < scripts.length; i++) {
+
+		if(scripts[i].getAttribute("src") != null)
+			eval(makeOnlineRequest(scripts[i].getAttribute("src")));
+
+		else
+			eval(scripts[i].text);
+	}
 }
 
 function executeCDN() {
@@ -458,12 +477,12 @@ function moduleExists(file) {
 	return false;
 }
 
-let environment = getEnvironment();
-let platform = getPlatform(environment);
+var environment = getEnvironment();
+var platform = getPlatform(environment);
 
 var requireDefault = null;
 
-let united = false;
+var united = false;
 
 if(typeof require != typeof undefined) {
 

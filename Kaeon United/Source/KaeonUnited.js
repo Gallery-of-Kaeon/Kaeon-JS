@@ -38,7 +38,7 @@ var settings = {
 
 		}
 	},
-	documentation: null
+	documentation: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/README.md"
 };
 
 function getEnvironment() {

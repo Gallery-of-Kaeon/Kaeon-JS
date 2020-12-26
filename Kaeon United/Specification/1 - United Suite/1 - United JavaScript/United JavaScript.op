@@ -10,6 +10,9 @@ United JavaScript
 			operator shall be usable outside of async functions, and where the universal
 			preprocessor shall be applied to the code when interpreted.
 
+			United JavaScript shall provide dynamic dependency retrieval for modules installed via
+			package managers.
+
 			ES6 style modules loaded in the aforemention way shall have their exports mapped to an
 			object which shall be returned by the require function.
 

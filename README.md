@@ -111,7 +111,7 @@ The Parse operation is a translator operation where [ONE+](https://github.com/Ga
 
 <h4>The Preprocess Operation</h4>
 
-The Preprocess operation is a translator operation where the [universal preprocessor](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md) is the input language and raw text is the output language.
+The Preprocess operation is a translator operation where the [Universal Preprocessor](https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md) is the input language and raw text is the output language.
 
 <h4>The UCC Operation</h4>
 

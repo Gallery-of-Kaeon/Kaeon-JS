@@ -26,7 +26,7 @@ or as a CommonJS module.</p>
 
 <p>To use Kaeon United as a script,
 reference it via <a href="https://www.jsdelivr.com/">jsDelivr</a> or another similar service.</p>
-<p>To reference it via jsDeliver,
+<p>To reference it via jsDelivr,
 use the following URL:</p>
 <pre><code>https:<span class="hljs-regexp">//</span>cdn.jsdelivr.net<span class="hljs-regexp">/gh/</span>Gallery-of-Kaeon<span class="hljs-regexp">/Kaeon-United/</span>Kaeon%<span class="hljs-number">20</span>United<span class="hljs-regexp">/Source/</span>KaeonUnited.js
 </code></pre><p>As a script,

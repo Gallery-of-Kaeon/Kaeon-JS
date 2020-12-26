@@ -87,7 +87,7 @@ and &quot;disassemble&quot;.</p>
 <p>The JS operation is a processor operation for <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/1%20-%20United%20JavaScript/United%20JavaScript.op">United JavaScript</a>.</p>
 <h4>The Process Operation</h4>
 
-<p>The Process operation is a processor operatons for Kaeon FUSION.</p>
+<p>The Process operation is a processor operation for Kaeon FUSION.</p>
 <h4>The Parse Operation</h4>
 
 <p>The Parse operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/tree/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/2%20-%20ONE%2B">ONE+</a> is the input language and <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/1%20-%20ONE/README.md">ONE</a> is the output language.</p>

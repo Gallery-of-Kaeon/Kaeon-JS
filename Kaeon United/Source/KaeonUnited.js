@@ -5,6 +5,7 @@
 var settings = {
 	libraries: {
 		common: {
+			csb: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Shadow%20Host%20Bootstrap/CSB.js",
 			httpUtils: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js",
 			input: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/input.js",
 			kaeonACE: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACE.js",
@@ -16,6 +17,7 @@ var settings = {
 			server: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Server/server.js",
 			speech: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Speech/speech.js",
 			tokenizer: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Tokenizer/tokenizer.js",
+			ucc: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Shadow%20Host%20Bootstrap/UCC.js",
 			ui: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/UI.js",
 			virtualSystem: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Philosophers-Stone/master/Philosopher's%20Stone/API/Virtual%20System/virtualSystem.js",
 			widgets: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/widgets.js"
@@ -203,33 +205,25 @@ function executeCommand(args) {
 		}
 
 		if(operation == "ucc") {
-			
-			var cmd = require("node-cmd");
-			var path = require("path");
 
-			cmd.get(
-				"node \"" +
-					path.dirname(__filename) +
-					"\\UCC.js\" " +
-					data,
-				function(error, data, stderr) {
-
-					if(data.trim().length != 0)
-						console.log(data);
-				}
+			execSync(
+				"npx kaeon-united js open \"" +
+				settings.libraries.common.ucc +
+				"\" " +
+				data
 			);
 		}
 
 		if(operation == "assemble") {
 
 			if(!Array.isArray(data))
-				data = ONESuite.preprocess("(] KF [> Use: CSB <)\n" + data);
+				data = require(settings.libraries.common.csb)(data);
 			
 			fs.writeFileSync(args[3], new Uint8Array(Buffer.from(data)));
 		}
 
 		if(operation == "disassemble")
-			io.save(require("./CSB.js").disassemble(fs.readFileSync(data)), args[3]);
+			io.save(require(settings.libraries.common.csb).disassemble(fs.readFileSync(data)), args[3]);
 
 		if(result == null)
 			result = "";

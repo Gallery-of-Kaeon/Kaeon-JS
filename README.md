@@ -44,7 +44,7 @@ it may be used as a command line utility via npx.</p>
 <h4>CLI Basics</h4>
 
 <p>A Kaeon United CLI command follows this general format:</p>
-<pre><code>npx kaeon-united [(<span class="hljs-number">1</span>) operation] [(<span class="hljs-number">2</span>*) <span class="hljs-string">"open"</span> / <span class="hljs-string">"read"</span>] [(<span class="hljs-number">3</span>*) file / data] [(<span class="hljs-number">4</span>*) export path]
+<pre><code>npx kaeon-united [(<span class="hljs-number">1</span>) operation] [(<span class="hljs-number">2</span><em>) <span class="hljs-string">&quot;open&quot;</span> / <span class="hljs-string">&quot;read&quot;</span>] [(<span class="hljs-number">3</span></em>) file / data] [(<span class="hljs-number">4</span>*) export path]
 </code></pre><p><em>An asterisk indicates that the argument may or may not be necessary depending on the operation</em></p>
 <p>All Kaeon United CLI commands operate on data which must either be imported from a file or specified literally.</p>
 <p>The first argument specifies which operation to perform.</p>
@@ -54,6 +54,9 @@ or specified literally,
 in which case the argument shall be &quot;read&quot;.</p>
 <p>The third argument shall either specify the path to the file from which to import the data if the second argument was &quot;open&quot;,
 or shall specify the literal data if the second argument was &quot;read&quot;.</p>
+
+<p>If a file path is specified,
+it may be in the form of a URL to a raw text file stored online.</p>
 <p>The fourth argument shall specify a file path to export any output of the operation to.</p>
 <p>Kaeon United operations are separated into the two categories,
 processor operations and translator operations.</p>
@@ -97,6 +100,9 @@ and &quot;disassemble&quot;.</p>
 <h4>The UCC Operation</h4>
 
 <p>The UCC operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/United%20C.op">United C</a> is the input language and C is the output language.</p>
+
+<p><em>The UCC operation should specify the input as a file path using &quot;read&quot;.</em></p>
+<p><em>The UCC operation requires both gcc and make to be installed.</em></p>
 <h4>The Assemble Operation</h4>
 
 <p>The Assemble operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/3%20-%20Character%20Separated%20Binary/Character%20Separated%20Binary.op">CSB</a> is the input language and binary is the output language.</p>

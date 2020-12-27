@@ -206,6 +206,18 @@ function executeCommand(args) {
 
 		if(operation == "ucc") {
 
+			if(data.startsWith("http://") || data.startsWith("https://")) {
+
+				let download = data;
+
+				if(data.includes("?"))
+					data = data.substring(0, data.indexOf("?"));
+
+				data = data.substring(data.lastIndexOf("/") + 1);
+
+				io.save(io.open(download), data);
+			}
+
 			execSync(
 				"npx kaeon-united js open \"" +
 				settings.libraries.common.ucc +

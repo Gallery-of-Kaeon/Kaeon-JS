@@ -387,6 +387,9 @@ function executeHTML(code) {
 
 function executeCDN() {
 
+	if(document.body != null)
+		document.body.style.position = "absolute";
+
 	let args = getURLArguments();
 
 	if(args["unitedjs"] != null ||

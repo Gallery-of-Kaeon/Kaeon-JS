@@ -7,18 +7,64 @@
 
 <h2 align="center">What is Kaeon United?</h2>
 
-<p>Kaeon United (pronounced &quot;KAI-on&quot;) is an API that provides developers access to <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a>,
-<a href="https://github.com/Gallery-of-Kaeon/Kaeon-ACE">Kaeon ACE</a>,
-the <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification/1%20-%20United%20Suite">United Suite</a>,
-and various other miscellaneous utilities through a single JavaScript interface.</p>
-<h2 align="center">API</h2>
+<p>Kaeon United (pronounced &quot;KAI-on&quot;) is a multi-purpose API designed to provide access to all major development tools under the Kaeon name through a single interface.</p>
+<h2 align="center">Functionality</h2>
+
+<p>The functionality that Kaeon United provides includes but is not limited to:</p>
+<ul>
+<li><p>A free hosting service for serverless apps.</p>
+</li>
+<li><p>A script that provides dynamic client side access to CommonJS.</p>
+</li>
+<li><p>An npx CLI for various programming languages.</p>
+</li>
+<li><p>A CommonJS module that provides access to various JavaScript utilities.</p>
+</li>
+</ul>
+<p>The npx CLI provides utilities for the following languages:</p>
+<ul>
+<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a> programming language.</p>
+</li>
+<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/1%20-%20ONE/README.md">ONE</a> and <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/tree/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/2%20-%20ONE%2B">ONE+</a> markup languages.</p>
+</li>
+<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md">Universal Preprocessor</a>.</p>
+</li>
+<li><p>A C and C++ hybrid language called <a href="https://github.com/Gallery-of-Kaeon/United-C">United C</a>.</p>
+</li>
+<li><p>A machine code editing format called Character Separated Binary, or <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/3%20-%20Character%20Separated%20Binary/Character%20Separated%20Binary.op">CSB</a> for short.</p>
+</li>
+<li><p>An enhanced version of JavaScript called:</p>
+</li>
+</ul>
+<h3>United JavaScript</h3>
+
+<p>United JavaScript is a minor modification to vanilla JavaScript with the following key attributes:</p>
+<ul>
+<li><p>CommonJS shall be available regardless of the environment the program is running in</p>
+</li>
+<li><p>Even in the browser,
+the CommonJS require function shall accept dynamically generated module paths.</p>
+</li>
+<li><p>CommonJS shall allow cross origin access to online modules via their URLs in both the browser and node.</p>
+</li>
+<li><p>The CommonJS require function shall allow for an optional second argument,
+a boolean which,
+if true,
+shall cause the specified module to be deleted from the cache if it had been imported before,
+after which it shall be reloaded.</p>
+</li>
+<li><p>If running in node,
+and the CommonJS require function is given the alias of an npm module which has not yet been installed,
+the program shall install said module at runtime.</p>
+</li>
+<li><p>&quot;await&quot; calls shall be usable at the root level of the program,
+outside of async functions.</p>
+</li>
+</ul>
+<h2>API</h2>
 
 <p>Kaeon United is implemented as a single file,
-but it is written in such a way that its functionality differs according to how it is referenced.</p>
-<p>It can be used as a CDN,
-as an HTML script,
-as a CLI,
-or as a CommonJS module.</p>
+but it&#39;s written in such a way that its functionality differs according to how it&#39;s referenced.</p>
 <h3>As a CDN</h3>
 
 <p>See <a href="https://github.com/Gallery-of-Kaeon/Gallery-of-Kaeon.github.io">Kaeon United GhostHost</a>.</p>
@@ -30,11 +76,7 @@ reference it via <a href="https://www.jsdelivr.com/">jsDelivr</a> or another sim
 use the following URL:</p>
 <pre><code>https:<span class="hljs-regexp">//</span>cdn.jsdelivr.net<span class="hljs-regexp">/gh/</span>Gallery-of-Kaeon<span class="hljs-regexp">/Kaeon-United/</span>Kaeon%<span class="hljs-number">20</span>United<span class="hljs-regexp">/Source/</span>KaeonUnited.js
 </code></pre><p>As a script,
-Kaeon United shall allow the use of the CommonJS require function to import CommonJS style modules stored online via their URLs.</p>
-<p>However,
-unlike other libraries which also provide this functionality,
-Kaeon United shall allow the dynamic use of the require function such that modules may be referenced via URLs generated or retrieved at runtime,
-and shall also allow cross origin access to said modules.</p>
+Kaeon United shall provide access to the United JavaScript version of CommonJS in the browser.</p>
 <h3>As a CLI</h3>
 
 <p>Kaeon United is available on npm under the alias &quot;kaeon-united&quot;,
@@ -87,25 +129,25 @@ they shall write the output to the console.</p>
 and &quot;disassemble&quot;.</p>
 <h4>The JS Operation</h4>
 
-<p>The JS operation is a processor operation for <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/1%20-%20United%20JavaScript/United%20JavaScript.op">United JavaScript</a>.</p>
+<p>The JS operation is a processor operation for United JavaScript.</p>
 <h4>The Process Operation</h4>
 
 <p>The Process operation is a processor operation for Kaeon FUSION.</p>
 <h4>The Parse Operation</h4>
 
-<p>The Parse operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/tree/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/2%20-%20ONE%2B">ONE+</a> is the input language and <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/1%20-%20ONE/README.md">ONE</a> is the output language.</p>
+<p>The Parse operation is a translator operation where ONE+ is the input language and ONE is the output language.</p>
 <h4>The Preprocess Operation</h4>
 
-<p>The Preprocess operation is a translator operation where the <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md">Universal Preprocessor</a> is the input language and raw text is the output language.</p>
+<p>The Preprocess operation is a translator operation where the Universal Preprocessor is the input language and raw text is the output language.</p>
 <h4>The UCC Operation</h4>
 
-<p>The UCC operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/United%20C.op">United C</a> is the input language and C is the output language.</p>
+<p>The UCC operation is a translator operation where United C is the input language and C is the output language.</p>
 
 <p><em>The UCC operation should specify the input as a file path using &quot;read&quot;.</em></p>
 <p><em>The UCC operation requires both gcc and make to be installed.</em></p>
 <h4>The Assemble Operation</h4>
 
-<p>The Assemble operation is a translator operation where <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/3%20-%20Character%20Separated%20Binary/Character%20Separated%20Binary.op">CSB</a> is the input language and binary is the output language.</p>
+<p>The Assemble operation is a translator operation where CSB is the input language and binary is the output language.</p>
 <h4>The Disassemble Operation</h4>
 
 <p>The Disassemble operation is a translator operation where binary is the input language and CSB is the output language.</p>

@@ -1,5 +1,5 @@
 <p><h1 align="center">Kaeon United</h1></p>
-<h2 align="center">It just works.</h2>
+<h2 align="center">It Just Works</h2>
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px"/>

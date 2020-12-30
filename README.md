@@ -21,7 +21,7 @@
 <li><p>A CommonJS module that provides access to various JavaScript utilities.</p>
 </li>
 </ul>
-<p>The npx CLI provides utilities for the following languages:</p>
+<p>As an extension of said functionality, the API provides utilities for the following languages:</p>
 <ul>
 <li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a> programming language.</p>
 </li>

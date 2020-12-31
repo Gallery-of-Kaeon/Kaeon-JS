@@ -133,8 +133,7 @@ it may be used as a command line utility via npx.</p>
 
 <p>A Kaeon United CLI command follows this general format:</p>
 
-<pre><code>npx kaeon-united [(&lt;span class="hljs-number"&gt;1&lt;/span&gt;) operation] [(&lt;span class="hljs-number"&gt;2&lt;/span&gt;&lt;em&gt;) &lt;span class="hljs-string"&gt;&amp;quot;open&amp;quot;&lt;/span&gt; / &lt;span class="hljs-string"&gt;&amp;quot;read&amp;quot;&lt;/span&gt;] [(&lt;span class="hljs-number"&gt;3&lt;/span&gt;&lt;/em&gt;) file / data] [(&lt;span class="hljs-number"&gt;4&lt;/span&gt;*) export path]
-</code></pre>
+<pre><code>npx kaeon-united [(1) operation] [(2*) "open" / "read"] [(3*) file / data] [(4*) export path / argument 1] [(5+*) argument 2+]</code></pre>
 
 <p><em>An asterisk indicates that the argument may or may not be necessary depending on the operation</em></p>
 
@@ -161,18 +160,19 @@ processor operations and translator operations.</p>
 <p>Processor operations,
 each of which are associated with a specific programming language,
 may or may not have the second and third arguments,
-and shall not have the fourth argument.</p>
+and the third argument may be followed by an indefinite number of other arguments.</p>
 
-<p>If said arguments are provided,
-then they shall take the specified data and execute it as code in their respective language.
-If said arguments are not provided,
+<p>If arguments two and three are provided,
+then they shall take the specified data and execute it as code in their respective language,
+with any additional arguments passed to said code as command line arguments.
+If arguments two and three are not provided,
 then they shall open a REPL for their respective language.</p>
 
 <p>Translator operations,
 each of which are associated with two specific programming languages,
 an input language and an output language,
 must have the second and third arguments,
-and may or may not have the fourth argument.</p>
+and may or may not use a fourth argument to specify an export path.</p>
 
 <p>They shall take the data specified by the second and third arguments as code in their respective input language and convert it to code in their respective output language.</p>
 
@@ -191,19 +191,19 @@ and &quot;disassemble&quot;.</p>
 
 <h4>The JS Operation</h4>
 
-<p>The JS operation is a processor operation for United JavaScript.</p>
+<p>The js operation is a processor operation for United JavaScript.</p>
 
 <h4>The Process Operation</h4>
 
-<p>The Process operation is a processor operation for Kaeon FUSION.</p>
+<p>The process operation is a processor operation for Kaeon FUSION.</p>
 
 <h4>The Parse Operation</h4>
 
-<p>The Parse operation is a translator operation where ONE+ is the input language and ONE is the output language.</p>
+<p>The parse operation is a translator operation where ONE+ is the input language and ONE is the output language.</p>
 
 <h4>The Preprocess Operation</h4>
 
-<p>The Preprocess operation is a translator operation where the Universal Preprocessor is the input language and raw text is the output language.</p>
+<p>The preprocess operation is a translator operation where the Universal Preprocessor is the input language and raw text is the output language.</p>
 
 <h4>The UCC Operation</h4>
 
@@ -215,11 +215,13 @@ and &quot;disassemble&quot;.</p>
 
 <h4>The Assemble Operation</h4>
 
-<p>The Assemble operation is a translator operation where CSB is the input language and binary is the output language.</p>
+<p>The assemble operation is a translator operation where CSB is the input language and binary is the output language.</p>
 
 <h4>The Disassemble Operation</h4>
 
-<p>The Disassemble operation is a translator operation where binary is the input language and CSB is the output language.</p>
+<p>The disassemble operation is a translator operation where binary is the input language and CSB is the output language.</p>
+
+<p><em>The disassemble operation should specify the input as a file path using &quot;read&quot;.</em></p>
 
 <!-- STUB -->
 

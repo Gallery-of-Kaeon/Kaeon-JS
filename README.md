@@ -47,7 +47,7 @@
 <p>United JavaScript is a minor modification to vanilla JavaScript with the following key attributes:</p>
 
 <ul>
-<li><p>CommonJS shall be available regardless of the environment the program is running in</p>
+<li><p>CommonJS shall be available regardless of the environment the program is running in.</p>
 </li>
 <li><p>Even in the browser,
 the CommonJS require function shall accept dynamically generated module paths.</p>
@@ -118,8 +118,7 @@ reference it via <a href="https://www.jsdelivr.com/">jsDelivr</a> or another sim
 <p>To reference it via jsDelivr,
 use the following URL:</p>
 
-<pre><code>https:&lt;span class="hljs-regexp"&gt;//&lt;/span&gt;cdn.jsdelivr.net&lt;span class="hljs-regexp"&gt;/gh/&lt;/span&gt;Gallery-of-Kaeon&lt;span class="hljs-regexp"&gt;/Kaeon-United/&lt;/span&gt;Kaeon%&lt;span class="hljs-number"&gt;20&lt;/span&gt;United&lt;span class="hljs-regexp"&gt;/Source/&lt;/span&gt;KaeonUnited.js
-</code></pre>
+<pre><code>https://cdn.jsdelivr.net/gh/Gallery-of-Kaeon/Kaeon-United/Kaeon%20United/Source/KaeonUnited.js</code></pre>
 
 <p>As a script,
 Kaeon United shall provide access to the United JavaScript version of CommonJS in the browser.</p>

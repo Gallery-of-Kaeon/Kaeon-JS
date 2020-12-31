@@ -99,7 +99,7 @@ and the program would proceed to run normally,
 despite the awaits beings located outside of async functions.</p>
 
 <p>After the program had finished running,
-a screenshot of the Kaeon United github page would appear in the directory from which the command was executed.</p>
+a screenshot of the Kaeon United Github page would appear in the directory from which the command was executed.</p>
 
 <h2>API</h2>
 

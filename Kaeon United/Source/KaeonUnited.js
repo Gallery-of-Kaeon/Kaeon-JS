@@ -6,8 +6,10 @@ var settings = {
 	libraries: {
 		common: {
 			csb: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Shadow%20Host%20Bootstrap/CSB.js",
+			dimensions: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/dimensions.js",
 			httpUtils: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js",
 			input: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/input.js",
+			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/io.js",
 			kaeonACE: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACE.js",
 			kaeonACEModules: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACEModules.js",
 			ONESuite: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js",
@@ -23,10 +25,10 @@ var settings = {
 			widgets: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/widgets.js"
 		},
 		browser: {
-			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioBrowser.js",
+
 		},
 		node: {
-			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/ioNode.js",
+			
 		}
 	},
 	interfaces: {
@@ -129,7 +131,7 @@ function makeOnlineRequest(path, cors) {
 function executeCommand(args) {
 
 	var ONESuite = require(settings.libraries.common.ONESuite);
-	var io = require(settings.libraries.node.io);
+	var io = require(settings.libraries.common.io);
 
 	(async () => {
 

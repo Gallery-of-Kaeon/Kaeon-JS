@@ -237,6 +237,10 @@ and shall contain a series of functions which when called return references to v
 
 <p>Said functions and the modules they return are listed as follows:</p>
 
+<h4>dimensions()</h4>
+
+<p>A module for applying stacked transforms to HTML DOM elements.</p>
+
 <h4>httpUtils()</h4>
 
 <p>A module for easily sending HTTP requests.</p>

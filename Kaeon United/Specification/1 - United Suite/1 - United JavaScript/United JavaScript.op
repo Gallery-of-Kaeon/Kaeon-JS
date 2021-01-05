@@ -1,23 +1,63 @@
 United JavaScript
 
-	Philosphy
+	Philosophy
 
 		-
-			United JavaScript is a convention for JavaScript where, regardless of the environment
-			it is running in, JavaScript may use the CommonJS require function to dynamically load
-			CommonJS style modules, ES6 style modules, and to load non-module scripts, where an
-			isolated JavaScript file may serve as the main file of an application, where the await
-			operator shall be usable outside of async functions, and where the universal
-			preprocessor shall be applied to the code when interpreted.
-
-			United JavaScript shall provide dynamic dependency retrieval for modules installed via
-			package managers.
-
-			ES6 style modules loaded in the aforemention way shall have their exports mapped to an
-			object which shall be returned by the require function.
-
-			Furthermore, the CommonJS require function's path parameter may be either a path on the
-			local system or a URL to an online resource, and the require function may also take a
-			boolean as an additional parameter, which if true, indicates that the module specified
-			by the path parameter is to be deleted from the cache and reloaded.
+			United JavaScript is a set of conventions for JavaScript that enhance its compatibility
+			between different environments as well as its ease of use.
 		-
+
+	Principles
+
+		CommonJS Conventions
+
+			-
+				Under United JavaScript, regardless of the environment it is running in, JavaScript
+				may use the CommonJS require function to dynamically load modules and to execute
+				scripts.
+
+				The modules passed to it must follow the CommonJS format.
+
+				United JavaScript shall provide dynamic dependency retrieval for modules installed
+				via package managers.
+
+				The CommonJS require function's path parameter may be either a path on the
+				local system or a URL to an online resource.
+				
+				The require function may take an optional second argument in the form of an object.
+				Said object may have the fields "reload", "callback", "global", and "dynamic".
+				
+				The reload field, if present, shall contain a boolean which, if true, shall
+				indicate that the module specified by the path parameter is to be deleted from the
+				cache and reloaded.
+
+				The callback field, if present, shall contain either a function or a null value. If
+				a function is provided, it shall indicate that the require function is to execute
+				asynchronously, such that upon its completion, it shall execute the specified
+				function, passing the returned module to it as its first argument.
+
+				The global field, if present, shall indicate that the module is to be processed in
+				the global scope. This can be used for loading and executing scripts.
+
+				The dynamic field, if present, shall indicate that the path argument specifies the
+				raw code of the module as opposed to a path to it. As such, any module loaded this
+				way shall not be stored in the require function's cache.
+			-
+
+		Asynchronous Conventions
+
+			-
+				Under United JavaScript, the await operator may be used at the root level of the
+				main file, outside of async functions.
+			-
+
+		Execution Conventions
+
+			-
+				Under United JavaScript, a JavaScript file may be executed on the client side on
+				its own without being explicitly tied to an HTML document.
+
+				Furthermore, prior to interpretation, the Universal Preprocessor shall be applied
+				to both the code of the main file and to any code loaded through the require
+				function.
+			-

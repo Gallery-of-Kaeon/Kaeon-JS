@@ -25,23 +25,29 @@ United JavaScript
 				local system or a URL to an online resource.
 				
 				The require function may take an optional second argument in the form of an object.
-				Said object may have the fields "reload", "callback", "global", and "dynamic".
+				Said object may have the fields "async", "dynamic", "global", and "reload".
+
+				The async field, if present, shall contain either a function, a boolean, or a null
+				value. If a function or a boolean is provided, it shall indicate that the require
+				function is to execute asynchronously.
 				
-				The reload field, if present, shall contain a boolean which, if true, shall
-				indicate that the module specified by the path parameter is to be deleted from the
-				cache and reloaded.
-
-				The callback field, if present, shall contain either a function or a null value. If
-				a function is provided, it shall indicate that the require function is to execute
-				asynchronously, such that upon its completion, it shall execute the specified
-				function, passing the returned module to it as its first argument.
-
-				The global field, if present, shall indicate that the module is to be processed in
-				the global scope. This can be used for loading and executing scripts.
+				If a function is provided for the async field, then upon the loading of the module,
+				the specified function shall be called with the returned module as its first
+				argument.
+				
+				If a boolean value of true is provided for the async field, then shall return a
+				promise which shall resolve to the specified module once it has loaded.
 
 				The dynamic field, if present, shall indicate that the path argument specifies the
 				raw code of the module as opposed to a path to it. As such, any module loaded this
 				way shall not be stored in the require function's cache.
+
+				The global field, if present, shall indicate that the module is to be processed in
+				the global scope. This can be used for loading and executing scripts.
+				
+				The reload field, if present, shall contain a boolean which, if true, shall
+				indicate that the module specified by the path parameter is to be deleted from the
+				cache and reloaded.
 			-
 
 		Asynchronous Conventions

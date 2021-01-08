@@ -272,14 +272,46 @@ function executeScript() {
 		paths: []
 	};
 	
-	function unitedRequire(path) {
+	function unitedRequire(path, options) {
+
+		if(typeof options != "object")
+			options = { };
+
+		if(options.async == true || typeof options.async == "function") {
+
+			let promise = new Promise(function(resolve, reject) {
+
+				try {
+
+					resolve(
+						require(
+							path,
+							{
+								dynamic: options.dynamic,
+								global: options.global,
+								reload: options.reload
+							}
+						)
+					);
+				}
+
+				catch(error) {
+					reject(error);
+				}
+			});
+
+			if(options.async != true)
+				promise.then(options.async);
+
+			return options.async == true ? promise : undefined;
+		}
 
 		let lowerPath = path.toLowerCase().split("-").join("");
 
 		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
 			return executeModule("browser");
 	
-		require.cache = require.cache ? require.cache : [[], []];
+		require.cache = require.cache ? require.cache : { };
 	
 		if(module.parent != null) {
 	
@@ -294,55 +326,69 @@ function executeScript() {
 			}
 		}
 	
-		lowerPath = path.toLowerCase();
-	
 		while(lowerPath.startsWith("././"))
 			lowerPath = lowerPath.substring(2);
 	
-		let index = require.cache[0].indexOf(lowerPath);
+		let cacheItem = require.cache[lowerPath];
 	
-		if(index == -1) {
+		let newModule = {
+			id: path,
+			exports: { },
+			parent: module,
+			filename: path,
+			loaded: false,
+			children: [],
+			paths: []
+		};
+	
+		if(cacheItem == null || options.reload || options.dynamic) {
 
-			let allText = makeOnlineRequest(path);
-	
-			let newModule = {
-				id: path,
-				exports: { },
-				parent: module,
-				filename: path,
-				loaded: false,
-				children: [],
-				paths: []
-			};
-	
-			require.cache[0].push(lowerPath);
-			require.cache[1].push(newModule);
+			let allText = path;
+			
+			if(!options.dynamic) {
+				
+				allText = makeOnlineRequest(path);
+
+				require.cache[lowerPath] = newModule;
+			}
 	
 			if(require.ONESuite != null)
 				allText = require.ONESuite.preprocess(allText);
-	
-			let moduleFunction = new Function(
-				"var module = arguments[0];" +
-				require.toString() +
-				"require.cache = arguments[1];" +
-				allText +
-				";return module;"
-			);
-			
-			let newModuleContents = moduleFunction(newModule, require.cache);
-	
-			for(key in newModuleContents)
-				newModule.exports[key] = newModuleContents.exports[key];
-	
-			module.children.push(newModule);
-	
-			newModule.loaded = true;
-	
-			return newModule.exports;
+
+			if(!options.global) {
+		
+				let moduleFunction = new Function(
+					"var module = arguments[0];" +
+					require.toString() +
+					"require.cache = arguments[1];" +
+					allText +
+					";return module;"
+				);
+				
+				let newModuleContents = moduleFunction(newModule, require.cache);
+		
+				for(key in newModuleContents.exports)
+					newModule.exports[key] = newModuleContents.exports[key];
+		
+				module.children.push(newModule);
+		
+				newModule.loaded = true;
+		
+				return newModule.exports;
+			}
+
+			else {
+				
+				let module = newModule;
+
+				(1, eval)(allText);
+
+				return module.exports;
+			}
 		}
 	
 		else
-			return require.cache[1][index].exports;
+			return cacheItem.exports;
 	}
 
 	require = unitedRequire;
@@ -354,7 +400,7 @@ function executeScript() {
 	}
 	
 	catch(error) {
-	
+		
 	}
 }
 
@@ -375,15 +421,14 @@ function executeHTML(code) {
 
 	document.documentElement.innerHTML = code;
 
-	var scripts = document.querySelectorAll("script");
+	let scripts = document.querySelectorAll("script");
 
-	for (var i = 0; i < scripts.length; i++) {
+	for(let i = 0; i < scripts.length; i++) {
 
 		if(scripts[i].getAttribute("src") != null)
 			eval(makeOnlineRequest(scripts[i].getAttribute("src")));
 
-		else
-			eval(scripts[i].text);
+		eval(scripts[i].text);
 	}
 }
 
@@ -554,80 +599,135 @@ if(environment == "node" && !united) {
 
 	var xhr = require('xmlhttprequest');
 
-	require = function(path, reload) {
+	require = function(path, options) {
 
-		if(path == "xmlhttprequest")
-			return xhr;
+		if(typeof options != "object")
+			options = { };
+
+		if(options.async == true || typeof options.async == "function") {
+
+			let promise = new Promise(function(resolve, reject) {
+
+				try {
+
+					resolve(
+						require(
+							path,
+							{
+								dynamic: options.dynamic,
+								global: options.global,
+								reload: options.reload
+							}
+						)
+					);
+				}
+
+				catch(error) {
+					reject(error);
+				}
+			});
+
+			if(options.async != true)
+				promise.then(options.async);
+
+			return options.async == true ? promise : undefined;
+		}
 
 		let lowerPath = path.toLowerCase().split("-").join("");
 
-		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
-			return executeModule("node");
+		if(!options.dynamic) {
 
-		if(reload) {
+			if(lowerPath == "xmlhttprequest")
+				return xhr;
 
-			if(require.cache[path] != null)
-				delete require.cache[path];
-		}
+			if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
+				return executeModule("node");
 
-		else if(require.cache[path] != null)
-			return require.cache[path];
+			if(options.reload) {
 
-		if(!path.startsWith("http://") && !path.startsWith("https://")) {
+				if(require.cache[path] != null)
+					delete require.cache[path];
+			}
 
-			if(!moduleExists(path) && !installedModules.includes(path)) {
+			else if(require.cache[path] != null)
+				return require.cache[path];
+
+			if(!path.startsWith("http://") && !path.startsWith("https://") && !options.global) {
+
+				if(!moduleExists(path) && !installedModules.includes(path)) {
+			
+					try {
+
+						execSync('npm install ' + path);
+
+						installedModules.push(path);
+					}
 		
+					catch(error) {
+
+					}
+				}
+
 				try {
+		
+					let item = null;
+					
+					if(installedModules.includes(path))
+						item = requireDefault(path);
 
-					execSync('npm install ' + path);
+					else
+						item = requireDefault("module").prototype.require(path);
 
-					installedModules.push(path);
+					require.cache[path] = item;
+		
+					return item;
 				}
-	
+
 				catch(error) {
-
+					return { };
 				}
-			}
-
-			try {
-	
-				let item = null;
-				
-				if(installedModules.includes(path))
-					item = requireDefault(path);
-
-				else
-					item = requireDefault("module").prototype.require(path);
-
-				require.cache[path] = item;
-	
-				return item;
-			}
-
-			catch(error) {
-				return { };
 			}
 		}
 
-		let data = require.open(path);
+		let data = options.dynamic ? path : require.open(path);
 
 		if(require.oneSuite != null)
 			data = require.oneSuite.preprocess(data);
+		
+		let result = null;
+		
+		if(!options.global) {
 
-		data = "require = arguments[0];var module={exports:{}};" + data + ";return module.exports;";
+			data =
+				"require = arguments[0];var module={exports:{}};" +
+				data +
+				";return module.exports;";
 
-		require.cache[path] = (new Function(data))(require);
+			result = (new Function(data))(require);
+		}
 
-		return require.cache[path];
+		else {
+
+			var module = { exports: { } };
+
+			(1, eval)(data);
+
+			result = module.exports;
+		}
+		
+		if(!options.dynamic)
+			require.cache[path] = result;
+
+		return result;
 	}
 
 	require.open = function(path) {
 
-		if(global.platform == "node" &&
+		if(environment == "node" &&
 			!(path.toLowerCase().startsWith("http://") ||
 			path.toLowerCase().startsWith("https://"))) {
 			
-			return global.fs.readFileSync(path, 'utf8');
+			return fs.readFileSync(path, 'utf8');
 		}
 
 		let data = "";

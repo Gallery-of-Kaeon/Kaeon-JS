@@ -2113,61 +2113,7 @@ Standard Module
 				acknowledge private and reduced connections.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether ]#
-
-Aether
-
-	Philosophy
-	
-		-
-			Aether is a system that allows the interface of a regulated Philosopher's Stone module
-			to be attatched to modules that exist within systems running in entirely different
-			environments.
-		-
-	
-	Principles
-	
-		Alias
-		
-			-
-				An Aether module may be identified via a unique string alias or path.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 1 - Standard Aether ]#
-
-Standard Aether
-	
-	Philosophy
-		
-		-
-			Standard Aether is a variant of the Aether system under which Aether modules shall be
-			standard modules.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 2 - Global Retrieval ]#
-
-Global Retrieval
-
-	Philosophy
-
-		-
-			Global retrieval is when Philosopher's Retrieval is used to retrieve a set of files
-			and directories from within a specified directory, where the path or content of said
-			files and directories matches a given regular expression.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 3 - Philosopher's Core ]#
-
-"Philosopher's Core"
-
-	Philosophy
-
-		-
-			A Philosopher's Core is an online Philosopher's Cross with the internal structure of a
-			ONE document, that may be interfaced with through HTTP calls.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL ]#
 
 Standard SOUL
 	
@@ -2227,7 +2173,7 @@ Standard SOUL
 				Each model ought to have a custom file format storing its state.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map ]#
 
 Data Map
 
@@ -2239,7 +2185,7 @@ Data Map
 			is a single number between zero and one, inclusive.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 1 - Cleansing ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 1 - Cleansing ]#
 
 Data Map Cleansing
 
@@ -2254,7 +2200,7 @@ Data Map Cleansing
 			data map.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation ]#
 
 Data Map Generation
 
@@ -2268,7 +2214,7 @@ Data Map Generation
 			corresponding output in the input-output pair.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve ]#
 
 Data Map Curve
 
@@ -2279,7 +2225,7 @@ Data Map Curve
 			used in data map generation via curve regression.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve: 1 - Method ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve: 1 - Method ]#
 
 Curve Method
 
@@ -2346,7 +2292,7 @@ Curve Method
 								point[value]
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 2 - Data Map Net ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 2 - Data Map Net ]#
 
 Data Map Net
 
@@ -2357,7 +2303,7 @@ Data Map Net
 			generation.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector ]#
 
 Data Map Vector
 
@@ -2370,7 +2316,7 @@ Data Map Vector
 			outputs may be combined into an output vector.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 1 - Synchronous Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 1 - Synchronous Map ]#
 
 Synchronous Map
 
@@ -2383,7 +2329,7 @@ Synchronous Map
 			input-output pair.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 2 - Data Map Stack ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 2 - Data Map Stack ]#
 
 Data Map Stack
 
@@ -2418,7 +2364,7 @@ Data Map Stack
 				can make to the stack to achieve the desired results.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 4 - Reduction ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 4 - Reduction ]#
 
 Data Map Reduction
 
@@ -2429,7 +2375,7 @@ Data Map Reduction
 			a data map while being simpler to store, to process, or both.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 5 - Binary Data Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 5 - Binary Data Map ]#
 
 Binary Data Map
 
@@ -2440,7 +2386,7 @@ Binary Data Map
 			output number can only be a zero or a one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 2 - Binary Cropping ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 2 - Binary Cropping ]#
 
 Binary Cropping
 
@@ -2490,7 +2436,7 @@ Binary Cropping
 				The value vector is then returned as the final result.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 3 - Gradient Vector ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 3 - Gradient Vector ]#
 
 Gradient Vector
 	
@@ -2523,7 +2469,7 @@ Gradient Vector
 				number used shall be the average of them.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 4 - Neural Network Refactoring ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 4 - Neural Network Refactoring ]#
 
 Neural Network Refactoring
 
@@ -2539,7 +2485,7 @@ Neural Network Refactoring
 			pseudorefactoring.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter ]#
 
 Category Filter
 
@@ -2550,7 +2496,7 @@ Category Filter
 			secondary AI model can pick the most appropriate output from within said category.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter: 1 - Autogenerated ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter: 1 - Autogenerated ]#
 
 Autogenerated Expert System
 
@@ -2606,7 +2552,7 @@ Autogenerated Expert System
 				unable to narrow it down to one.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 6 - Model Analyzer ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 1 - Utilities: 6 - Model Analyzer ]#
 
 Model Analyzer
 
@@ -2617,7 +2563,7 @@ Model Analyzer
 			them according to their performance on said dataset.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 1 - SOUL Core Variable Model ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 2 - Models: 1 - SOUL Core Variable Model ]#
 
 SOUL Core Variable Model
 
@@ -2628,7 +2574,7 @@ SOUL Core Variable Model
 			be any vector of any length containing numbers between zero and one, inclusive.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 2 - SOUL Core Classifier Model ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 2 - Models: 2 - SOUL Core Classifier Model ]#
 
 SOUL Core Classifier Model
 
@@ -2639,7 +2585,7 @@ SOUL Core Classifier Model
 			any output vector to one of a set of established possible output values.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 1 - SOUL Core Format ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 3 - Formats: 1 - SOUL Core Format ]#
 
 SOUL Format
 
@@ -2662,7 +2608,7 @@ SOUL Format
 			model encoded in said model's custom file format as its content.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 2 - Kaeon Neural Network Format ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL: 3 - Formats: 2 - Kaeon Neural Network Format ]#
 
 Kaeon Neural Network Format
 
@@ -2720,7 +2666,7 @@ Kaeon Neural Network Format
 					f(x) = 1 / (1 + e^-x)
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 2 - Standard SOUL Core ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 2 - Standard SOUL Core ]#
 
 Standard SOUL Core
 
@@ -2731,7 +2677,7 @@ Standard SOUL Core
 			be connected to other modules using private connections.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 3 - SOUL Entity Conventions ]#
 
 SOUL Entity Conventions
 
@@ -2826,7 +2772,7 @@ SOUL Entity Conventions
 							entity and mutate it in order to emulate breeding.
 						-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 1 - SOUL Entity Exploit ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 3 - SOUL Entity Conventions: 1 - SOUL Entity Exploit ]#
 
 SOUL Entity Exploit
 
@@ -2838,7 +2784,7 @@ SOUL Entity Exploit
 			to do.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 2 - Artifical Imagination ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 3 - SOUL Entity Conventions: 2 - Artifical Imagination ]#
 
 Artificial Imagination
 
@@ -2850,45 +2796,80 @@ Artificial Imagination
 			own predictions about the effects of said actions.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 4 - Sentient Machines ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - Aether ]#
 
-Sentient Machines
+Aether
+
+	Philosophy
+	
+		-
+			Aether is a system that allows the interface of a regulated Philosopher's Stone module
+			to be attatched to modules that exist within systems running in entirely different
+			environments.
+		-
+	
+	Principles
+	
+		Alias
+		
+			-
+				An Aether module may be identified via a unique string alias or path.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - Aether: 1 - Standard Aether ]#
+
+Standard Aether
+	
+	Philosophy
+		
+		-
+			Standard Aether is a variant of the Aether system under which Aether modules shall be
+			standard modules.
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - Aether: 2 - Global Retrieval ]#
+
+Global Retrieval
 
 	Philosophy
 
 		-
-			Though computers are capable of emulating the behavior of sentient entities, it should
-			be assumed that a computer using any known architecture cannot truly be sentient, as it
-			only processes one instruction at a time per core, whereas every neuron in the brain is
-			capable of acting simultaneously.
+			Global retrieval is when Philosopher's Retrieval is used to retrieve a set of files
+			and directories from within a specified directory, where the path or content of said
+			files and directories matches a given regular expression.
+		-
 
-			For a machine to possess true sentience, it should be assumed that it would, at the
-			very least, have to emulate the parallel processing capability of the brain at the
-			hardware level.
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - Aether: 3 - Philosopher's Core ]#
 
-			Additionally, the processes of a computer are far more deterministic than those of a
-			brain, so for a computer to be truly sentient, it may have to emulate some degree of
-			non-determinism as well.
+"Philosopher's Core"
+
+	Philosophy
+
+		-
+			A Philosopher's Core is an online Philosopher's Cross with the internal structure of a
+			ONE document, that may be interfaced with through HTTP calls.
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - Aether: 4 - Aether Atlas ]#
+
+Aether Atlas
+
+	Philosophy
+
+		-
+			An Aether Atlas is an autonomous network of devices and applications that can
+			dynamically retructure itself.
+
+			As such, an aether atlas can be represented in abstract form as a Philosopher's Atlas.
 		-
 
 	Principles
 
-		Sigma Realm
+		Aether Interface
 
 			-
-				A sigma realm is a digital construct in which virtual sentient minds would be
-				stored, processed, and given means to interact with other entities, either in the
-				virtual realm or in the real world.
-
-				The minds that exist within a sigma realm may either have been digitally created or
-				transferred from a physical brain.
-
-				For the sigma realm itself to exert influence on the sentient minds with it beyond
-				simply giving them a platform on which to exist would constitute manipulation of
-				sentient entities and thus a violation of the Axioms of Kaeon.
-
-				In this sense, a sigma realm could be considered a sort of artificial spirit world,
-				and could even be constructed to resemble a heaven or a hell.
+				An Aether Interface is a device or application that provides a user interface to an
+				Aether Atlas.
 			-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 1 - Utilities: 1 - Time Based Random Numbers ]#

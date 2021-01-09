@@ -8,7 +8,7 @@
 
 <h2 align="center">What is Kaeon United?</h2>
 
-<p>Kaeon United (pronounced &quot;KAI-on&quot;) is a multi-purpose API designed to provide access to all major development tools under the Kaeon name through a single interface.</p>
+<p>Kaeon United (pronounced &quot;KAI-on&quot;) is a multi-purpose API designed to provide a unified interface to all of the major software development tools defined in the <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification/Kaeon%20United%20Specification.txt">Kaeon United Specification</a>.</p>
 
 <h2 align="center">Functionality</h2>
 
@@ -339,8 +339,8 @@ click <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeo
 
 <h2 align="center">Specification</h2>
 
-<p>To view the specification for Kaeon United,
-click <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification">here</a>.</p>
+<p>To view the Kaeon United Specification,
+click <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeon%20United/Specification/Kaeon%20United%20Specification.txt">here</a>.</p>
 
 <h2 align="center">Contact Info</h2>
 

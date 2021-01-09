@@ -36,7 +36,7 @@
 </li>
 <li><p>A C and C++ hybrid language called <a href="https://github.com/Gallery-of-Kaeon/United-C">United C</a>.</p>
 </li>
-<li><p>A machine code editing format called Character Separated Binary, or <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/2%20-%20United%20C/3%20-%20Character%20Separated%20Binary/Character%20Separated%20Binary.op">CSB</a> for short.</p>
+<li><p>A machine code editing format called Character Separated Binary, or <a href="https://github.com/Gallery-of-Kaeon/United-C#csb">CSB</a> for short.</p>
 </li>
 <li><p>An enhanced version of JavaScript called:</p>
 </li>

@@ -1310,7 +1310,532 @@
 			connecting to a cellular network.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 1 - Kaeon FUSION Conventions ]#
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 1 - ONE+ ]#
+
+ONE+
+	
+	Philosophy
+		
+		-
+			ONE+ is a syntactic superset of ONE.
+		-
+	
+	Principles
+		
+		Character Sequences
+			
+			-
+				In addition to the three character sequences required by ONE, ONE+ requires the
+				following unique character sequences: The segregating sequence, the nested
+				sequence, the denested sequence, the open scope sequence, the close scope sequence,
+				the open domain sequence, the close domain sequence, the escape sequence, the
+				escape scope sequence, the encoded escape scope sequence, the alternate breaking
+				sequence, the alternate nesting sequence, the comment sequence, the open comment
+				sequence, the close comment sequence, and the blank sequence. It is not permitted
+				for the sequences to be defined such that there may be any instances where two or
+				more sequences conflict at a given location.
+				
+				In ONE+, it is possible to have more than one character sequence for each defined
+				sequence.
+			-
+		
+		Syntax
+			
+			-
+				ONE+ permits sequences of characters to exist in between ONE elements. Such
+				sequences are referred to as plus sequences.
+				
+				Plus sequences of characters that exist between the beginning of the file, a
+				nesting sequence, or a breaking sequence, and a breaking sequence are referred to
+				as definitions. Definitions can be nested just like elements depending on how many
+				nesting sequences immediately precede them.
+			-
+
+		Plus Sequences
+			
+			Blank Plus Sequences
+				
+				-
+					A blank plus sequence is an plus sequence made up entirely of blank sequences.
+					They have no effect on the encoded elements.
+				-
+				
+			Escape Plus Sequences
+				
+				-
+					An escape plus sequence is an plus sequence that consists of an escape sequence
+					followed by another sequence of characters. If the sequence of characters
+					immediately following the escape sequence would normally have an effect on the
+					document, the effect will be nullified. The escape sequence itself will not be
+					encoded into any elements.
+				-
+			
+			Escape Scope Plus Sequences
+				
+				-
+					An escape scope plus sequence is an plus sequence that begins with an escape
+					scope sequence and ends with another escape scope sequence. If any characters
+					located between the two escape scope sequences would normally have an effect on
+					the document, the effect will be nullified. The escape scope sequences
+					themselves will not be encoded into any elements.
+				-
+				
+			Encoded Escape Scope Plus Sequences
+				
+				-
+					An encoded escape scope plus sequence is an plus sequence that begins with an
+					encoded escape scope sequence and ends with another encoded escape scope
+					sequence. If any characters located between the two encoded escape scope
+					sequences would normally have an effect on the document, the effect will be
+					nullified. The encoded escape scope sequences themselves will be encoded into
+					the elements.
+				-
+			
+			Extended Escape Scope Plus Sequences
+			
+				-
+					If an escape scope plus sequence or encoded escape scope plus sequence does not
+					properly close within the definition it occurs within, and said definition is
+					followed by another definition, the sequence will continue through to the next
+					definition.
+				-
+			
+			Escape Character Plus Sequences
+				
+				-
+					An escape character plus sequence is an plus sequence that consists of an
+					escape sequence followed by either an alternate breaking sequence or an
+					alternate nesting sequence. It will not be encoded into the document.
+					
+					If the escape character plus sequence contains an alternate breaking sequence,
+					a breaking sequence will be encoded into the document in place of the escape
+					character plus sequence.
+					
+					If the escape character plus sequence contains an alternate nesting sequence, a
+					nesting sequence will be encoded into the document in place of the escape
+					character plus sequence.
+				-
+			
+			Comment Plus Sequences
+				
+				-
+					A comment plus sequence is an plus sequence that starts with a comment sequence
+					and ends with a breaking sequence. All characters in the plus sequence will
+					have no effect on the document.
+				-
+				
+			Comment Block Plus Sequences
+				
+				-
+					A comment plus sequence is an plus sequence that starts with an open comment
+					sequence and ends with a close comment sequence. All characters in the plus
+					sequence will have no effect on the document.
+				-
+			
+			Plus Element Definitions
+				
+				-
+					A plus element definition is a definition that does not consist entirely of
+					blank sequences. All characters except those nullified by comments or escape
+					sequences or are blank sequences leading or trailing the definition or comments
+					within the definition will be encoded into an element.
+				-
+			
+			Multiple Plus Element Definitions
+				
+				-
+					It is possible to separate the content encoded through a plus element
+					definition across multiple elements.
+					
+					The content can be separated with the following character sequences: the
+					segregating sequence, the nested sequence, the denested sequence, the open
+					scope sequence, the close scope sequence, the open domain sequence, and the
+					close domain sequence. Any blank sequences preceding or following the
+					separating sequence will not be encoded into the elements, nor will the
+					separating sequence itself.
+					
+					If a segregating sequence or open scope sequence is used as the separating
+					sequence, the element following it will be a sibling of the element preceding
+					it.
+					
+					If a close scope sequence is used as the separating sequence, the element
+					following it will be a sibling of the element preceding the corresponding
+					open scope sequence.
+					
+					If a nested sequence or open domain sequence is used as the separating
+					sequence, the element following it will be a child of the element preceding it.
+					
+					If a closed domain sequence is used as the separating sequence, the element
+					following it will be a sibling of the element preceding the corresponding open
+					domain sequence.
+					
+					If a denested sequence is used as the separating sequence, the element
+					following it will be a sibling of the parent of the preceding element.
+				-
+			
+			Nesting
+			
+				-
+					An element defined in a ONE element definition or the first element defined in
+					a plus element definition nested beneath a plus element definition will be a
+					child of the last element defined by the parent plus element definition that is
+					not followed by a closed domain sequence or denested sequence.
+					
+					If a multiple plus element definition is ended with a nested sequence or an
+					open domain sequence, elements defined following said plus sequence will define
+					children of the last element defined by said plus sequence regardless of the
+					nest level of said elements, until an excess denested sequence or close domain
+					sequence is used respectively.
+				-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 1 - ONE+: 1 - Standard ONE+ Language ]#
+
+Standard ONE+ Language
+
+	Philosophy
+	
+		-
+			The standard variant of the ONE+ Language defines specific sequences of characters as
+			the required sequences of the ONE+ language.
+			
+			The standard variant of the ONE+ language also uses the same sequences of characters as
+			the standard variant of the ONE language for the terminating and breaking sequences.
+		-
+	
+	Principles
+		
+		Standard Sequences
+			
+			Nesting Sequence
+				
+				-
+					The nesting sequence will be defined by the nest definition line. The nest
+					definition line is the first line in the document to have a length greater than
+					zero and to begin with either a tab or a space but not to consist solely of
+					tabs and spaces.
+					
+					If no line in the document satisfies the requirements of the nest definition
+					line, the nesting sequence will be a tab.
+					
+					If the nest definition line exists, the nesting sequence will be defined as a
+					string containing the first character in the nest definition line. For every
+					character nest definition line from the second character, inclusive, to the
+					first character that does not match the first character in the nest definition
+					line, exclusive, said character will be appended to the nesting sequence.
+				-
+		
+			Segregating Sequence
+			
+				-
+					In the standard variant of the ONE+ Language, the segregating sequence is a
+					comma.
+				-
+				
+			Nested Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the nested sequence is a colon.
+				-
+				
+			Denested Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the denested sequence is a
+					semicolon.
+				-
+			
+			Open Scope Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the open scope sequence is an
+					open parenthesis.
+				-
+			
+			Close Scope Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the close scope sequence is a
+					closed parenthesis.
+				-
+			
+			Open Domain Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the open domain sequence is an
+					open curly bracket.
+				-
+			
+			Close Domain Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the close domain sequence is a
+					closed curly bracket.
+				-
+			
+			Escape Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the escape sequence is a tilde.
+				-
+			
+			Escape Scope Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the escape scope sequence is a
+					single quote.
+				-
+			
+			Encoded Escape Scope Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the encoded escape scope sequence
+					is a double quote.
+				-
+			
+			Alternate Breaking Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the alternate breaking sequence
+					is an 'n'.
+				-
+			
+			Alternate Nesting Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the alternate nesting sequence is
+					a 't'.
+				-
+			
+			Comment Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the comment sequence is a pound
+					sign.
+				-
+			
+			Open Comment Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the open comment sequence is a
+					pound sign followed by an open square bracket.
+				-
+			
+			Close Comment Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the close comment sequence is a
+					closed square bracket followed by a pound sign.
+				-
+			
+			Zero Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the zero sequence is an open
+					square bracket, followed by a zero, followed by a closed square bracket.
+				-
+			
+			Blank Sequence
+				
+				-
+					In the standard variant of the ONE+ Language, the blank sequence is either a
+					space or a tab.
+				-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 2 - ONE Files: 1 - ONE List Form ]#
+
+ONE List Form
+
+	Philosophy
+	
+		-
+			ONE list form is an alternative way of representing ONE elements as lists rather than
+			trees.
+		-
+	
+	Principles
+		
+		Structure
+			
+			-
+				Any list of objects may be used to represent a ONE element in ONE list form.
+				
+				The string form of the first object in the list will be said element's content, and
+				every object following the first object will represent one of said element's
+				children.
+				
+				If an empty list is interpreted as an element in ONE list form, said element will
+				have an empty string as its content.
+				
+				When interpreting an object within a list as an element's child, the string form of
+				the object will be said child's content if the object is not a list, and if the
+				object is a list, said child will be said list interpreted as an element in ONE
+				list form.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 2 - ONE Files: 1 - ONE List Form: 1 - Extended ONE List Form ]#
+
+Extended ONE List Form
+
+	Philosophy
+	
+		-
+			A ONE element nested within another element may be represented as a list using extended
+			ONE list form. 
+		-
+	
+	Principles
+	
+		List Structure
+		
+			-
+				A list representing an element in extended ONE list form contains two lists, the
+				first of which represents an element that has no parent in ONE list form, and the
+				second of which containing integer numbers greater than or equal to one specifying,
+				in order, the indexes leading to the desired nested element.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 2 - ONE Files: 2 - ONE File Extensions ]#
+
+ONE File Extensions
+
+	Philosophy
+	
+		-
+			A file containing a ONE document written in only the standard ONE language should have
+			the extension ".one".
+			
+			A file containing a ONE document written in the standard ONE+ language should have the
+			extension ".op".
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 2 - ONE Files: 3 - ONE Abstract Syntax Tree ]#
+
+ONE Abstract Syntax Tree
+
+	Philosophy
+	
+		-
+			A ONE abstract syntax tree is a ONE element analogous to the abstract syntax tree of a
+			given document in a language that can be represented as an abstract syntax tree.
+		-
+	
+	Principles
+	
+		Structure
+		
+			-
+				A ONE abstract syntax tree contains as its content the name of the language the
+				abstract syntax tree represents and every child of it is a node on the tree. Each
+				node element has as its content the content of the node it represents and has other
+				node elements corresponding to the children of the node it represents. Node
+				elements must be arranged in the same order as the nodes they represent.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 2 - ONE Files: 4 - ONE File Document ]#
+
+ONE File Document
+
+	Philosophy
+
+		-
+			A ONE file document is a ONE document generated from a file or folder and its contents.
+		-
+
+	Principles
+
+		Generation
+
+			-
+				A folder shall correspond to a ONE element where the name of the folder is its
+				content and where each file or folder within said folder corresponds to a child of
+				said element, ordered according to their order relative to each other.
+
+				A file shall correspond to a ONE element where the name of said file is its content
+				and where, if said file is not a ONE document, said element has one child where the
+				content of said child is the content of said file, and if said file is a ONE
+				document, said element has the childen of the root element of said ONE document as
+				its children.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 2 - ONE Rendering ]#
+
+ONE Rendering
+
+	Philosophy
+
+		-
+			ONE rendering is the process of taking a document that was originally composed in a
+			format other than ONE and converting its content into a ONE document, the end result
+			being a ONE rendered document.
+		-
+
+	Principles
+
+		ONE Derendering
+
+			-
+				ONE derendering is the process of taking a document that was originally composed in
+				ONE and converting its content into a document in another format, the end result
+				being a ONE derendered document.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 3 - Kaeon Metadata Document ]#
+
+Kaeon Metadata Document
+
+	Philosophy
+	
+		-
+			A Kaeon metadata document is a ONE document that may accompany a Kaeon document or
+			Kaeon library to provide information regarding the author or authors, time of writing,
+			terms of use, reference information, and miscellaneous notes.
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 2 - Universal Preprocessor: 1 - Langauge Aliases ]#
+
+Universal Preprocessor Language Aliases
+
+	Philosophy
+
+		-
+			This document specifies the aliases that different languages may use when being
+			declared as the host language or as a directive language.
+
+			All aliases declared in this document are case insensitive.
+		-
+
+	Principles
+
+		Languages
+
+			Kaeon FUSION
+
+				-
+					Kaeon FUSION may use the aliases "Kaeon FUSION" and "KF".
+				-
+
+			JavaScript
+
+				-
+					JavaScript may use the aliases "JavaScript" and "JS".
+				-
+
+#[ Kaeon United Specification: 2 - Suite: 1 - Code: 2 - Universal Preprocessor: 2 - Assembler ]#
+
+Universal Preprocessor Assembler
+
+	Philosophy
+
+		-
+			The universal preprocessor may be used to produce binary data by running it such that a
+			directive, if it does not return a value of null, may return either a string or a byte
+			array.
+
+			In the latter case, the universal preprocessor shall stop and the output of the process
+			shall be said byte array.
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 1 - Kaeon FUSION Conventions ]#
 
 Kaeon FUSION Standard Conventions
 
@@ -1372,7 +1897,7 @@ Kaeon FUSION Standard Conventions
 				workspace.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 1 - Kaeon ACE Directives ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 1 - Kaeon ACE Directives ]#
 
 Kaeon ACE Directives
 
@@ -1400,7 +1925,7 @@ Kaeon ACE Directives
 				specifying the paths or names of modules to import.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 2 - Kaeon ACE Engine ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 2 - Kaeon ACE Engine ]#
 
 Kaeon ACE Engine
 	
@@ -1444,7 +1969,7 @@ Kaeon ACE Engine
 					A process may be connected to more than one Kaeon ACE Stone.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 2 - Kaeon ACE Engine: 1 - Standard Kaeon ACE Engine ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 1 - Kaeon ACE: 2 - Kaeon ACE Engine: 1 - Standard Kaeon ACE Engine ]#
 
 Standard Kaeon ACE Engine
 
@@ -1468,7 +1993,7 @@ Standard Kaeon ACE Engine
 				Philosopher's stone must be private.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 2 - ACE Meta ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 2 - ACE Meta ]#
 
 ACE Meta
 	
@@ -1495,7 +2020,7 @@ ACE Meta
 				specified by the child of the source element.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 3 - Reduced ACE ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 1 - ONE: 2 - ACE Conventions: 3 - Reduced ACE ]#
 
 Reduced ACE
 
@@ -1506,7 +2031,7 @@ Reduced ACE
 			that adhere to the convention prohibit the use of ACE references.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 1 - Mediums: 1 - Taggable ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 1 - Mediums: 1 - Taggable ]#
 
 Taggable Philosopher's Medium
 	
@@ -1520,7 +2045,7 @@ Taggable Philosopher's Medium
 			Philosopher's Stone module.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 2 - Philosopher's Crystal ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 2 - Philosopher's Crystal ]#
 
 Philosopher's Crystal
 
@@ -1532,7 +2057,7 @@ Philosopher's Crystal
 			philosopher's crystal is referred to as crystallization.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 1 - Private Connection ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 1 - Private Connection ]#
 
 Private Connection
 
@@ -1545,7 +2070,7 @@ Private Connection
 			traversal began at the module that said connection goes out from.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 2 - Reduced Connection ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 2 - Reduced Connection ]#
 
 Reduced Connection
 
@@ -1561,7 +2086,7 @@ Reduced Connection
 			module.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 4 - Standard Module ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 4 - Standard Module ]#
 
 Standard Module
 
@@ -1588,7 +2113,7 @@ Standard Module
 				acknowledge private and reduced connections.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether ]#
 
 Aether
 
@@ -1608,7 +2133,7 @@ Aether
 				An Aether module may be identified via a unique string alias or path.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 1 - Standard Aether ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 1 - Standard Aether ]#
 
 Standard Aether
 	
@@ -1619,7 +2144,7 @@ Standard Aether
 			standard modules.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 2 - Global Retrieval ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 2 - Global Retrieval ]#
 
 Global Retrieval
 
@@ -1631,7 +2156,7 @@ Global Retrieval
 			files and directories matches a given regular expression.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 3 - Philosopher's Core ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - Aether: 3 - Philosopher's Core ]#
 
 "Philosopher's Core"
 
@@ -1642,7 +2167,7 @@ Global Retrieval
 			ONE document, that may be interfaced with through HTTP calls.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL ]#
 
 Standard SOUL
 	
@@ -1702,7 +2227,7 @@ Standard SOUL
 				Each model ought to have a custom file format storing its state.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map ]#
 
 Data Map
 
@@ -1714,7 +2239,7 @@ Data Map
 			is a single number between zero and one, inclusive.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 1 - Cleansing ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 1 - Cleansing ]#
 
 Data Map Cleansing
 
@@ -1729,7 +2254,7 @@ Data Map Cleansing
 			data map.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation ]#
 
 Data Map Generation
 
@@ -1743,7 +2268,7 @@ Data Map Generation
 			corresponding output in the input-output pair.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve ]#
 
 Data Map Curve
 
@@ -1754,7 +2279,7 @@ Data Map Curve
 			used in data map generation via curve regression.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve: 1 - Method ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 1 - Data Map Curve: 1 - Method ]#
 
 Curve Method
 
@@ -1821,7 +2346,7 @@ Curve Method
 								point[value]
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 2 - Data Map Net ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 2 - Generation: 2 - Data Map Net ]#
 
 Data Map Net
 
@@ -1832,7 +2357,7 @@ Data Map Net
 			generation.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector ]#
 
 Data Map Vector
 
@@ -1845,7 +2370,7 @@ Data Map Vector
 			outputs may be combined into an output vector.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 1 - Synchronous Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 1 - Synchronous Map ]#
 
 Synchronous Map
 
@@ -1858,7 +2383,7 @@ Synchronous Map
 			input-output pair.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 2 - Data Map Stack ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 3 - Vector: 2 - Data Map Stack ]#
 
 Data Map Stack
 
@@ -1893,7 +2418,7 @@ Data Map Stack
 				can make to the stack to achieve the desired results.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 4 - Reduction ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 4 - Reduction ]#
 
 Data Map Reduction
 
@@ -1904,7 +2429,7 @@ Data Map Reduction
 			a data map while being simpler to store, to process, or both.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 5 - Binary Data Map ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 1 - Data Map: 5 - Binary Data Map ]#
 
 Binary Data Map
 
@@ -1915,7 +2440,7 @@ Binary Data Map
 			output number can only be a zero or a one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 2 - Binary Cropping ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 2 - Binary Cropping ]#
 
 Binary Cropping
 
@@ -1965,7 +2490,7 @@ Binary Cropping
 				The value vector is then returned as the final result.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 3 - Gradient Vector ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 3 - Gradient Vector ]#
 
 Gradient Vector
 	
@@ -1998,7 +2523,7 @@ Gradient Vector
 				number used shall be the average of them.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 4 - Neural Network Refactoring ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 4 - Neural Network Refactoring ]#
 
 Neural Network Refactoring
 
@@ -2014,7 +2539,7 @@ Neural Network Refactoring
 			pseudorefactoring.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter ]#
 
 Category Filter
 
@@ -2025,7 +2550,7 @@ Category Filter
 			secondary AI model can pick the most appropriate output from within said category.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter: 1 - Autogenerated ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 5 - Category Filter: 1 - Autogenerated ]#
 
 Autogenerated Expert System
 
@@ -2081,7 +2606,7 @@ Autogenerated Expert System
 				unable to narrow it down to one.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 6 - Model Analyzer ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 1 - Utilities: 6 - Model Analyzer ]#
 
 Model Analyzer
 
@@ -2092,7 +2617,7 @@ Model Analyzer
 			them according to their performance on said dataset.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 1 - SOUL Core Variable Model ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 1 - SOUL Core Variable Model ]#
 
 SOUL Core Variable Model
 
@@ -2103,7 +2628,7 @@ SOUL Core Variable Model
 			be any vector of any length containing numbers between zero and one, inclusive.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 2 - SOUL Core Classifier Model ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 2 - Models: 2 - SOUL Core Classifier Model ]#
 
 SOUL Core Classifier Model
 
@@ -2114,7 +2639,7 @@ SOUL Core Classifier Model
 			any output vector to one of a set of established possible output values.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 1 - SOUL Core Format ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 1 - SOUL Core Format ]#
 
 SOUL Format
 
@@ -2137,7 +2662,7 @@ SOUL Format
 			model encoded in said model's custom file format as its content.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 2 - Kaeon Neural Network Format ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 1 - Standard SOUL: 3 - Formats: 2 - Kaeon Neural Network Format ]#
 
 Kaeon Neural Network Format
 
@@ -2195,7 +2720,7 @@ Kaeon Neural Network Format
 					f(x) = 1 / (1 + e^-x)
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 2 - Standard SOUL Core ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 2 - Standard SOUL Core ]#
 
 Standard SOUL Core
 
@@ -2206,7 +2731,7 @@ Standard SOUL Core
 			be connected to other modules using private connections.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions ]#
 
 SOUL Entity Conventions
 
@@ -2301,7 +2826,7 @@ SOUL Entity Conventions
 							entity and mutate it in order to emulate breeding.
 						-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 1 - SOUL Entity Exploit ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 1 - SOUL Entity Exploit ]#
 
 SOUL Entity Exploit
 
@@ -2313,7 +2838,7 @@ SOUL Entity Exploit
 			to do.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 2 - Artifical Imagination ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 3 - SOUL Entity Conventions: 2 - Artifical Imagination ]#
 
 Artificial Imagination
 
@@ -2325,7 +2850,7 @@ Artificial Imagination
 			own predictions about the effects of said actions.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 4 - Sentient Machines ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 3 - SOUL: 4 - Sentient Machines ]#
 
 Sentient Machines
 
@@ -2366,7 +2891,7 @@ Sentient Machines
 				and could even be constructed to resemble a heaven or a hell.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 1 - Utilities: 1 - Time Based Random Numbers ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 1 - Utilities: 1 - Time Based Random Numbers ]#
 
 Time Based Random Numbers
 
@@ -2378,7 +2903,7 @@ Time Based Random Numbers
 			seed can be used as a substitute.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 1 - Utilities: 2 - AI Rendering ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 1 - Utilities: 2 - AI Rendering ]#
 
 AI Rendering
 
@@ -2408,7 +2933,7 @@ AI Rendering
 				said frames.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 1 - Utilities: 3 - Virtual Hardware ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 1 - Utilities: 3 - Virtual Hardware ]#
 
 Virtual Hardware
 
@@ -2423,7 +2948,7 @@ Virtual Hardware
 			sufficiently proven.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits ]#
 
 Dynamic Bit
 
@@ -2437,7 +2962,7 @@ Dynamic Bit
 			used to do this must do so determinisitcally.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits: 1 - Standard Dynamic Bit ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits: 1 - Standard Dynamic Bit ]#
 
 Standard Dynamic Bit
 
@@ -2451,7 +2976,7 @@ Standard Dynamic Bit
 			By default, the length of said list is one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits: 2 - Gateway Philosopher's Medium ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 1 - Dynamic Bits: 2 - Gateway Philosopher's Medium ]#
 
 Gateway Philosopher's Medium
 	
@@ -2468,7 +2993,7 @@ Gateway Philosopher's Medium
 			Philosopher's Stone module.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 2 - Dynamic Lists ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 2 - Dynamic Lists ]#
 
 Dynamic List
 
@@ -2478,7 +3003,7 @@ Dynamic List
 			A dynamic list is a list in which each index may have a string alias.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 2 - Dynamic Lists: 1 - Dynamic List Format ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 2 - Dynamic Lists: 1 - Dynamic List Format ]#
 
 Dynamic List Format
 
@@ -2490,7 +3015,7 @@ Dynamic List Format
 			is a list element assigned to the alias immediately preceding it.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 2 - Dynamic: 3 - Dynamic Web ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 2 - Dynamic: 3 - Dynamic Web ]#
 
 Dynamic Web
 
@@ -2517,7 +3042,7 @@ Dynamic Web
 				bitmap to encode the source text.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 3 - Common: 1 - Common Object ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 3 - Common: 1 - Common Object ]#
 
 Common Object
 
@@ -2528,7 +3053,7 @@ Common Object
 			type of object, such that it may be implmented in different languages and environments.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 3 - Common: 1 - Common Object: 1 - Common Document ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 3 - Common: 1 - Common Object: 1 - Common Document ]#
 
 Common Document
 
@@ -2540,7 +3065,7 @@ Common Document
 			environments.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 3 - Common: 2 - Common Framework ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 3 - Common: 2 - Common Framework ]#
 
 Common Framework
 
@@ -2551,7 +3076,7 @@ Common Framework
 			application such that the application may be recreated in other frameworks.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 3 - Common: 3 - Common ID ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 3 - Common: 3 - Common ID ]#
 
 Common ID
 
@@ -2565,7 +3090,7 @@ Common ID
 			tags, which shall be insensitive to letter case and to whitespace.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 3 - Common: 4 - Common Convention ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 3 - Common: 4 - Common Convention ]#
 
 Common Convention
 
@@ -2576,7 +3101,7 @@ Common Convention
 			each of said technologies to operate seamlessly together.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 4 - Modules: 1 - Shadow Module ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 4 - Modules: 1 - Shadow Module ]#
 
 Shadow Module
 
@@ -2591,7 +3116,7 @@ Shadow Module
 			shadow point.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 4 - Modules: 2 - Ghost Module ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 4 - Modules: 2 - Ghost Module ]#
 
 Ghost Module
 
@@ -2601,7 +3126,7 @@ Ghost Module
 			A ghost module is a module with functioning endpoints but incomplete implementation.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 4 - Modules: 3 - Portal Module ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 4 - Modules: 3 - Portal Module ]#
 
 Portal Module
 
@@ -2613,7 +3138,7 @@ Portal Module
 			is modified.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 4 - Modules: 3 - Portal Module: 1 - ACE Portal ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 4 - Modules: 3 - Portal Module: 1 - ACE Portal ]#
 
 ACE Portal
 
@@ -2624,7 +3149,7 @@ ACE Portal
 			document.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric ]#
 
 Geometric Automata
 
@@ -2638,7 +3163,7 @@ Geometric Automata
 			Cellular automata is a form of geometric automata.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 1 - Continuous ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 1 - Continuous ]#
 
 Continuous Automata
 
@@ -2649,7 +3174,7 @@ Continuous Automata
 			geometric space whose states may be affected are not discrete.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 2 - Multistate ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 2 - Multistate ]#
 
 Multistate Automata
 
@@ -2669,7 +3194,7 @@ Multistate Automata
 				indefinite number of states that may be assigned to given points in space.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 3 - Multidimensional ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 3 - Multidimensional ]#
 
 Multidimensional Automata
 
@@ -2697,7 +3222,7 @@ Multidimensional Automata
 				simulation takes place in a verying dimensional space.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 4 - Warping ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 4 - Warping ]#
 
 Warping Automata
 
@@ -2708,7 +3233,7 @@ Warping Automata
 			a dynamic space.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 5 - Chaotic ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 1 - Geometric: 5 - Chaotic ]#
 
 Chaotic Automata
 
@@ -2729,7 +3254,7 @@ Chaotic Automata
 				selection.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 2 - Dynamic ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 5 - Theoretical: 1 - Automata: 2 - Dynamic ]#
 
 Dynamic Automata
 
@@ -2740,7 +3265,7 @@ Dynamic Automata
 			govern the simulation may change over time.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 1 - ONE Database ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 1 - ONE Database ]#
 
 ONE Database
 
@@ -2780,7 +3305,7 @@ ONE Database
 				table within the database shall serve as the root or master table.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 2 - Common Database API ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 2 - Common Database API ]#
 
 Common Database API
 
@@ -2839,7 +3364,7 @@ Common Database API
 			Column
 			Graph
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 3 - Virtual File System ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 1 - Databases: 3 - Virtual File System ]#
 
 Virtual File System
 
@@ -2887,7 +3412,7 @@ Virtual File System
 				resource sharing the same path.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 1 - Printable DOM ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 1 - Printable DOM ]#
 
 Printable DOM
 
@@ -2936,7 +3461,7 @@ Printable DOM
 					The standard file extension for a PDOM document is ".pdom".
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 2 - Standard Repository ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 2 - Standard Repository ]#
 
 Standard Repository
 
@@ -2950,7 +3475,7 @@ Standard Repository
 			folder, there may also be a license file and a readme file.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 1 - Standard Service ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 1 - Standard Service ]#
 
 Standard Service
 
@@ -2963,7 +3488,7 @@ Standard Service
 			action.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 2 - Minimal API ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 2 - Minimal API ]#
 
 Minimal API
 
@@ -2993,7 +3518,7 @@ Minimal API
 				need to be exchanged.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Host ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Host ]#
 
 Shadow Host
 
@@ -3005,7 +3530,7 @@ Shadow Host
 			new website.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 1 - Virtual System ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 1 - Virtual System ]#
 
 Virtual System
 
@@ -3037,7 +3562,7 @@ Virtual System
 				interface.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 2 - Game Recorder ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 2 - Game Recorder ]#
 
 Game Recorder
 
@@ -3051,7 +3576,7 @@ Game Recorder
 			frame.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 3 - Standard UI Conventions ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 3 - Standard UI Conventions ]#
 
 Standard UI Conventions
 
@@ -3109,7 +3634,7 @@ Standard UI Conventions
 				current positions and held buttons of all input devices.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 3 - Processes: 1 - Dynamic Dependency Retrieval ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 3 - Processes: 1 - Dynamic Dependency Retrieval ]#
 
 Dynamic Dependency Retrieval
 
@@ -3121,7 +3646,7 @@ Dynamic Dependency Retrieval
 			they are not installed already.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 3 - Processes: 2 - Polyglot Call ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 3 - Processes: 2 - Polyglot Call ]#
 
 Polyglot Call
 
@@ -3156,7 +3681,7 @@ Polyglot Call
 					stdout upon its completion.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 1 - Scout Bot ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 1 - Scout Bot ]#
 
 Scout Bot
 
@@ -3167,7 +3692,7 @@ Scout Bot
 			gather information on a given topic and produce analytics on it.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 2 - Report Bot ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 2 - Report Bot ]#
 
 Report Bot
 
@@ -3178,7 +3703,7 @@ Report Bot
 			produced by them to generate qualitative reports on a given topic.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 3 - Operations Bot ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 4 - Bots: 3 - Operations Bot ]#
 
 Operations Bot
 
@@ -3198,7 +3723,7 @@ Operations Bot
 				of tasks while taking directives from external operators.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 1 - Kaeon Architecture ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 1 - Kaeon Architecture ]#
 
 Kaeon Architecture
 
@@ -3258,7 +3783,7 @@ Kaeon Architecture
 				whole module.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 2 - FUSION Interpreter Architecture ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 2 - FUSION Interpreter Architecture ]#
 
 FUSION Interpreter Architecture
 
@@ -3514,7 +4039,7 @@ FUSION Interpreter Architecture
 							It does not return a value.
 						-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 3 - Kaeon ACE Interface Architecture ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 3 - Kaeon ACE Interface Architecture ]#
 
 Kaeon ACE Interface Architecture
 
@@ -3666,7 +4191,7 @@ Kaeon ACE Interface Architecture
 					serialized application at the time it was serialized.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 1 - APIs: 2 - Hardware: 1 - Universal Hardware API ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 2 - Hardware: 1 - Universal Hardware API ]#
 
 Universal Hardware API
 
@@ -3742,7 +4267,7 @@ Universal Hardware API
 					The universal hardware API can be referred to as UHAPI ("you-happy") for short.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript ]#
 
 United JavaScript
 
@@ -3814,7 +4339,7 @@ United JavaScript
 				function.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 1 - List Object Equivalence ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 1 - List Object Equivalence ]#
 
 List Object Equivalence
 
@@ -3828,7 +4353,7 @@ List Object Equivalence
 			indicies.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 2 - United JavaScript Modules ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 2 - United JavaScript Modules ]#
 
 United JavaScript Modules
 	
@@ -3840,7 +4365,7 @@ United JavaScript Modules
 			exports must be the same, but their implementations may differ.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - HTJS ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - HTJS ]#
 
 HTJS
 
@@ -3891,7 +4416,7 @@ HTJS
 					with JavaScript code placed between the two aforementioned lines.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 1 - JSON Dynamic List ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 1 - JSON Dynamic List ]#
 
 JSON Dynamic List
 
@@ -3926,7 +4451,7 @@ JSON Dynamic List
 				themselves.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 2 - JSON Dialects: 1 - United JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 2 - JSON Dialects: 1 - United JSON ]#
 
 United JSON
 
@@ -3946,7 +4471,7 @@ United JSON
 				United JSON files should use the file extension ".ujs".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 2 - JSON Dialects: 2 - ONE JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 2 - JSON Dialects: 2 - ONE JSON ]#
 
 ONE JSON
 
@@ -4016,7 +4541,7 @@ ONE JSON
 				that said child corresponds to.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 1 - Field JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 1 - Field JSON ]#
 
 Field JSON
 
@@ -4026,7 +4551,7 @@ Field JSON
 			A field JSON object is a JSON object where every field value is a string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 2 - Function JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 2 - Function JSON ]#
 
 Function JSON
 
@@ -4054,7 +4579,7 @@ Function JSON
 			defined by it shall have the key of said field.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 3 - X-JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 3 - X-JSON ]#
 
 X-JSON
 
@@ -4093,7 +4618,7 @@ X-JSON
 					content, or another X-JSON object, specifying a child element.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 4 - DOM JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 4 - DOM JSON ]#
 
 DOM JSON
 
@@ -4117,7 +4642,7 @@ DOM JSON
 			objects.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 5 - Style JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 5 - Style JSON ]#
 
 Style JSON
 
@@ -4132,7 +4657,7 @@ Style JSON
 			content.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 6 - HTTP JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 6 - HTTP JSON ]#
 
 HTTP JSON
 
@@ -4188,7 +4713,7 @@ HTTP JSON
 				string representing the body of the HTTP call.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 7 - File JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 7 - File JSON ]#
 
 File JSON
 
@@ -4217,7 +4742,7 @@ File JSON
 				virtual file system.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 3 - Frameworks: 1 - Dynamic UI ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 3 - Frameworks: 1 - Dynamic UI ]#
 
 Dynamic UI Framework
 
@@ -4277,7 +4802,7 @@ Dynamic UI Framework
 				of external JavaScript scripts and CSS stylesheets.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C ]#
 
 United C
 
@@ -4448,7 +4973,7 @@ United C
 					The United C Compiler may be abbreviated as "UCC".
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 1 - Kaeon FUSION Interface ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 1 - Kaeon FUSION Interface ]#
 
 Kaeon FUSION United C Interface
 
@@ -4462,7 +4987,7 @@ Kaeon FUSION United C Interface
 			United C code passed to said process as the first argument.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 2 - Standard Library ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 2 - Standard Library ]#
 
 United C Standard Library
 
@@ -4478,7 +5003,7 @@ United C Standard Library
 			lists, memory management, string processing, and multithreading.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Character Separated Binary ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Character Separated Binary ]#
 
 Character Separated Binary
 
@@ -4530,7 +5055,7 @@ Character Separated Binary
 				Character separated binary may be abbreviated as CSB.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 3 - United Query Language ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 3 - United Query Language ]#
 
 United Query Language
 
@@ -4577,7 +5102,7 @@ United Query Language
 				United Query Language can be referred to as UQL.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 1 - Conventions: 3 - Tools: 2 - United: 2 - Kaeon United ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 2 - Kaeon United ]#
 
 Kaeon United
 
@@ -4687,7 +5212,7 @@ Kaeon United
 					guide for Kaeon United shall be rendered.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard ]#
 
 Kaeon FUSION Standard Interface
 	
@@ -4846,7 +5371,7 @@ Kaeon FUSION Standard Interface
 				functions.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 1 - Undefined: 1 - Literals ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 1 - Undefined: 1 - Literals ]#
 
 Literals
 	
@@ -4865,7 +5390,7 @@ Literals
 			itself.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 1 - Undefined: 2 - Variables ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 1 - Undefined: 2 - Variables ]#
 
 Variables
 	
@@ -4883,7 +5408,7 @@ Variables
 			it has children, will return the value of the item that corresponds to the alias.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 1 - Define ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 1 - Define ]#
 
 Define
 	
@@ -4897,7 +5422,7 @@ Define
 			elements in its scope.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 10 - Form ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 10 - Form ]#
 
 Form
 
@@ -4913,7 +5438,7 @@ Form
 			not match a boolean or a numerical value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 11 - Is Command ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 11 - Is Command ]#
 
 Is Command
 
@@ -4927,7 +5452,7 @@ Is Command
 			a literal, variable, or function call if it were the content of a Kaeon FUSION command.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 12 - Is Variable ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 12 - Is Variable ]#
 
 Is Variable
 
@@ -4943,7 +5468,7 @@ Is Variable
 			command will only check the global scope.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 13 - Destroy ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 13 - Destroy ]#
 
 Destroy
 
@@ -4959,7 +5484,7 @@ Destroy
 			only delete values in the global scope.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 14 - Variables ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 14 - Variables ]#
 
 Variables
 
@@ -4975,7 +5500,7 @@ Variables
 			from the global scope.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 15 - Get Code ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 15 - Get Code ]#
 
 Get Code
 
@@ -4987,7 +5512,7 @@ Get Code
 			It returns the root element of the script it was called from in ONE list form.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 16 - Get Code Index ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 16 - Get Code Index ]#
 
 Get Code Index
 
@@ -5001,7 +5526,7 @@ Get Code Index
 			until it reaches the root. It then returns the generated list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 17 - With ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 17 - With ]#
 
 With
 
@@ -5018,7 +5543,7 @@ With
 			the value returned by the command.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 18 - Disable ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 18 - Disable ]#
 
 Disable
 
@@ -5032,7 +5557,7 @@ Disable
 			It disables the commands activated by the string forms of the returned values.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 19 - Enable ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 19 - Enable ]#
 
 Enable
 
@@ -5047,7 +5572,7 @@ Enable
 			have been disabled by the disable command.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 2 - Global ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 2 - Global ]#
 
 Global
 	
@@ -5060,7 +5585,7 @@ Global
 			The content of each child will become a global alias in the state.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 20 - Lock Down ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 20 - Lock Down ]#
 
 Lock Down
 
@@ -5075,7 +5600,7 @@ Lock Down
 			values.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 21 - Reflect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 21 - Reflect ]#
 
 Reflect
 
@@ -5107,7 +5632,7 @@ Reflect
 			form.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 22 - Interpreter ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 22 - Interpreter ]#
 
 Interpreter
 
@@ -5120,7 +5645,7 @@ Interpreter
 			within the host environment, and returns null otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 23 - Listen ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 23 - Listen ]#
 
 Listen
 
@@ -5135,7 +5660,7 @@ Listen
 			command's children.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 24 - Be ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 24 - Be ]#
 
 Be
 	
@@ -5148,7 +5673,7 @@ Be
 			It replaces the current state with the state serialized in the returned list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 25 - Call ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 25 - Call ]#
 
 Call
 	
@@ -5163,7 +5688,7 @@ Call
 			interfaces currently in use.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 26 - Direct ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 26 - Direct ]#
 
 Direct
 
@@ -5183,7 +5708,7 @@ Direct
 			command.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 27 - Optimize ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 27 - Optimize ]#
 
 Optimize
 
@@ -5200,7 +5725,7 @@ Optimize
 			list form.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 28 - Inject ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 28 - Inject ]#
 
 Inject
 
@@ -5214,7 +5739,7 @@ Inject
 			child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 3 - Do ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 3 - Do ]#
 
 Do
 
@@ -5231,7 +5756,7 @@ Do
 			execution, the do command shall return the value of the new return value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 4 - Arguments ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 4 - Arguments ]#
 
 Arguments
 	
@@ -5244,7 +5769,7 @@ Arguments
 			arguments in the form of a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 5 - This ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 5 - This ]#
 
 This
 	
@@ -5256,7 +5781,7 @@ This
 			It returns a list containing the serialized contents of the state.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 6 - New ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 6 - New ]#
 
 New
 	
@@ -5269,7 +5794,7 @@ New
 			of the state of the virtually executed script serialized as a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 7 - Null ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 7 - Null ]#
 
 Null
 	
@@ -5281,7 +5806,7 @@ Null
 			It returns a null value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 8 - Literal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 8 - Literal ]#
 
 Literal
 	
@@ -5293,7 +5818,7 @@ Literal
 			It returns the content of its child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 9 - Type ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 1 - Data: 9 - Type ]#
 
 Type
 	
@@ -5305,7 +5830,7 @@ Type
 			It returns the type of its child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 1 - Connect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 1 - Connect ]#
 
 Connect
 
@@ -5327,7 +5852,7 @@ Connect
 			connected values shall be overridden.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 2 - Disconnect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 2 - Disconnect ]#
 
 Disconnect
 
@@ -5345,7 +5870,7 @@ Disconnect
 			value returned by the second child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 3 - Is Connected ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 3 - Is Connected ]#
 
 Is Connected
 
@@ -5366,7 +5891,7 @@ Is Connected
 			true, and return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 4 - Get Connections ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 4 - Get Connections ]#
 
 Get Connections
 
@@ -5381,7 +5906,7 @@ Get Connections
 			the returned Philosopher's Atlas.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 5 - Get Policies ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 5 - Get Policies ]#
 
 Get Policies
 
@@ -5397,7 +5922,7 @@ Get Policies
 			the third child within the returned Philosopher's Atlas.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 6 - Traverse ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 6 - Traverse ]#
 
 Traverse
 
@@ -5413,7 +5938,7 @@ Traverse
 			said traversal.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 7 - Train ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 7 - Train ]#
 
 Train
 
@@ -5431,7 +5956,7 @@ Train
 			correlation shall be specified by the value returned by the fourth child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 8 - Generate ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 8 - Generate ]#
 
 Generate
 
@@ -5449,7 +5974,7 @@ Generate
 			according to the returned corpus.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 9 - Correlate ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 10 - Philosopher's Stone: 9 - Correlate ]#
 
 Correlate
 
@@ -5465,7 +5990,7 @@ Correlate
 			returned by the third child as output according to the returned corpus.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 1 - Get UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 1 - Get UI ]#
 
 Get UI
 
@@ -5480,7 +6005,7 @@ Get UI
 			of the corresponding element.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 2 - Set UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 2 - Set UI ]#
 
 Set UI
 
@@ -5497,7 +6022,7 @@ Set UI
 			of the returned element.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 3 - Extend UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 3 - Extend UI ]#
 
 Extend UI
 
@@ -5512,7 +6037,7 @@ Extend UI
 			the specified selector in the host DOM, if present.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 4 - Delete UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 4 - Delete UI ]#
 
 Delete UI
 
@@ -5526,7 +6051,7 @@ Delete UI
 			DOM, if present.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 5 - Specify UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 5 - Specify UI ]#
 
 Specify UI
 
@@ -5547,7 +6072,7 @@ Specify UI
 			are null.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 6 - Load UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 11 - UI: 6 - Load UI ]#
 
 Load UI
 
@@ -5561,7 +6086,7 @@ Load UI
 			It shall load all of the specified resources into the host DOM, if present.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 1 - Return ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 1 - Return ]#
 
 Return
 	
@@ -5578,7 +6103,7 @@ Return
 			Kaeon FUSION's return value whatever it returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 10 - Split ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 10 - Split ]#
 
 Split
 	
@@ -5592,7 +6117,7 @@ Split
 			was called.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 11 - Run ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 11 - Run ]#
 
 Run
 	
@@ -5612,7 +6137,7 @@ Run
 			the third list in the list that corresponds to the string that spawned said process.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 12 - Automatic Catch ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 12 - Automatic Catch ]#
 
 Automatic Catch
 
@@ -5627,7 +6152,7 @@ Automatic Catch
 			thrown following the execution of the command will not be automatically caught.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 13 - Throw ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 13 - Throw ]#
 
 Throw
 	
@@ -5640,7 +6165,7 @@ Throw
 			exception is caught.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 14 - Exit ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 14 - Exit ]#
 
 Exit
 	
@@ -5652,7 +6177,7 @@ Exit
 			It completely stops the execution of Kaeon FUSION.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 15 - Exception ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 15 - Exception ]#
 
 Exception
 	
@@ -5664,7 +6189,7 @@ Exception
 			It returns the reason for the most recently thrown exception as a string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 16 - Retrieve ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 16 - Retrieve ]#
 
 Retrieve
 
@@ -5680,7 +6205,7 @@ Retrieve
 			it will instead return the generated value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 17 - Shift ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 17 - Shift ]#
 
 Shift
 
@@ -5697,7 +6222,7 @@ Shift
 			specified by the integers in the second list, and will jump to the element it lands on.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 18 - Flip ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 18 - Flip ]#
 
 Flip
 
@@ -5713,7 +6238,7 @@ Flip
 			command will only affect the elements within the scope of the command's parent element.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 19 - Block ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 19 - Block ]#
 
 Block
 	
@@ -5723,7 +6248,7 @@ Block
 			The block command contains the content "Block". It does not trickle down.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 2 - Catch ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 2 - Catch ]#
 
 Catch
 	
@@ -5737,7 +6262,7 @@ Catch
 			so.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 20 - Ternary ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 20 - Ternary ]#
 
 Ternary
 
@@ -5753,7 +6278,7 @@ Ternary
 			present and will return the value returned by its third child if said child is present.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 21 - Isolate ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 21 - Isolate ]#
 
 Isolate
 
@@ -5766,7 +6291,7 @@ Isolate
 			was called from.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 22 - Vanish ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 22 - Vanish ]#
 
 Vanish
 
@@ -5779,7 +6304,7 @@ Vanish
 			the script it belongs to.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 23 - Reverse Catch ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 23 - Reverse Catch ]#
 
 Reverse Catch
 
@@ -5793,7 +6318,7 @@ Reverse Catch
 			that triggered it, but said exception will not be caught by the reverse catch command.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 24 - For ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 24 - For ]#
 
 For
 
@@ -5813,7 +6338,7 @@ For
 			corresponding to the current iteration. 
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 25 - If ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 25 - If ]#
 
 If
 
@@ -5827,7 +6352,7 @@ If
 			element as Kaeon FUSION code.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 26 - While ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 26 - While ]#
 
 While
 
@@ -5842,7 +6367,7 @@ While
 			Kaeon FUSION code and then repeat then process.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 3 - Catch Enabled ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 3 - Catch Enabled ]#
 
 Catch Enabled
 
@@ -5855,7 +6380,7 @@ Catch Enabled
 			command is currently in effect, and returns false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 4 - Scope ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 4 - Scope ]#
 
 Scope
 
@@ -5865,7 +6390,7 @@ Scope
 			The scope command is a command with the content "Scope".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 5 - Execute ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 5 - Execute ]#
 
 Execute
 	
@@ -5880,7 +6405,7 @@ Execute
 			from.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 6 - Break ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 6 - Break ]#
 
 Break
 	
@@ -5897,7 +6422,7 @@ Break
 			well as any commands within its scope from executing.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 7 - Else ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 7 - Else ]#
 
 Else
 	
@@ -5910,7 +6435,7 @@ Else
 			of its preceding siblings had a child that returned false.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 8 - Loop ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 8 - Loop ]#
 
 Loop
 	
@@ -5927,7 +6452,7 @@ Loop
 			will jump to the first child of the parent of the element that it lands on.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 9 - Wait ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 9 - Wait ]#
 
 Wait
 	
@@ -5940,7 +6465,7 @@ Wait
 			number of seconds specified by the number returned by its child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 1 - Log ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 1 - Log ]#
 
 Log
 
@@ -5952,7 +6477,7 @@ Log
 			It prints all of the objects returned to it to the console.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 2 - Log Line ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 2 - Log Line ]#
 
 Log Line
 	
@@ -5964,7 +6489,7 @@ Log Line
 			It prints all of the objects returned to it followed by a new line to the console.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 3 - Log Error ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 3 - Log Error ]#
 
 Log Error
 
@@ -5976,7 +6501,7 @@ Log Error
 			It prints all of the objects returned to it to the console in the form of an error.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 4 - Log Line Error ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 4 - Log Line Error ]#
 
 Log Line Error
 	
@@ -5989,7 +6514,7 @@ Log Line Error
 			the form of an error.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 5 - Log Clear ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 5 - Log Clear ]#
 
 Log Clear
 
@@ -6002,7 +6527,7 @@ Log Clear
 			console.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 6 - Log Line Clear ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 6 - Log Line Clear ]#
 
 Log Line Clear
 	
@@ -6015,7 +6540,7 @@ Log Line Clear
 			new line to the console.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 7 - Input ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 7 - Input ]#
 
 Input
 	
@@ -6031,7 +6556,7 @@ Input
 			user.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 8 - Get Log ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 3 - Console: 8 - Get Log ]#
 
 Get Log
 	
@@ -6043,7 +6568,7 @@ Get Log
 			It returns the text in the console as a string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 1 - Operating System ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 1 - Operating System ]#
 
 Operating System
 
@@ -6056,7 +6581,7 @@ Operating System
 			a string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 10 - Addresses ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 10 - Addresses ]#
 
 Addresses
 
@@ -6071,7 +6596,7 @@ Addresses
 			the specified domain name as a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 2 - Time ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 2 - Time ]#
 
 Time
 	
@@ -6083,7 +6608,7 @@ Time
 			It returns the time on the computer's clock in seconds.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 3 - Year ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 3 - Year ]#
 
 Year
 
@@ -6095,7 +6620,7 @@ Year
 			It returns the current year according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 4 - Month ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 4 - Month ]#
 
 Month
 
@@ -6107,7 +6632,7 @@ Month
 			It returns the current month according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 5 - Day ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 5 - Day ]#
 
 Day
 
@@ -6119,7 +6644,7 @@ Day
 			It returns the current day according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 6 - Hour ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 6 - Hour ]#
 
 Hour
 
@@ -6131,7 +6656,7 @@ Hour
 			It returns the current hour according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 7 - Minute ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 7 - Minute ]#
 
 Minute
 
@@ -6143,7 +6668,7 @@ Minute
 			It returns the current minute according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 8 - Second ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 8 - Second ]#
 
 Second
 
@@ -6155,7 +6680,7 @@ Second
 			It returns the current second according to the computer's clock as a number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 9 - Weekday ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 4 - System: 9 - Weekday ]#
 
 Weekday
 
@@ -6167,7 +6692,7 @@ Weekday
 			It returns the current day of the week according to the computer's clock as a string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 1 - Open ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 1 - Open ]#
 
 Open
 	
@@ -6181,7 +6706,7 @@ Open
 			string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 10 - Is Directory ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 10 - Is Directory ]#
 
 Is Directory
 
@@ -6195,7 +6720,7 @@ Is Directory
 			false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 11 - File Exists ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 11 - File Exists ]#
 
 File Exists
 
@@ -6209,7 +6734,7 @@ File Exists
 			return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 12 - Separator ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 12 - Separator ]#
 
 Separator
 
@@ -6222,7 +6747,7 @@ Separator
 			on.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 13 - Is Hidden ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 13 - Is Hidden ]#
 
 Is Hidden
 
@@ -6236,7 +6761,7 @@ Is Hidden
 			returns false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 14 - File Size ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 14 - File Size ]#
 
 File Size
 
@@ -6252,7 +6777,7 @@ File Size
 			of the file or directory.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 15 - Rename ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 15 - Rename ]#
 
 Rename
 
@@ -6266,7 +6791,7 @@ Rename
 			child to the path returned by the second child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 16 - Path Separator ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 16 - Path Separator ]#
 
 Path Separator
 
@@ -6278,7 +6803,7 @@ Path Separator
 			It returns the path separator string of the device that Kaeon FUSION is running on.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 17 - Source Workspaces ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 17 - Source Workspaces ]#
 
 Source Workspaces
 
@@ -6291,7 +6816,7 @@ Source Workspaces
 			by Kaeon FUSION.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 18 - Build Workspace ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 18 - Build Workspace ]#
 
 Build Workspace
 
@@ -6303,7 +6828,7 @@ Build Workspace
 			It returns the path to the build workspace currently in use by the standard interface.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 19 - Read Bytes ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 19 - Read Bytes ]#
 
 Read Bytes
 
@@ -6322,7 +6847,7 @@ Read Bytes
 			indicies start at one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 2 - Save ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 2 - Save ]#
 
 Save
 		
@@ -6336,7 +6861,7 @@ Save
 			string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 20 - Write Bytes ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 20 - Write Bytes ]#
 
 Write Bytes
 
@@ -6354,7 +6879,7 @@ Write Bytes
 			start at one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 21 - Send ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 21 - Send ]#
 
 Send
 
@@ -6373,7 +6898,7 @@ Send
 			FUSION function, passing the returned list to it as an argument.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 22 - Host ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 22 - Host ]#
 
 Host
 
@@ -6406,7 +6931,7 @@ Host
 			is not to be accessible via CORS.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 3 - Delete ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 3 - Delete ]#
 
 Delete
 
@@ -6419,7 +6944,7 @@ Delete
 			It will delete the file or directory at the returned path from the file system.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 4 - Directory ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 4 - Directory ]#
 
 Directory
 
@@ -6434,7 +6959,7 @@ Directory
 			the names of all of the files within the returned directory.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 5 - Local Directory ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 5 - Local Directory ]#
 
 Local Directory
 
@@ -6446,7 +6971,7 @@ Local Directory
 			It returns the path of the directory the host environment is running out of.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 6 - Root Directories ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 6 - Root Directories ]#
 
 Root Directory
 
@@ -6459,7 +6984,7 @@ Root Directory
 			on.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 7 - Parent Directory ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 7 - Parent Directory ]#
 
 Parent Directory
 
@@ -6477,7 +7002,7 @@ Parent Directory
 			will return the root directory.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 8 - Absolute Path ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 8 - Absolute Path ]#
 
 Absolute Path
 
@@ -6490,7 +7015,7 @@ Absolute Path
 			It will return the absolute path to the file at the returned path.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 9 - Create Directory ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 5 - IO: 9 - Create Directory ]#
 
 Create Directory
 
@@ -6504,7 +7029,7 @@ Create Directory
 			it.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 1 - List ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 1 - List ]#
 
 List
 	
@@ -6516,7 +7041,7 @@ List
 			It returns a list containing all of the values returned by its children.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 10 - Contains ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 10 - Contains ]#
 
 Contains
 	
@@ -6529,7 +7054,7 @@ Contains
 			It will return the true if the list contains the object.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 11 - Index ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 11 - Index ]#
 
 Index
 	
@@ -6547,7 +7072,7 @@ Index
 			zero.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 12 - Count ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 12 - Count ]#
 
 Count
 	
@@ -6561,7 +7086,7 @@ Count
 			appears within the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 13 - Cut ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 13 - Cut ]#
 
 Cut
 	
@@ -6577,7 +7102,7 @@ Cut
 			regular expression.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 14 - Reverse ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 14 - Reverse ]#
 
 Reverse
 	
@@ -6591,7 +7116,7 @@ Reverse
 			reversed.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 15 - Convert Sequence ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 15 - Convert Sequence ]#
 
 Convert Sequence
 	
@@ -6608,7 +7133,7 @@ Convert Sequence
 			a list and return the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 16 - List to Element ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 16 - List to Element ]#
 
 List to Element
 
@@ -6625,7 +7150,7 @@ List to Element
 			standard ONE language.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 17 - Element to List ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 17 - Element to List ]#
 
 Element to List
 
@@ -6639,7 +7164,7 @@ Element to List
 			form.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 18 - Tokenize ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 18 - Tokenize ]#
 
 Tokenize
 
@@ -6655,7 +7180,7 @@ Tokenize
 			sub-sequences. Said sub-sequences will then be returned as a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 19 - Append All ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 19 - Append All ]#
 
 Append All
 	
@@ -6670,7 +7195,7 @@ Append All
 			order their respective lists were returned, be appended to the first list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 2 - Size ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 2 - Size ]#
 
 Size
 	
@@ -6682,7 +7207,7 @@ Size
 			It will return the size of the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 20 - Insert All ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 20 - Insert All ]#
 
 Insert All
 	
@@ -6698,7 +7223,7 @@ Insert All
 			first child at the index specified by the integer returned by the second child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 21 - Indexes ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 21 - Indexes ]#
 
 Indexes
 	
@@ -6715,7 +7240,7 @@ Indexes
 			the third child if said child is present.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 22 - Swap ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 22 - Swap ]#
 
 Swap
 
@@ -6728,7 +7253,7 @@ Swap
 			It will swap the elements of the list at the indexes specified by the returned numbers.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 23 - Sort Alphabetical ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 23 - Sort Alphabetical ]#
 
 Sort Alphabetical
 
@@ -6746,7 +7271,7 @@ Sort Alphabetical
 			specified by the returned number. The sorted list will then be returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 24 - Sort Numerical ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 24 - Sort Numerical ]#
 
 Sort Numerical
 
@@ -6764,7 +7289,7 @@ Sort Numerical
 			by the returned number. The sorted list will then be returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 25 - Shuffle ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 25 - Shuffle ]#
 
 Shuffle
 
@@ -6777,7 +7302,7 @@ Shuffle
 			It will shuffle the order of the elements in the list randomly and return the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 26 - Is Sorted Alphabetical ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 26 - Is Sorted Alphabetical ]#
 
 Is Sorted Alphabetical
 
@@ -6796,7 +7321,7 @@ Is Sorted Alphabetical
 			returned number, returning true if so and false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 27 - Is Sorted Numerical ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 27 - Is Sorted Numerical ]#
 
 Is Sorted Numerical
 
@@ -6815,7 +7340,7 @@ Is Sorted Numerical
 			returned number, returning true if so and false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 28 - Key Index ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 28 - Key Index ]#
 
 Key Index
 
@@ -6832,7 +7357,7 @@ Key Index
 			will return zero.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 29 - Key Indexes ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 29 - Key Indexes ]#
 
 Key Index
 
@@ -6848,7 +7373,7 @@ Key Index
 			must be located at the index specified by the returned number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 3 - At ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 3 - At ]#
 
 At
 	
@@ -6864,7 +7389,7 @@ At
 			said object is a list, and when finished returns the final retrieved object.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 30 - Replace ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 30 - Replace ]#
 
 Replace
 
@@ -6878,7 +7403,7 @@ Replace
 			the object returned by the third child, and returns the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 31 - Rank ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 31 - Rank ]#
 
 Rank
 
@@ -6894,7 +7419,7 @@ Rank
 			to the value that occur the most. It will then return the new list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 32 - Set Alias ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 32 - Set Alias ]#
 
 Set Alias
 
@@ -6909,7 +7434,7 @@ Set Alias
 			to the returned string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 33 - Get By Alias ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 33 - Get By Alias ]#
 
 Get By Alias
 
@@ -6924,7 +7449,7 @@ Get By Alias
 			specified by the returned string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 34 - Get Alias Indices ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 34 - Get Alias Indices ]#
 
 Get Alias Indices
 
@@ -6939,7 +7464,7 @@ Get Alias Indices
 			aliases matching the regular expression specified by the returned string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 35 - Get Alias ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 35 - Get Alias ]#
 
 Get Alias
 
@@ -6954,7 +7479,7 @@ Get Alias
 			returned number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 36 - JSON to Dynamic List ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 36 - JSON to Dynamic List ]#
 
 JSON to Dynamic List
 
@@ -6967,7 +7492,7 @@ JSON to Dynamic List
 			It shall return a dynamic list corresponding to the specified JSON.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 37 - Dynamic List to JSON ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 37 - Dynamic List to JSON ]#
 
 Dynamic List to JSON
 
@@ -6982,7 +7507,7 @@ Dynamic List to JSON
 			list that has no non-null field aliases shall remain a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 4 - Append ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 4 - Append ]#
 
 Append
 	
@@ -6996,7 +7521,7 @@ Append
 			returned by the first child. The list will then be returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 5 - Set ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 5 - Set ]#
 
 Set
 	
@@ -7012,7 +7537,7 @@ Set
 			list will then be returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 6 - Insert ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 6 - Insert ]#
 
 Insert
 	
@@ -7028,7 +7553,7 @@ Insert
 			specified by the integer returned by the second child. The list will then be returned.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 7 - Remove ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 7 - Remove ]#
 
 Remove
 	
@@ -7043,7 +7568,7 @@ Remove
 			string, it will return the list, and will return the removed object otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 8 - Concatenate ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 8 - Concatenate ]#
 
 Concatenate
 	
@@ -7059,7 +7584,7 @@ Concatenate
 			returned in the form of a list otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 9 - Crop ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 6 - List: 9 - Crop ]#
 
 Crop
 	
@@ -7091,7 +7616,7 @@ Crop
 			returned as a string. Otherwise, it will be returned as a list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 1 - Character to Number ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 1 - Character to Number ]#
 
 Character to Number
 	
@@ -7104,7 +7629,7 @@ Character to Number
 			It will return the ASCII value of the first character in the string.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 2 - Number to Character ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 2 - Number to Character ]#
 
 Number to Character
 	
@@ -7117,7 +7642,7 @@ Number to Character
 			It will return the character that corresponds to the ASCII value of the number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 3 - Upper ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 3 - Upper ]#
 
 Upper
 	
@@ -7130,7 +7655,7 @@ Upper
 			characters have been converted to upper case.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 4 - Lower ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 4 - Lower ]#
 
 Lower
 	
@@ -7143,7 +7668,7 @@ Lower
 			characters have been converted to lower case.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 5 - Trim ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 5 - Trim ]#
 
 Trim
 	
@@ -7156,7 +7681,7 @@ Trim
 			whitespace is removed.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 6 - Pattern Match ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 7 - String: 6 - Pattern Match ]#
 
 Pattern Match
 
@@ -7171,7 +7696,7 @@ Pattern Match
 			second string, and will return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 1 - Not ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 1 - Not ]#
 
 Not
 	
@@ -7184,7 +7709,7 @@ Not
 			the returned boolean has a value of true.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 10 - Less or Equal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 10 - Less or Equal ]#
 
 Less or Equal
 	
@@ -7199,7 +7724,7 @@ Less or Equal
 			false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 2 - Is ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 2 - Is ]#
 
 Is
 	
@@ -7212,7 +7737,7 @@ Is
 			false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 3 - Equal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 3 - Equal ]#
 
 Equal
 	
@@ -7225,7 +7750,7 @@ Equal
 			are equal, and return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 4 - And ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 4 - And ]#
 
 And
 	
@@ -7239,7 +7764,7 @@ And
 			otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 5 - Or ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 5 - Or ]#
 
 Or
 
@@ -7253,7 +7778,7 @@ Or
 			otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 6 - Exclusive Or ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 6 - Exclusive Or ]#
 
 Exclusive Or
 
@@ -7267,7 +7792,7 @@ Exclusive Or
 			otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 7 - Greater ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 7 - Greater ]#
 
 Greater
 	
@@ -7281,7 +7806,7 @@ Greater
 			is greater than the number returned by the following child, and return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 8 - Greater or Equal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 8 - Greater or Equal ]#
 
 Greater or Equal
 	
@@ -7296,7 +7821,7 @@ Greater or Equal
 			false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 9 - Less ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 8 - Logic: 9 - Less ]#
 
 Less
 	
@@ -7310,7 +7835,7 @@ Less
 			is less than the number returned by the following child, and return false otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 1 - Add ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 1 - Add ]#
 
 Add
 	
@@ -7323,7 +7848,7 @@ Add
 			It returns the sum of all the numbers.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 10 - Cosine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 10 - Cosine ]#
 
 Cosine
 	
@@ -7336,7 +7861,7 @@ Cosine
 			It returns the cosine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 11 - Tangent ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 11 - Tangent ]#
 
 Tangent
 	
@@ -7349,7 +7874,7 @@ Tangent
 			It returns the tangent value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 12 - Square Root ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 12 - Square Root ]#
 
 Square Root
 	
@@ -7362,7 +7887,7 @@ Square Root
 			It returns the square root of the returned number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 13 - Natural Logarithm ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 13 - Natural Logarithm ]#
 
 Natural Logarithm
 	
@@ -7375,7 +7900,7 @@ Natural Logarithm
 			It returns the natural logarithm of the returned number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 14 - Floor ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 14 - Floor ]#
 
 Floor
 	
@@ -7388,7 +7913,7 @@ Floor
 			It returns the value of the returned number rounded down.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 15 - Ceiling ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 15 - Ceiling ]#
 
 Ceiling
 	
@@ -7401,7 +7926,7 @@ Ceiling
 			It returns the value of the returned number rounded up.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 16 - To Radians ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 16 - To Radians ]#
 
 To Radians
 	
@@ -7415,7 +7940,7 @@ To Radians
 			resulting value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 17 - To Degrees ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 17 - To Degrees ]#
 
 To Degrees
 	
@@ -7429,7 +7954,7 @@ To Degrees
 			resulting value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 18 - Absolute Value ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 18 - Absolute Value ]#
 
 Absolute Value
 	
@@ -7442,7 +7967,7 @@ Absolute Value
 			It returns the absolute value of the returned number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 19 - Infinity ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 19 - Infinity ]#
 
 Infinity
 	
@@ -7454,7 +7979,7 @@ Infinity
 			It returns a value of infinity.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 2 - Subtract ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 2 - Subtract ]#
 
 Subtract
 	
@@ -7468,7 +7993,7 @@ Subtract
 			the resulting value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 20 - Arc Sine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 20 - Arc Sine ]#
 
 Arc Sine
 	
@@ -7481,7 +8006,7 @@ Arc Sine
 			It returns the arc sine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 21 - Arc Cosine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 21 - Arc Cosine ]#
 
 Arc Cosine
 	
@@ -7494,7 +8019,7 @@ Arc Cosine
 			It returns the arc cosine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 22 - Arc Tangent ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 22 - Arc Tangent ]#
 
 Arc Tangent
 	
@@ -7507,7 +8032,7 @@ Arc Tangent
 			It returns the arc tangent value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 23 - Hyperbolic Sine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 23 - Hyperbolic Sine ]#
 
 Hyperbolic Sine
 	
@@ -7520,7 +8045,7 @@ Hyperbolic Sine
 			It returns the hyperbolic sine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 24 - Hyperbolic Cosine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 24 - Hyperbolic Cosine ]#
 
 Hyperbolic Cosine
 	
@@ -7533,7 +8058,7 @@ Hyperbolic Cosine
 			It returns the hyperbolic cosine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 25 - Hyperbolic Tangent ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 25 - Hyperbolic Tangent ]#
 
 Hyperbolic Tangent
 	
@@ -7546,7 +8071,7 @@ Hyperbolic Tangent
 			It returns the hyperbolic tangent value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 26 - Theta ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 26 - Theta ]#
 
 Theta
 	
@@ -7561,7 +8086,7 @@ Theta
 			the number returned by the second child is the y value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 27 - Maximum ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 27 - Maximum ]#
 
 Maximum
 
@@ -7574,7 +8099,7 @@ Maximum
 			It returns the number in the list with the highest value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 28 - Minimum ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 28 - Minimum ]#
 
 Minimum
 
@@ -7587,7 +8112,7 @@ Minimum
 			It returns the number in the list with the lowest value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 29 - Mean ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 29 - Mean ]#
 
 Mean
 
@@ -7600,7 +8125,7 @@ Mean
 			It returns the mean of all the numbers in the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 3 - Multiply ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 3 - Multiply ]#
 
 Multiply
 	
@@ -7613,7 +8138,7 @@ Multiply
 			It returns the product of all the numbers.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 30 - Median ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 30 - Median ]#
 
 Median
 
@@ -7626,7 +8151,7 @@ Median
 			It returns the median of all the numbers in the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 31 - Range ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 31 - Range ]#
 
 Range
 
@@ -7639,7 +8164,7 @@ Range
 			It returns the value of the highest number in the list minus the lowest number.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 32 - Summation ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 32 - Summation ]#
 
 Summation
 
@@ -7652,7 +8177,7 @@ Summation
 			It returns the sum of all the numbers in the list.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 33 - Decimal to Binary ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 33 - Decimal to Binary ]#
 
 Decimal to Binary
 
@@ -7670,7 +8195,7 @@ Decimal to Binary
 			otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 34 - Decimal to Hexadecimal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 34 - Decimal to Hexadecimal ]#
 
 Decimal to Hexadecimal
 
@@ -7688,7 +8213,7 @@ Decimal to Hexadecimal
 			as an integer otherwise.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 35 - Binary to Decimal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 35 - Binary to Decimal ]#
 
 Binary to Decimal
 
@@ -7704,7 +8229,7 @@ Binary to Decimal
 			be assumed to be floating point if the second boolean is true.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 36 - Hexadecimal to Decimal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 36 - Hexadecimal to Decimal ]#
 
 Hexadecimal to Decimal
 
@@ -7720,7 +8245,7 @@ Hexadecimal to Decimal
 			true and shall be assumed to be floating point if the second boolean is true.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 37 - Binary to Hexadecimal ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 37 - Binary to Hexadecimal ]#
 
 Binary to Hexaecimal
 
@@ -7735,7 +8260,7 @@ Binary to Hexaecimal
 			returned value in hexadecimal format.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 38 - Hexadecimal to Binary ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 38 - Hexadecimal to Binary ]#
 
 Hexaecimal to Binary
 
@@ -7750,7 +8275,7 @@ Hexaecimal to Binary
 			the returned value in binary format.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 4 - Divide ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 4 - Divide ]#
 
 Divide
 	
@@ -7764,7 +8289,7 @@ Divide
 			in order. It then returns the resulting value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 5 - Modulus ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 5 - Modulus ]#
 
 Modulus
 	
@@ -7779,7 +8304,7 @@ Modulus
 			then returns the resulting value.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 6 - Random ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 6 - Random ]#
 
 Random
 	
@@ -7791,7 +8316,7 @@ Random
 			It returns a random number between zero and one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 7 - Negative ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 7 - Negative ]#
 
 Negative
 	
@@ -7804,7 +8329,7 @@ Negative
 			It returns the product of the returned number and negative one.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 8 - Power ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 8 - Power ]#
 
 Power
 	
@@ -7818,7 +8343,7 @@ Power
 			the number returned by its second child.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 9 - Sine ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 9 - Math: 9 - Sine ]#
 
 Sine
 	
@@ -7831,7 +8356,7 @@ Sine
 			It returns the sine value of the returned number in radians.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 1 - Conversions: 1 - ONE Conversions ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 1 - Conversions: 1 - ONE Conversions ]#
 
 ONE Conversions
 
@@ -7864,7 +8389,7 @@ ONE Conversions
 				parent contains an empty string as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 1 - Zero ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 1 - Zero ]#
 
 Zero
 
@@ -7875,7 +8400,7 @@ Zero
 			which data can be extracted and encoded.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 2 - ONE LISP ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 2 - ONE LISP ]#
 
 ONE LISP
 
@@ -7936,7 +8461,7 @@ ONE LISP
 				comment.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 3 - ONE SOUL ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 2 - Syntaxes: 3 - ONE SOUL ]#
 
 ONE SOUL
 
@@ -7967,7 +8492,7 @@ ONE SOUL
 				provided by the corpus file.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 3 - Super Mode ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 1 - ONE Dialects: 3 - Super Mode ]#
 
 Super Mode
 	
@@ -8275,7 +8800,7 @@ Super Mode
 				code.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect ]#
 
 Build Dialect
 
@@ -8315,7 +8840,7 @@ Build Dialect
 					of the more recent command shall be applied.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 1 - Assembly Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 1 - Assembly Dialect ]#
 
 Assembly Dialect
 
@@ -8414,7 +8939,7 @@ Assembly Dialect
 				will take priority.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect ]#
 
 Cross Dialect
 	
@@ -8579,7 +9104,7 @@ Cross Dialect
 				functions, and what may be placed in a notation.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 1 - Primary: 1 - C Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 1 - Primary: 1 - C Dialect ]#
 
 C Dialect
 	
@@ -8663,7 +9188,7 @@ C Dialect
 				have reduced scope.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 1 - Primary: 2 - JavaScript DIalect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 1 - Primary: 2 - JavaScript DIalect ]#
 
 JavaScript Dialect
 	
@@ -8700,7 +9225,7 @@ JavaScript Dialect
 					cross compiled to object literals. The type is list by default.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 1 - Java DIalect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 1 - Java DIalect ]#
 
 Java Dialect
 	
@@ -8797,7 +9322,7 @@ Java Dialect
 				command will implement.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 2 - Python DIalect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 2 - Python DIalect ]#
 
 Python Dialect
 	
@@ -8807,7 +9332,7 @@ Python Dialect
 			The Python dialect is a cross dialect analogous to Python.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 3 - C++ Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 3 - C++ Dialect ]#
 
 C++ Dialect
 	
@@ -8817,7 +9342,7 @@ C++ Dialect
 			The C++ dialect is a cross dialect analogous to C++.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 4 - C# Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 4 - C# Dialect ]#
 
 'C# Dialect'
 	
@@ -8827,7 +9352,7 @@ C++ Dialect
 			The C# dialect is a cross dialect analogous to C#.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 5 - Swift DIalect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 5 - Swift DIalect ]#
 
 Swift Dialect
 	
@@ -8837,7 +9362,7 @@ Swift Dialect
 			The Swift dialect is a cross dialect analogous to Swift.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 6 - PHP Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 2 - Cross Dialect: 1 - Cross Dialects: 2 - Secondary: 6 - PHP Dialect ]#
 
 PHP Dialect
 	
@@ -8847,7 +9372,7 @@ PHP Dialect
 			The PHP dialect is a cross dialect analogous to PHP.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 1 - DOM Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 1 - DOM Dialect ]#
 
 DOM Dialect
 	
@@ -8984,7 +9509,7 @@ DOM Dialect
 					cropped.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 2 - CSS Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 2 - CSS Dialect ]#
 
 CSS Dialect
 	
@@ -9044,7 +9569,7 @@ CSS Dialect
 					the data element.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 3 - SQL Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 3 - SQL Dialect ]#
 
 SQL Dialect
 	
@@ -9116,7 +9641,7 @@ SQL Dialect
 					Literals may not have children.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 4 - CSV Dialect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 2 - Dialects: 1 - ONE: 2 - Build Dialect: 3 - Miscellaneous Dialects: 4 - CSV Dialect ]#
 
 CSV Dialect
 
@@ -9136,7 +9661,7 @@ CSV Dialect
 				element may have any content but may have no children.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE ]#
 
 Standard Kaeon ACE
 	
@@ -9147,7 +9672,7 @@ Standard Kaeon ACE
 			establishes a game development framework.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 1 - Vector 3 ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 1 - Vector 3 ]#
 
 Vector 3
 	
@@ -9169,7 +9694,7 @@ Vector 3
 				child's content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 2 - Color ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 2 - Color ]#
 
 Color
 
@@ -9191,7 +9716,7 @@ Color
 				said child's content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 3 - Texture ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 3 - Texture ]#
 
 Texture
 
@@ -9212,7 +9737,7 @@ Texture
 				as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 4 - Vertex ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 4 - Vertex ]#
 
 Vertex
 
@@ -9236,7 +9761,7 @@ Vertex
 				The element may also have one color element as its child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 5 - Polygon ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 5 - Polygon ]#
 
 Polygon
 
@@ -9260,7 +9785,7 @@ Polygon
 				The element may also have one color element as a child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 1 - Tag ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 1 - Tag ]#
 
 Tag
 	
@@ -9281,7 +9806,7 @@ Tag
 				specify the tag that the element represents.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 10 - Audio ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 10 - Audio ]#
 
 Audio
 
@@ -9302,7 +9827,7 @@ Audio
 				content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 11 - Conduit ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 11 - Conduit ]#
 
 Conduit
 
@@ -9325,7 +9850,7 @@ Conduit
 				"Mouse" as its content, and the port element must have no children.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable ]#
 
 Loadable
 
@@ -9351,7 +9876,7 @@ Loadable
 				represents.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 1 - Model ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 1 - Model ]#
 
 Model
 	
@@ -9364,7 +9889,7 @@ Model
 			The type child of the loadable element must have a child with the content "Model".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 2 - Height Map ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 2 - Height Map ]#
 
 Height Map
 	
@@ -9377,7 +9902,7 @@ Height Map
 			The type child of the loadable element must have a child with the content "Height Map".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 3 - Skybox ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 3 - Skybox ]#
 
 Skybox
 	
@@ -9389,7 +9914,7 @@ Skybox
 			The type child of the loadable element must have a child with the content "Skybox".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 2 - Field ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 2 - Field ]#
 
 Field
 	
@@ -9412,7 +9937,7 @@ Field
 				shall represent the content of the field.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script ]#
 
 Script
 	
@@ -9435,7 +9960,7 @@ Script
 				and the children of each of said children shall constitute a Kaeon FUSION script.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script: 1 - ACE Interface ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script: 1 - ACE Interface ]#
 
 ACE Interface
 
@@ -9467,7 +9992,7 @@ ACE Interface
 					script it belongs to is acting on to the element returned by its child.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 4 - Mesh ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 4 - Mesh ]#
 
 Mesh
 
@@ -9497,7 +10022,7 @@ Mesh
 				Absolute".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 5 - Collider ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 5 - Collider ]#
 
 Collider
 
@@ -9519,7 +10044,7 @@ Collider
 				content "Type", which must have a child with the content "Mesh" or "Sphere".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 6 - Force ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 6 - Force ]#
 
 Force
 
@@ -9540,7 +10065,7 @@ Force
 				The element must have a vector 3 element as a child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 7 - Transform ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 7 - Transform ]#
 
 Transform
 
@@ -9563,7 +10088,7 @@ Transform
 				"Translation", "Rotation", or "Scale".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 8 - Camera ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 8 - Camera ]#
 
 Camera
 	
@@ -9589,7 +10114,7 @@ Camera
 				a default value.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Effect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Effect ]#
 
 Effect
 
@@ -9616,7 +10141,7 @@ Effect
 				a number as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Properties ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Properties ]#
 
 Properties
 
@@ -9639,7 +10164,7 @@ Properties
 				"False" as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 1 - Frame Properties ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 1 - Frame Properties ]#
 
 Frame Properties
 
@@ -9666,7 +10191,7 @@ Frame Properties
 				have a child containing any string.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 2 - Tick Rate ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 2 - Tick Rate ]#
 
 Tick Rate
 
@@ -9687,7 +10212,7 @@ Tick Rate
 				The element must have a single child that contains a number as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 1 - Kaeon ACE Interface ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 1 - Kaeon ACE Interface ]#
 
 Kaeon ACE FUSION Interface
 
@@ -9701,7 +10226,7 @@ Kaeon ACE FUSION Interface
 			interface, with the core of the FUSION interpreter becoming the core of said interface.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 2 - Module Interfaces ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 2 - Module Interfaces ]#
 
 Kaeon ACE Module Interface
 
@@ -9713,7 +10238,7 @@ Kaeon ACE Module Interface
 			be running in an environment capable of hosting a Kaeon ACE application.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 2 - Module Interfaces: 1 - Standard ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 2 - Module Interfaces: 1 - Standard ]#
 
 Kaeon ACE Standard Interface
 
@@ -9725,7 +10250,7 @@ Kaeon ACE Standard Interface
 			standard Kaeon ACE framework.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 2 - ACE: 1 - Babylon ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 2 - ACE: 1 - Babylon ]#
 
 Kaeon ACE Babylon Interface
 
@@ -9754,7 +10279,7 @@ Kaeon ACE Babylon Interface
 				functionality is available.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 3 - Kaeon ACE Metagame ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 3 - Kaeon ACE Metagame ]#
 
 Kaeon ACE Metagame
 	
@@ -9769,7 +10294,7 @@ Kaeon ACE Metagame
 			content having a child with the content of said save file as its content.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 3 - Kaeon ACE Modules: 4 - Kaeon ACE Valhalla ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 4 - Kaeon ACE Valhalla ]#
 
 Kaeon ACE Valhalla
 
@@ -9803,7 +10328,7 @@ Kaeon ACE Valhalla
 				and speech synthesis technology.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs ]#
 
 Standard APIs
 
@@ -9823,7 +10348,7 @@ Standard APIs
 				given language.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 1 - ONE Suite ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 1 - ONE Suite ]#
 
 ONE Suite API
 
@@ -9878,7 +10403,7 @@ ONE Suite API
 					Kaeon FUSION script.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 2 - IO ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 2 - IO ]#
 
 IO API
 
@@ -9920,7 +10445,7 @@ IO API
 				said command.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 3 - Tokenizer ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 3 - Tokenizer ]#
 
 Tokenizer
 
@@ -9942,7 +10467,7 @@ Tokenizer
 				tokenized string as a list of strings.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 4 - Server ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 1 - Common: 4 - Server ]#
 
 Server API
 
@@ -9950,7 +10475,7 @@ Server API
 		The server API provides several functions for running an HTTP or HTTPS server.
 	-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 2 - JavaScript: 1 - UI ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 4 - Standard APIs: 1 - APIs: 2 - JavaScript: 1 - UI ]#
 
 UI API
 
@@ -9961,7 +10486,7 @@ UI API
 			manipulation.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Kaeon Series: 5 - Applications: 1 - Kaeon Origin ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 5 - Applications: 1 - Kaeon Origin ]#
 
 Kaeon Origin
 
@@ -10011,8 +10536,9 @@ Kaeon Origin
 				commands directly on it.
 			-
 
-		United Command
+		Kaeon United
 
 			-
-				Kaeon Origin's virtual system shall include the united command.
+				Kaeon Origin's virtual system shall provide access to the CLI functionality of
+				Kaeon United.
 			-

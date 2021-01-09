@@ -2865,6 +2865,27 @@ Aether Atlas
 
 	Principles
 
+		Aether Node
+
+			-
+				An Aether Node is an application or device designed to function as part of an
+				Aether Atlas.
+			-
+
+		Aether Utility
+
+			-
+				An Aether Utility is an application or device that was not designed to function as
+				part of an Aether Atlas but which has nonetheless been incorporated into at least
+				one.
+			-
+
+		Aether Clusters
+
+			-
+				Aether Clusters are Aether Atlases within Aether Atlases.
+			-
+
 		Aether Interface
 
 			-

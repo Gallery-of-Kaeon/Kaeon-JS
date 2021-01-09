@@ -2886,6 +2886,12 @@ Aether Atlas
 				Aether Clusters are Aether Atlases within Aether Atlases.
 			-
 
+		Aether Union
+
+			-
+				An Aether Union is a related but unconnected group of Aether Atlases.
+			-
+
 		Aether Interface
 
 			-

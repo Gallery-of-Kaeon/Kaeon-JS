@@ -5011,7 +5011,7 @@ United C Standard Library
 			lists, memory management, string processing, and multithreading.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Character Separated Binary ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 1 - Character Separated Binary ]#
 
 Character Separated Binary
 
@@ -5062,6 +5062,70 @@ Character Separated Binary
 			-
 				Character separated binary may be abbreviated as CSB.
 			-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 2 - Dynamic Binary Headers ]#
+
+Dynamic Binary Headers
+
+	Philosophy
+
+		-
+			Dynamic binary headers allow metadata in binary files to be specified using a standard
+			that can scale to varrying lengths.
+		-
+
+	Principles
+
+		Structure
+
+			-
+				Dynamic binary headers shall occur at the beginning of a binary file, and their
+				content, which itself shall be in trinary, shall be specified using "11" to
+				represent "2", "10" to represent "1", and "01" to represent "0", and shall end with
+				"00".
+
+				Following a header may be another header, the main content of the file, or the end
+				or the file. No more headers may be placed into the file following the beginning of
+				the main content.
+			-
+
+		Count Header
+
+			-
+				A count header, which if present must be the first header in the file, shall
+				specify, as a trinary number, the number of headers present in the file, not
+				counting itself.
+			-
+
+		Sequence Headers
+
+			-
+				If a count header is present, the headers that follow it may be sequence headers,
+				each of which specify, as a trinary number, the length of a sequence of bits in the
+				main content.
+
+				The sequences defined by the sequence headers shall start at the beginning of the
+				main content and shall be adjacent to one another, ordered according to the order
+				of their corresponding headers.
+				
+				Any bits that follow the last sequence in the main content may be used for another
+				purpose, if it is not junk data.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 3 - Multistate Binary Sequence ]#
+
+Multistate Binary Sequence
+
+	Philosophy
+	
+		-
+			A multistate binary sequence is a sequnece of bit sequences, referred to as state
+			sequences, each of which just long enough to encode a given number, defined as the
+			order of the multistate binary sequence.
+
+			Each state sequence shall specify in binary a number between zero and the order number,
+			inclusive.
+		-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 3 - United Query Language ]#
 

@@ -5071,7 +5071,7 @@ Dynamic Binary Headers
 
 		-
 			Dynamic binary headers allow metadata in binary files to be specified using a standard
-			that can scale to varrying lengths.
+			that can scale to varying lengths.
 		-
 
 	Principles
@@ -5112,6 +5112,23 @@ Dynamic Binary Headers
 				purpose, if it is not junk data.
 			-
 
+		Sequence Objects
+
+			-
+				A binary file separated into sequences using sequences headers may itself be
+				separated into sequences called sub-sequences using sequence headers.
+
+				Sub-sequences may be used as references to the sibling sequences of their parent.
+
+				If being used this way, each subsequence should have a header defining itself as
+				either a reference or as raw data. The header for a reference should be "0100", and
+				the header for raw data should be "1000".
+
+				The content following a reference header should be a binary number specifying the
+				index of the sibling sequence being referenced, starting at zero, and the content
+				following a raw data header should be raw data in binary.
+			-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 3 - Multistate Binary Sequence ]#
 
 Multistate Binary Sequence
@@ -5119,7 +5136,7 @@ Multistate Binary Sequence
 	Philosophy
 	
 		-
-			A multistate binary sequence is a sequnece of bit sequences, referred to as state
+			A multistate binary sequence is a sequence of bit sequences, referred to as state
 			sequences, each of which just long enough to encode a given number, defined as the
 			order of the multistate binary sequence.
 

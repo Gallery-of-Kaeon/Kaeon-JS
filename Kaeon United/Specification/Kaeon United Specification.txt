@@ -279,16 +279,28 @@
 			-
 				All of the contents of a Kaeon library are contained within a directory called the
 				master directory. The name of the master directory will be the name of the library.
+
+				A general directory may contain multiple miscellaneous documents and directories.
 				
 				A library directory, which the master directory is one of, may contain multiple
-				library directories within it, in which case it may also contain one Kaeon
-				document, may contain only a single Kaeon document, or may contain multiple
-				miscellaneous files and directories.
+				directories within it, which may either be library directories or general
+				directories, may contain a single document, called a library directory document, or
+				may contain both.
+
+				Directories within a library directory must be arranged in a specific order.
+			-
+		-
+			Standard Kaeon Library
+		-
+			-
+				A standard Kaeon library is a Kaeon library where all of the library directory
+				documents are Kaeon documents.
 				
-				The name of library directory other than the master directory must consist of a
-				number signifying its intended index relative to the other library directories
-				within its parent directory, followed by a space, followed by a dash, followed by
-				another space, followed by a string signifying the nature of its contents.
+				The naming convention for library directories other than the master directory in a
+				standard Kaeon library is that they must consist of a number signifying its
+				intended index relative to the other library directories within its parent
+				directory, followed by a space, followed by a dash, followed by another space,
+				followed by a string signifying the nature of its contents.
 			-
 
 #[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 3 - Kaeon Documents: 2 - Kaeon Library: 1 - Kaeon Library Atlas ]#

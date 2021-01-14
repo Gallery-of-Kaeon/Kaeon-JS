@@ -4235,15 +4235,24 @@ Universal Hardware API
 				through HTTP requests.
 			-
 
-		Conventions
+		Standard Conventions
+
+			Cellular
+
+				-
+					The network that a device that follows the protocol connects to shall be a
+					cellular network.
+				-
 
 			Documentation
 
 				-
 					An HTTP GET request to the base route of the server of a device that follows
-					the protocol should return a string containing a document file specifying the
+					the protocol shall return a string containing a document file specifying the
 					routes provided by said device's server.
 				-
+
+		Options
 
 			Autonomous Behavior
 
@@ -4263,15 +4272,8 @@ Universal Hardware API
 
 				-
 					A device that follows the protocol may restrict the use of some or all of its
-					functionality to specific users, who must provide credentials to prove their
-					identity.
-				-
-
-			Cellular
-
-				-
-					Ideally, the network that a device that follows the protocol connects to should
-					be a cellular network.
+					functionality to specific users, who must provide credentials in order to prove
+					their identity.
 				-
 
 			Search
@@ -4281,11 +4283,11 @@ Universal Hardware API
 					certain search engines.
 				-
 
-			Acronym
+		Acronym
 
-				-
-					The universal hardware API can be referred to as UHAPI ("you-happy") for short.
-				-
+			-
+				The universal hardware API can be referred to as UHAPI ("you-happy") for short.
+			-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript ]#
 

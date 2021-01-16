@@ -4500,6 +4500,27 @@ HTJS
 					with JavaScript code placed between the two aforementioned lines.
 				-
 
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - Techniques: 2 - Common Await ]#
+
+Common Await
+
+	Philosophy
+
+		-
+			Common await is a convention for United JavaScript where the CommonJS require function
+			is to always be called using the await keyword.
+		-
+
+	Principles
+
+		Purpose
+
+			-
+				This convention is to be used in the case that synchronous HTTP calls are removed
+				from mainstream browsers and no workaround can be found, thus requiring any
+				CommonJS browser implementation to have the require function defined as async.
+			-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 1 - JSON Dynamic List ]#
 
 JSON Dynamic List

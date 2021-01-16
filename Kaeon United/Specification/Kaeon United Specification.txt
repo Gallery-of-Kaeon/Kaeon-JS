@@ -3550,6 +3550,68 @@ Shadow Host
 			new website.
 		-
 
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Host: 1 - Shadow Proxy ]#
+
+Shadow Proxy
+
+	Philosophy
+
+		-
+			A shadow proxy is a CORS proxy that allows users to specify all aspects of an HTTP
+			call to send as well as any modification to make to its response solely through its
+			URL.
+
+			It shall accept said URLs as GET requests and shall not require any specific headers.
+		-
+
+	Principles
+
+		Standard Format
+
+			-
+				The standard format for a shadow proxy URL requires no subdomains and contains the
+				URL argument "request", and may optionally contain the URL argument "response".
+
+				The request argument shall specify the request to be sent in raw HTTP format.
+
+				The response argument, if present, shall specify a JSON array containing a list of
+				JSON objects specifying modifications to be made to the response.
+				
+				Each of said objects shall have a "type" field containing a string specifying the
+				type of of modification to be performed, and may optionally have a "data" field,
+				which may have any content.
+
+				The URL argument aliases and the content of the "type" field in the response
+				modification objects are case insensitive.
+			-
+
+		Standard Response Modifications
+
+			Set Header
+
+				-
+					The set header modification shall have the type "Set Header", and its data
+					field shall contain a string specifying a raw HTTP header.
+					
+					It shall either add said header to the response or overwrite it.
+				-
+
+			Encode
+
+				-
+					The encode modification shall have the type "Encode", and shall have no data
+					field.
+					
+					It shall modify the string of the body to be JavaScript code that writes the
+					original body string as a string to a global reference.
+				-
+
+		Restrictions
+
+			-
+				The proxy should not permit recursive requests to itself.
+			-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 2 - Systems: 1 - Virtual System ]#
 
 Virtual System
@@ -4387,7 +4449,7 @@ United JavaScript Modules
 			exports must be the same, but their implementations may differ.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - HTJS ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - Techniques: 1 - HTJS ]#
 
 HTJS
 

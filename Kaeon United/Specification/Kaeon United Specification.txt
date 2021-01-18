@@ -4281,7 +4281,7 @@ Universal Hardware API
 
 		-
 			The universal hardware API is a protocol designed to allow programmers to communicate
-			with IoT devices solely through HTTP calls.
+			with IoT devices through HTTP calls.
 		-
 
 	Principles
@@ -4290,14 +4290,14 @@ Universal Hardware API
 
 			-
 				When a device that follows the protocol is turned on, it shall connect to a
-				network, and shall host a single web server at a domain and port number hard coded
-				into said device.
+				network, and shall host a web server at a domain and port number hard coded into
+				said device.
 
-				The web server shall manage a service that may be used to control the device
+				Said web server shall manage a service that may be used to control the device
 				through HTTP requests.
 			-
 
-		Standard Conventions
+		Conventions
 
 			Cellular
 
@@ -4306,12 +4306,21 @@ Universal Hardware API
 					cellular network.
 				-
 
+		Recommendations
+
 			Documentation
 
 				-
 					An HTTP GET request to the base route of the server of a device that follows
 					the protocol shall return a string containing a document file specifying the
 					routes provided by said device's server.
+				-
+
+			Modification
+
+				-
+					Ideally, a device that follows the protocol should have some sort of secure
+					mechanism in place to manually override its hard coded settings.
 				-
 
 		Options
@@ -4323,11 +4332,11 @@ Universal Hardware API
 					stimuli when not being directly controlled via HTTP calls.
 				-
 
-			Modification
+			GUI Pages
 
 				-
-					Ideally, a device that follows the protocol should have some sort of secure
-					mechanism in place to manually override its hard coded settings.
+					A device that follows the protocol may use its server to serve web pages that
+					provide graphical interfaces for some or all of its functionality.
 				-
 
 			Security

@@ -55,10 +55,10 @@ the CommonJS require function shall accept dynamically generated module paths.</
 <li><p>CommonJS shall allow cross origin access to online modules via their URLs in both the browser and node.</p>
 </li>
 <li><p>The CommonJS require function shall allow for an optional second argument,
-a boolean which,
-if true,
-shall cause the specified module to be deleted from the cache if it had been imported before,
-after which it shall be reloaded.</p>
+a options object which shall allow said function to reload modules,
+to execute modules in the global scope,
+to load modules from strings in memory,
+and to load modules asynchronously.</p>
 </li>
 <li><p>If running in node,
 and the CommonJS require function is given the alias of an npm module which has not yet been installed,

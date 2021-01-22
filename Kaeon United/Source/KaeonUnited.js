@@ -42,7 +42,8 @@ var settings = {
 
 		}
 	},
-	documentation: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/README.md"
+	documentation: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/README.md",
+	cors: "https://cors-anywhere.herokuapp.com/"
 };
 
 function getEnvironment() {
@@ -102,7 +103,7 @@ function makeOnlineRequest(path, cors) {
 	try {
 
 		if(cors)
-			path = "https://cors-anywhere.herokuapp.com/" + path;
+			path = settings.cors + path;
 		
 		let rawFile = new XMLHttpRequest();
 		rawFile.open("GET", path, false);
@@ -421,14 +422,17 @@ function executeHTML(code) {
 
 	document.documentElement.innerHTML = code;
 
+	if(document.body != null)
+		document.body.style.position = "absolute";
+
 	let scripts = document.querySelectorAll("script");
 
 	for(let i = 0; i < scripts.length; i++) {
 
 		if(scripts[i].getAttribute("src") != null)
-			eval(makeOnlineRequest(scripts[i].getAttribute("src")));
+			(1, eval)(makeOnlineRequest(scripts[i].getAttribute("src")));
 
-		eval(scripts[i].text);
+		(1, eval)(scripts[i].text);
 	}
 }
 

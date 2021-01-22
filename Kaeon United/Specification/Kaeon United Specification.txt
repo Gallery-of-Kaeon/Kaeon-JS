@@ -4724,12 +4724,16 @@ X-JSON
 					key being the attribute alias, and the value being the attribute content.
 				-
 
-			Children
+			Content
 
 				-
-					An X-JSON object may have a field with the key "children", the value of which
-					must be a list, where each value may either be a string, representing string
-					content, or another X-JSON object, specifying a child element.
+					An X-JSON object may have a field with the key "content", specifying the child
+					nodes of said object and the order in which they occur.
+					
+					The value of the content field may be either a list of child values, arranged
+					in the order in which they are to be placed, or a single child value. A child
+					value for a text node must be a string, and a child value for an XML node must
+					be another X-JSON object.
 				-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 2 - JSON: 3 - JSON Schemas: 4 - DOM JSON ]#

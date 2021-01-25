@@ -307,7 +307,7 @@ function executeScript() {
 			return options.async == true ? promise : undefined;
 		}
 
-		let lowerPath = path.toLowerCase().split("-").join("");
+		let lowerPath = path.toLowerCase().split("-").join("").split(" ").join("");
 
 		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
 			return executeModule("browser");
@@ -637,7 +637,7 @@ if(environment == "node" && !united) {
 			return options.async == true ? promise : undefined;
 		}
 
-		let lowerPath = path.toLowerCase().split("-").join("");
+		let lowerPath = path.toLowerCase().split("-").join("").split(" ").join("");
 
 		if(!options.dynamic) {
 

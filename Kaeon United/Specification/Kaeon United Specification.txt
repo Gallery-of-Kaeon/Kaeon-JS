@@ -6285,6 +6285,19 @@ Load UI
 			It shall load all of the specified resources into the host DOM, if present.
 		-
 
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 12 - Kaeon ACE ]#
+
+Kaeon ACE
+
+	Philosophy
+
+		-
+			The Kaeon ACE command is a command with the content "Kaeon ACE".
+
+			It shall cause the script to which it belongs to be interpreted as a Kaeon ACE
+			document.
+		-
+
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 1 - Kaeon FUSION Interfaces: 1 - Standard: 1 - Commands: 2 - Defined: 2 - Flow Control: 1 - Return ]#
 
 Return

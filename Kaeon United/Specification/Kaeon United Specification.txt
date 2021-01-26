@@ -5367,20 +5367,30 @@ Kaeon United
 					Importing Kaeon United into an HTML document through a script tag shall allow
 					the dynamic use of CommonJS on the page.
 				-
+			
+			Module
 
-			CommonJS Module
+				Kaeon FUSION Interface
 
-				-
-					Importing Kaeon United as a CommonJS module shall return an object containing
-					all of the CommonJS modules relevant to the United suite.
-				-
+					-
+						Using Kaeon United as a Kaeon FUSION interface shall cause the Kaeon FUSION
+						interpreter to use all of the most generally relevant Kaeon FUSION interfaces.
+					-
 
-			Kaeon FUSION Interface
+				CommonJS Module
 
-				-
-					Using Kaeon United as a Kaeon FUSION interface shall cause the Kaeon FUSION
-					interpreter to use all of the most generally relevant Kaeon FUSION interfaces.
-				-
+					-
+						Importing Kaeon United as a CommonJS module shall return an object containing
+						all of the CommonJS modules relevant to the United suite.
+					-
+
+				United C Module
+
+					-
+						Including Kaeon United as a United C import using the "use" operator shall
+						import all of the standard and Kaeon United C or C++ utilities depending on
+						the language detected.
+					-
 
 			Shadow Host
 

@@ -1247,7 +1247,44 @@
 				beginning.
 			-
 
-#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Dot Net ]#
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API ]#
+
+-
+	Universal Hardware API
+-
+	-
+		Philosophy
+	-
+		-
+			The universal hardware API is a protocol designed to allow programmers to communicate
+			with IoT devices through HTTP calls.
+		-
+	-
+		Principles
+	-
+		-
+			Protocol
+		-
+			-
+				When a device that follows the protocol is turned on, it shall connect to a
+				network, and shall host a web server at a domain and port number hard coded into
+				said device.
+
+				Said web server shall manage a service that may be used to control the device
+				through HTTP requests.
+			-
+		-
+			Conventions
+		-
+			-
+				Cellular
+			-
+				-
+					The network that a device that follows the protocol connects to shall be a
+					cellular network.
+				-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API: 1 - Dot Net ]#
 
 -
 	Dot Net
@@ -1282,7 +1319,7 @@
 				store it.
 			-
 
-#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Dot Net: 1 - Standard Dot ]#
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API: 1 - Dot Net: 1 - Standard Dot ]#
 
 -
 	Standard Dot
@@ -1296,7 +1333,7 @@
 			that is free and open for anonymous use.
 		-
 
-#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 2 - Cross Reality Computer ]#
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API: 2 - Cross Reality Computer ]#
 
 -
 	Cross Reality Computer
@@ -1309,7 +1346,7 @@
 			device that supports both augmented reality and virtual reality.
 		-
 
-#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 2 - Cross Reality Computer: 1 - Standard Cross Reality Computer ]#
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API: 2 - Cross Reality Computer: 1 - Standard Cross Reality Computer ]#
 
 -
 	Standard Cross Reality Computer
@@ -1320,6 +1357,36 @@
 		-
 			A standard cross reality computer is a cross reality computer that is capable of
 			connecting to a cellular network.
+		-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 2 - Shadow Host ]#
+
+-
+	Shadow Host
+-
+	-
+		Philosophy
+	-
+		-
+			A shadow host is a website that takes the URIs of existing resources or the literal
+			content of resources as arguments through its own URI and renders said resources as a
+			new website.
+		-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 3 - Kaeon United ]#
+
+-
+	Kaeon United
+-
+	-
+		Philosophy
+	-
+		-
+			Kaeon United is a an online API that provides a unified interface to Kaeon FUSION and
+			to various other tools relevant to it, and shall also serve as a shadow host.
+
+			Kaeon United may be used as a Kaeon FUSION interface, which shall cause the Kaeon
+			FUSION interpreter to use all of the most generally relevant Kaeon FUSION interfaces.
 		-
 
 #[ Kaeon United Specification: 2 - Suite: 1 - Code: 1 - ONE Conventions: 1 - ONE Processing: 1 - ONE+ ]#
@@ -2911,6 +2978,72 @@ Aether Atlas
 				Aether Atlas.
 			-
 
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 4 - Universal Hardware API ]#
+
+Universal Hardware API Conventions
+
+	Philosophy
+
+		-
+			This document lists several conventions for the universal hardware API.
+		-
+
+	Principles
+
+		Recommendations
+
+			Documentation
+
+				-
+					An HTTP GET request to the base route of the server of a device that follows
+					the protocol shall return a string containing a document file specifying the
+					routes provided by said device's server.
+				-
+
+			Modification
+
+				-
+					Ideally, a device that follows the protocol should have some sort of secure
+					mechanism in place to manually override its hard coded settings.
+				-
+
+		Options
+
+			Autonomous Behavior
+
+				-
+					A device that follows the protocol may act autonomously or according to other
+					stimuli when not being directly controlled via HTTP calls.
+				-
+
+			GUI Pages
+
+				-
+					A device that follows the protocol may use its server to serve web pages that
+					provide graphical interfaces for some or all of its functionality.
+				-
+
+			Security
+
+				-
+					A device that follows the protocol may restrict the use of some or all of its
+					functionality to specific users, who must provide credentials in order to prove
+					their identity.
+				-
+
+			Search
+
+				-
+					A device that follows the protocol may make itself publicly discoverable via
+					certain search engines.
+				-
+
+		Acronym
+
+			-
+				The universal hardware API can be referred to as UHAPI ("you-happy") for short.
+			-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 2 - Concepts: 1 - Utilities: 1 - Time Based Random Numbers ]#
 
 Time Based Random Numbers
@@ -3538,19 +3671,7 @@ Minimal API
 				need to be exchanged.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Host ]#
-
-Shadow Host
-
-	Philosophy
-
-		-
-			A shadow host is a website that takes the URIs of existing resources or the literal
-			content of resources as arguments through its own URI and renders said resources as a
-			new website.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Host: 1 - Shadow Proxy ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 3 - Shadow Proxy ]#
 
 Shadow Proxy
 
@@ -4272,93 +4393,6 @@ Kaeon ACE Interface Architecture
 					application, it would produce the same application with the properties of the
 					serialized application at the time it was serialized.
 				-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 2 - Hardware: 1 - Universal Hardware API ]#
-
-Universal Hardware API
-
-	Philosophy
-
-		-
-			The universal hardware API is a protocol designed to allow programmers to communicate
-			with IoT devices through HTTP calls.
-		-
-
-	Principles
-
-		Protocol
-
-			-
-				When a device that follows the protocol is turned on, it shall connect to a
-				network, and shall host a web server at a domain and port number hard coded into
-				said device.
-
-				Said web server shall manage a service that may be used to control the device
-				through HTTP requests.
-			-
-
-		Conventions
-
-			Cellular
-
-				-
-					The network that a device that follows the protocol connects to shall be a
-					cellular network.
-				-
-
-		Recommendations
-
-			Documentation
-
-				-
-					An HTTP GET request to the base route of the server of a device that follows
-					the protocol shall return a string containing a document file specifying the
-					routes provided by said device's server.
-				-
-
-			Modification
-
-				-
-					Ideally, a device that follows the protocol should have some sort of secure
-					mechanism in place to manually override its hard coded settings.
-				-
-
-		Options
-
-			Autonomous Behavior
-
-				-
-					A device that follows the protocol may act autonomously or according to other
-					stimuli when not being directly controlled via HTTP calls.
-				-
-
-			GUI Pages
-
-				-
-					A device that follows the protocol may use its server to serve web pages that
-					provide graphical interfaces for some or all of its functionality.
-				-
-
-			Security
-
-				-
-					A device that follows the protocol may restrict the use of some or all of its
-					functionality to specific users, who must provide credentials in order to prove
-					their identity.
-				-
-
-			Search
-
-				-
-					A device that follows the protocol may make itself publicly discoverable via
-					certain search engines.
-				-
-
-		Acronym
-
-			-
-				The universal hardware API can be referred to as UHAPI ("you-happy") for short.
-			-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript ]#
 
@@ -5308,11 +5342,16 @@ Kaeon United
 	Philosophy
 	
 		-
-			Kaeon United is a an API that provides a unified interface to Kaeon FUSION and the
-			United Suite.
+			This document lists various conventions for Kaeon United.
 		-
 	
 	Principles
+
+		United Suite
+
+			-
+				Kaeon United shall provide a unified interface to the United Suite.
+			-
 
 		Format
 
@@ -5373,8 +5412,8 @@ Kaeon United
 				Kaeon FUSION Interface
 
 					-
-						Using Kaeon United as a Kaeon FUSION interface shall cause the Kaeon FUSION
-						interpreter to use all of the most generally relevant Kaeon FUSION interfaces.
+						As a Kaeon FUSION interface, Kaeon United shall have the module alias
+						"Kaeon United".
 					-
 
 				CommonJS Module

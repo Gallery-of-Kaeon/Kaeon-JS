@@ -43,7 +43,7 @@ var settings = {
 		}
 	},
 	documentation: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/README.md",
-	cors: "https://cors-anywhere.herokuapp.com/"
+	cors: "https://stormy-beach-14823.herokuapp.com/"
 };
 
 function getEnvironment() {
@@ -106,7 +106,10 @@ function makeOnlineRequest(path, cors) {
 			path = settings.cors + path;
 		
 		let rawFile = new XMLHttpRequest();
+
 		rawFile.open("GET", path, false);
+
+		rawFile.setRequestHeader("Origin", "https://www.abc_" + Math.random() + ".com");
 
 		let allText = "";
 

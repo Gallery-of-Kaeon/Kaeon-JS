@@ -349,6 +349,6 @@ click <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/tree/master/Kaeo
 <h2>Disclaimer</h2>
 
 <p>Please note,
-the ability for Kaeon United to reference certain utilities is dependent on a public CORS proxy,
-currently <a href="https://cors-anywhere.herokuapp.com/">CORS Anywhere</a>,
-which occasionally goes down.</p>
+the ability for Kaeon United to reference certain dependencies and utilities is dependent on a public CORS proxy,
+currently a clone of <a href="https://cors-anywhere.herokuapp.com/">CORS Anywhere</a> hosted on Heroku,
+which may go down on rare occasions.</p>

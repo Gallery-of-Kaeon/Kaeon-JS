@@ -4480,17 +4480,47 @@ List Object Equivalence
 			indicies.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 2 - United JavaScript Modules ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 2 - Modules ]#
 
-United JavaScript Modules
+United JavaScript Module Conventions
 	
 	Philosophy
 		
 		-
-			A United JavaScript module is a CommonJS module where the exports are different for
-			certain platforms. The aliases of the contents each platform specific variation of said
-			exports must be the same, but their implementations may differ.
+			This document specifies conventions for CommonJS modules that are especially useful in
+			the context of United JavaScript.
 		-
+
+	Principles
+
+		Platform Variance
+
+			-
+				Platform variance is where the exports of a module are different for certain
+				platforms.
+				
+				The aliases of the contents each platform specific variation of said exports should
+				be the same, but their implementations may differ.
+			-
+
+		Link Reference
+
+			-
+				A link reference is a JavaScript object declared at the beginning of a module's
+				code which contains the paths to said module's dependencies.
+
+				This object may be used to reconfigure said paths without drasitically altering the
+				module's code.
+			-
+
+		Package Modules
+
+			-
+				A package module is a module that exports the exports of other modules.
+
+				A module whose exports are exported by a package module is referred to as a nested
+				module.
+			-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 1 - United JavaScript: 1 - Conventions: 3 - Techniques: 1 - HTJS ]#
 
@@ -4828,8 +4858,7 @@ HTTP JSON
 				An HTTP JSON object must have a field containing a definition object.
 				
 				The alias of said field shall be "request" for an HTTP JSON object representing an
-				HTTP request, and "response" for and HTTP JSON object representing an HTTP
-				response.
+				HTTP request, and "response" for an HTTP JSON object representing an HTTP response.
 
 				A definition object shall itself be a JSON field object, the contents of which
 				shall differ depending on whether the HTTP JSON object containing it represents an

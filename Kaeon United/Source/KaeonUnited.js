@@ -2,48 +2,14 @@
 
 // <script> document.documentElement.innerHTML = "";
 
-var settings = {
-	libraries: {
-		common: {
-			csb: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Source/CSB.js",
-			dimensions: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/dimensions.js",
-			httpUtils: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js",
-			input: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/input.js",
-			io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/io.js",
-			kaeonACE: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACE.js",
-			kaeonACEModules: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACEModules.js",
-			ONESuite: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-FUSION/master/Kaeon%20FUSION/Source/Engine/ONESuite.js",
-			philosophersStone: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Philosophers-Stone/master/Philosopher's%20Stone/API/PhilosophersStone.js",
-			platform: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Platform/platform.js",
-			search: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/search.js",
-			server: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Server/server.js",
-			speech: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Speech/speech.js",
-			tokenizer: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Tokenizer/tokenizer.js",
-			ucc: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Source/UCC.js",
-			ui: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/UI.js",
-			virtualSystem: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Philosophers-Stone/master/Philosopher's%20Stone/API/Virtual%20System/virtualSystem.js",
-			widgets: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/widgets.js"
-		},
-		browser: {
-
-		},
-		node: {
-			
-		}
-	},
-	interfaces: {
-		common: {
-			standard: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-FUSION/master/Kaeon%20FUSION/Source/Modules/Interfaces/Standard.js",
-		},
-		browser: {
-
-		},
-		node: {
-
-		}
-	},
+var moduleDependencies = {
+	cors: "https://stormy-beach-14823.herokuapp.com/",
+	csb: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Source/CSB.js",
 	documentation: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/README.md",
-	cors: "https://stormy-beach-14823.herokuapp.com/"
+	io: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/io.js",
+	kaeonUtilities: "https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/KaeonUtilities.js",
+	ONESuite: "https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-FUSION/master/Kaeon%20FUSION/Source/Engine/ONESuite.js",
+	ucc: "https://raw.githubusercontent.com/Gallery-of-Kaeon/United-C/main/United%20C/Source/UCC.js"
 };
 
 function getEnvironment() {
@@ -103,7 +69,7 @@ function makeOnlineRequest(path, cors) {
 	try {
 
 		if(cors)
-			path = settings.cors + path;
+			path = moduleDependencies.cors + path;
 		
 		let rawFile = new XMLHttpRequest();
 
@@ -134,8 +100,8 @@ function makeOnlineRequest(path, cors) {
 
 function executeCommand(args) {
 
-	var ONESuite = require(settings.libraries.common.ONESuite);
-	var io = require(settings.libraries.common.io);
+	var ONESuite = require(moduleDependencies.ONESuite);
+	var io = require(moduleDependencies.io);
 
 	(async () => {
 
@@ -226,7 +192,7 @@ function executeCommand(args) {
 
 			execSync(
 				"npx kaeon-united js open \"" +
-				settings.libraries.common.ucc +
+				moduleDependencies.ucc +
 				"\" " +
 				data
 			);
@@ -235,13 +201,13 @@ function executeCommand(args) {
 		if(operation == "assemble") {
 
 			if(!Array.isArray(data))
-				data = require(settings.libraries.common.csb)(data);
+				data = require(moduleDependencies.csb)(data);
 			
 			fs.writeFileSync(args[3], new Uint8Array(Buffer.from(data)));
 		}
 
 		if(operation == "disassemble")
-			io.save(require(settings.libraries.common.csb).disassemble(fs.readFileSync(data)), args[3]);
+			io.save(require(moduleDependencies.csb).disassemble(fs.readFileSync(data)), args[3]);
 
 		if(result == null)
 			result = "";
@@ -313,7 +279,7 @@ function executeScript() {
 		let lowerPath = path.toLowerCase().split("-").join("").split(" ").join("");
 
 		if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
-			return executeModule("browser");
+			return unitedRequire(moduleDependencies.kaeonUtilities);
 	
 		require.cache = require.cache ? require.cache : { };
 	
@@ -400,7 +366,7 @@ function executeScript() {
 	require.kaeonUnited = true;
 	
 	try {
-		require.ONESuite = require(settings.libraries.common.ONESuite);
+		require.ONESuite = require(moduleDependencies.ONESuite);
 	}
 	
 	catch(error) {
@@ -479,42 +445,12 @@ function executeCDN() {
 		args["html"] == null &&
 		args["htmlraw"] == null) {
 
-		if(settings.documentation != null)
-			executeHTML(makeOnlineRequest(settings.documentation, true));
+		if(moduleDependencies.documentation != null)
+			executeHTML(makeOnlineRequest(moduleDependencies.documentation, true));
 	}
 }
 
-function executeModule(environment) {
-
-	var library = (item) => {
-
-		Object.keys(settings.interfaces.common).forEach((key) => {
-			require(settings.interfaces.common[key])(item);
-		});
-	
-		let environmentInterfaces =
-			environment == "browser" ?
-				settings.interfaces.browser :
-				settings.interfaces.node;
-	
-		Object.keys(environmentInterfaces).forEach((key) => {
-			require(environmentInterfaces[key])(item);
-		});
-	}
-
-	Object.keys(settings.libraries.common).forEach((key) => {
-		library[key] = () => { return require(settings.libraries.common[key]); };
-	});
-
-	let environmentLinks =
-		environment == "browser" ?
-			settings.libraries.browser :
-			settings.libraries.node;
-
-	Object.keys(environmentLinks).forEach((key) => {
-		library[key] = () => { return require(environmentLinks[key]); };
-	});
-
+function executeModule() { // STUB
 	return library;
 }
 
@@ -648,7 +584,7 @@ if(environment == "node" && !united) {
 				return xhr;
 
 			if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
-				return executeModule("node");
+				return executeModule();
 
 			if(options.reload) {
 
@@ -758,7 +694,7 @@ if(environment == "node" && !united) {
 	}
 
 	try {
-		require.oneSuite = require(settings.libraries.common.ONESuite);
+		require.oneSuite = require(moduleDependencies.ONESuite);
 	}
 
 	catch(error) {
@@ -780,6 +716,6 @@ if(platform == "cdn")
 	executeCDN();
 
 if(platform == "module")
-	module.exports = executeModule(environment);
+	module.exports = require(moduleDependencies.kaeonUtilities);
 
 // </script>

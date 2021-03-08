@@ -450,10 +450,6 @@ function executeCDN() {
 	}
 }
 
-function executeModule() { // STUB
-	return library;
-}
-
 function fileExists(file) {
 
 	try {
@@ -584,7 +580,7 @@ if(environment == "node" && !united) {
 				return xhr;
 
 			if(lowerPath.endsWith("kaeonunited") || lowerPath.endsWith("kaeonunited.js"))
-				return executeModule();
+				return require(moduleDependencies.kaeonUtilities);
 
 			if(options.reload) {
 

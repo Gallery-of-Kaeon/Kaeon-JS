@@ -609,6 +609,25 @@
 			An ACE command is an object that may be passed to a simulation organized according to
 			an ACE document in order to modify its properties at runtime.
 		-
+	-
+		Principles
+	-
+		-
+			Types
+		-
+			-
+				An ACE command that is formatted as a ONE document is referred to as a ONE ACE
+				command.
+
+				An ONE ACE command that is formatted as a FUSION script is referred to as a FUSION
+				ACE command.
+
+				A FUSION ACE command that is formatted as a Kaeon FUSION script is referred to as a
+				Kaeon FUSION ACE command.
+
+				An ACE command that is not a ONE ACE command is referred to as a miscellaneous ACE
+				command.
+			-
 
 #[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 3 - Kaeon ACE ]#
 
@@ -682,6 +701,44 @@
 
 				If ordered subcomponents have more than one possible order, then they are referred
 				to as multiple ordered subcomponents.
+			-
+
+#[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 3 - Kaeon ACE: 2 - Prefabs ]#
+
+-
+	Kaeon ACE Prefabs
+-
+	-
+		Philosophy
+	-
+		-
+			Kaeon ACE prefabs are predefined combinations of subcomponents, components, and
+			entities.
+		-
+	-
+		Principles
+	-
+		-
+			Types
+		-
+			-
+				Static Kaeon ACE prefabs are Kaeon ACE prefabs that may not have any variation.
+
+				Dynamic Kaeon ACE prefabs are Kaeon ACE prefabs that may vary based on a given set
+				of arguments.
+			-
+		-
+			Core Prefab
+		-
+			-
+				A core prefab is a Kaeon ACE prefab that defines the overall structure of a Kaeon
+				ACE document.
+			-
+		-
+			Prefab Set
+		-
+			-
+				A prefab set is a set of Kaeon ACE prefabs.
 			-
 
 #[ Kaeon United Specification: 1 - Core: 1 - Code: 2 - Universal Preprocessor ]#

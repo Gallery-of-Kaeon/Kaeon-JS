@@ -597,7 +597,20 @@
 				document to the referenced element.
 			-
 
-#[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 2 - Kaeon ACE ]#
+#[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 2 - ACE Command ]#
+
+-
+	ACE Command
+-
+	-
+		Philosophy
+	-
+		-
+			An ACE command is an object that may be passed to a simulation organized according to
+			an ACE document in order to modify its properties at runtime.
+		-
+
+#[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 3 - Kaeon ACE ]#
 
 -
 	Kaeon ACE
@@ -624,6 +637,51 @@
 			-
 				ACE elements that represent entities shall have the content "Entity", and may have
 				either component elements or entity elements as children.
+			-
+
+#[ Kaeon United Specification: 1 - Core: 1 - Code: 1 - ONE: 5 - ACE: 3 - Kaeon ACE: 1 - Subcomponents ]#
+
+-
+	Kaeon ACE Subcomponents
+-
+	-
+		Philosophy
+	-
+		-
+			All elements in the scope of Kaeon ACE components shall be called subcomponents, and
+			shall specify the properties of the component to which they belong.
+		-
+	-
+		Principles
+	-
+		-
+			Subcomponent Orders
+		-
+			-
+				The depth at which a subcomponent is nested relative to the component to which it
+				belongs is referred to as its order.
+				
+				Subcomponent orders begin at one.
+			-
+		-
+			Predefinition
+		-
+			-
+				Predefined subcomponent types are referred to as defined subcomponents.
+
+				Undefined subcomponent types are referred to as undefined subcomponents.
+
+				If defined subcomponent types may have any order, then they are referred to as
+				unordered subcomponents.
+				
+				If defined subcomponent must select from a certain subset of orders, then they are
+				referred to as ordered subcomponents.
+
+				If ordered subcomponents have only one possible order, then they are referred to as
+				single ordered subcomponents.
+
+				If ordered subcomponents have more than one possible order, then they are referred
+				to as multiple ordered subcomponents.
 			-
 
 #[ Kaeon United Specification: 1 - Core: 1 - Code: 2 - Universal Preprocessor ]#
@@ -839,6 +897,21 @@
 			An atlas policy is an attribute assigned to a connection in a Philosopher's Atlas.
 		-
 
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Atlas: 1 - Atlas Policy: 1 - Private Connection ]#
+
+-
+	Private Connection
+-
+	-
+		Philosophy
+	-
+		-
+			A private connection is a type of connection in a Philosopher's Atlas.
+
+			A private connection will not allow a traversal to pass through it unless said
+			traversal began at the module that said connection goes out from.
+		-
+
 #[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Atlas: 2 - Philosopher's Cross ]#
 
 -
@@ -850,6 +923,30 @@
 		-
 			A Philosopher's Cross is a database that may act as a node on a Philosopher's Atlas.
 		-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Atlas: 3 - Philosopher's Core ]#
+
+-
+	Philosopher's Core
+-
+	-
+		Philosophy
+	-
+		-
+			A Philosopher's Core is a node on a Philosopher's Atlas designed specifically to
+			coordinate activity within a Philosopher's Atlas.
+		-
+	-
+		Principles
+	-
+		-
+			Philosopher's Core Commands
+		-
+			-
+				A Philosopher's Core command is an object that may be passed to a philosopher's
+				core through which it may be distributed to the rest of the Philosopher's Atlas,
+				after which another object may be returned.
+			-
 
 #[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 2 - Philosopher's Retrieval ]#
 
@@ -1187,6 +1284,22 @@
 			string output channels according to what it receives through its string input channels.
 		-
 
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 3 - Philosopher's Medium: 7 - Taggable Philosopher's Medium ]#
+
+-
+	Taggable Philosopher's Medium
+-
+	-
+		Philosophy
+	-
+		-
+			A module that abides by the taggable Philosopher's Medium shall contain a list of
+			strings which act as identification tags for the module.
+
+			A module that abides by the taggable Philosopher's Medium shall be known as a tagged
+			Philosopher's Stone module.
+		-
+
 #[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 4 - Philosopher's Conventions: 1 - Philosopher's Script ]#
 
 -
@@ -1245,6 +1358,50 @@
 				far from the judge function, and the output from the mutate function shall then
 				replace the current genetic value, and the evolve function shall loop back to the
 				beginning.
+			-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 4 - Philosopher's Conventions: 3 - Philosopher's Crystal ]#
+
+-
+	Philosopher's Crystal
+-
+	-
+		Philosophy
+	-
+		-
+			A philosopher's crystal is a single module is created to take the place of multiple
+			modules within a Philosopher's Atlas. The process of converting multiple modules into a
+			philosopher's crystal is referred to as crystallization.
+		-
+
+#[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 4 - Philosopher's Conventions: 4 - Standard Module ]#
+
+-
+	Standard Module
+-
+	-
+		Philosophy
+	-
+		-
+			A standard module is a module that abides by the standard, regulated, modifiable,
+			serializable, and taggable Philosopher's Mediums.
+		-
+	-
+		Principles
+	-
+		-
+			Tags
+		-
+			-
+				For identification purposes, the tags specified by the taggable Philosopher's
+				Medium shall ignore letter case and white space for standard modules.
+			-
+		-
+			Traversals
+		-
+			-
+				Traversals of Philosopher's Atlases initiated by or from standard modules should
+				acknowledge private and reduced connections.
 			-
 
 #[ Kaeon United Specification: 1 - Core: 2 - Philosopher's Stone: 5 - Philosopher's Series: 1 - Universal Hardware API ]#
@@ -1983,8 +2140,8 @@ Kaeon ACE Directives
 	Philosophy
 	
 		-
-			Kaeon ACE directives are ACE elements which may be used as the children of component
-			objects in Kaeon ACE to specify directives to the host environment.
+			Kaeon ACE directives are defined single ordered Kaeon ACE subcomponents with an order
+			of one, which are used to specify directives to the host environment.
 		-
 	
 	Principles
@@ -2110,46 +2267,7 @@ Reduced ACE
 			that adhere to the convention prohibit the use of ACE references.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 1 - Mediums: 1 - Taggable ]#
-
-Taggable Philosopher's Medium
-	
-	Philosophy
-	
-		-
-			A module that abides by the taggable Philosopher's Medium shall contain a list of
-			strings which act as identification tags for the module.
-
-			A module that abides by the taggable Philosopher's Medium shall be known as a tagged
-			Philosopher's Stone module.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 2 - Philosopher's Crystal ]#
-
-Philosopher's Crystal
-
-	Philosophy
-	
-		-
-			A philosopher's crystal is a single module is created to take the place of multiple
-			modules within a Philosopher's Atlas. The process of converting multiple modules into a
-			philosopher's crystal is referred to as crystallization.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 1 - Private Connection ]#
-
-Private Connection
-
-	Philosophy
-
-		-
-			A private connection is a type of connection in a Philosopher's Atlas.
-
-			A private connection will not allow a traversal to pass through it unless said
-			traversal began at the module that said connection goes out from.
-		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 3 - Connections: 2 - Reduced Connection ]#
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 1 - Connections: 1 - Reduced Connection ]#
 
 Reduced Connection
 
@@ -2164,33 +2282,6 @@ Reduced Connection
 			latter module must be converted into a string before being returned to the former
 			module.
 		-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 1 - Philosopher's Stone Conventions: 4 - Standard Module ]#
-
-Standard Module
-
-	Philosophy
-
-		-
-			A standard module is a module that abides by the standard, regulated, modifiable,
-			serializable, and taggable Philosopher's Mediums.
-		-
-	
-	Principles
-
-		Tags
-
-			-
-				For identification purposes, the tags specified by the taggable Philosopher's
-				Medium shall ignore letter case and white space for standard modules.
-			-
-		
-		Traversals
-
-			-
-				Traversals of Philosopher's Atlases initiated by or from standard modules should
-				acknowledge private and reduced connections.
-			-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 1 - Core: 2 - Philosopher's Stone: 2 - SOUL: 1 - Standard SOUL ]#
 
@@ -3626,6 +3717,21 @@ Standard Repository
 			Under the convention, project repositories should contain one folder sharing the name
 			of the repository, in which all of the project contents are kept. Alongside said
 			folder, there may also be a license file and a readme file.
+		-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 3 - Self-Ciphering Document ]#
+
+Self-Ciphering Document
+
+	Philosophy
+
+		-
+			A self-ciphering document is an executable document that contains a human readable
+			portion that may either encrypted or unencrypted.
+
+			If executed with a given key and a flag specifying whether said content should be
+			encrypted or decrypted, said operation shall be performed on said content with said
+			key.
 		-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 1 - Standard Service ]#
@@ -10025,11 +10131,19 @@ Standard Kaeon ACE
 	Philosophy
 		
 		-
-			Standard Kaeon ACE is a specific set of component elements for the Kaeon ACE that
-			establishes a game development framework.
+			Standard Kaeon ACE is a specific set of subcomponent elements and commands for Kaeon
+			ACE that establishes a game development framework.
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 1 - Vector 3 ]#
+	Principles
+
+		Commands
+
+			-
+				All standard Kaeon ACE commands shall be ONE strings.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 1 - Unordered: 1 - Vector 3 ]#
 
 Vector 3
 	
@@ -10051,7 +10165,7 @@ Vector 3
 				child's content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 2 - Color ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 1 - Unordered: 2 - Color ]#
 
 Color
 
@@ -10073,7 +10187,7 @@ Color
 				said child's content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 3 - Texture ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 1 - Unordered: 3 - Texture ]#
 
 Texture
 
@@ -10094,7 +10208,7 @@ Texture
 				as its content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 4 - Vertex ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 1 - Unordered: 4 - Vertex ]#
 
 Vertex
 
@@ -10118,7 +10232,7 @@ Vertex
 				The element may also have one color element as its child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 1 - Subcomponent: 5 - Polygon ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 1 - Unordered: 5 - Polygon ]#
 
 Polygon
 
@@ -10142,7 +10256,7 @@ Polygon
 				The element may also have one color element as a child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 1 - Tag ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 1 - Tag ]#
 
 Tag
 	
@@ -10163,7 +10277,30 @@ Tag
 				specify the tag that the element represents.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 10 - Audio ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 10 - Properties ]#
+
+Properties
+
+	Philosophy
+	
+		-
+			A properties element is a Kaeon ACE component that represents properties of the entity
+			it belongs to.
+
+			It must have the content "Properties".
+		-
+	
+	Principles
+		
+		Children
+		
+			-
+				The element may have one or both of children with the content "Active" or
+				"Destroyed", each of which, if present, must have a child with either "True" or
+				"False" as its content.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 11 - Audio ]#
 
 Audio
 
@@ -10184,7 +10321,7 @@ Audio
 				content.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 11 - Conduit ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 12 - Conduit ]#
 
 Conduit
 
@@ -10207,7 +10344,7 @@ Conduit
 				"Mouse" as its content, and the port element must have no children.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 13 - Loadable ]#
 
 Loadable
 
@@ -10233,7 +10370,7 @@ Loadable
 				represents.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 1 - Model ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 13 - Loadable: 1 - Types: 1 - Model ]#
 
 Model
 	
@@ -10246,7 +10383,7 @@ Model
 			The type child of the loadable element must have a child with the content "Model".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 2 - Height Map ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 13 - Loadable: 1 - Types: 2 - Height Map ]#
 
 Height Map
 	
@@ -10259,7 +10396,7 @@ Height Map
 			The type child of the loadable element must have a child with the content "Height Map".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 12 - Loadable: 1 - Types: 3 - Skybox ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 13 - Loadable: 1 - Types: 3 - Skybox ]#
 
 Skybox
 	
@@ -10271,7 +10408,55 @@ Skybox
 			The type child of the loadable element must have a child with the content "Skybox".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 2 - Field ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 14 - Frame Properties ]#
+
+Frame Properties
+
+	Philosophy
+		
+		-
+			A frame properties element is a Kaeon ACE component that represents the frame
+			properties of the GUI of its host environment.
+
+			It must have the content "Frame Properties".
+		-
+	
+	Principles
+		
+		Children
+
+			-
+				The element may have a child with the content fullscreen.
+
+				The element may also have a child with the content "Icon", which if present shall
+				have a child containing the file path to an image as its content.
+
+				The element may also have a child with the content "Title", which if present shall
+				have a child containing any string.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 15 - Tick Rate ]#
+
+Tick Rate
+
+	Philosophy
+		
+		-
+			A tick rate element is a Kaeon ACE component that represents the tick rate of the
+			script processor of its host environment.
+
+			It must have the content "Tick Rate".
+		-
+	
+	Principles
+		
+		Children
+		
+			-
+				The element must have a single child that contains a number as its content.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 2 - Field ]#
 
 Field
 	
@@ -10294,7 +10479,7 @@ Field
 				shall represent the content of the field.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 3 - Script ]#
 
 Script
 	
@@ -10317,7 +10502,7 @@ Script
 				and the children of each of said children shall constitute a Kaeon FUSION script.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 3 - Script: 1 - ACE Interface ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 3 - Script: 1 - ACE Interface ]#
 
 ACE Interface
 
@@ -10349,7 +10534,7 @@ ACE Interface
 					script it belongs to is acting on to the element returned by its child.
 				-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 4 - Mesh ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 4 - Mesh ]#
 
 Mesh
 
@@ -10379,7 +10564,7 @@ Mesh
 				Absolute".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 5 - Collider ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 5 - Collider ]#
 
 Collider
 
@@ -10401,7 +10586,7 @@ Collider
 				content "Type", which must have a child with the content "Mesh" or "Sphere".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 6 - Force ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 6 - Force ]#
 
 Force
 
@@ -10422,7 +10607,7 @@ Force
 				The element must have a vector 3 element as a child.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 7 - Transform ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 7 - Transform ]#
 
 Transform
 
@@ -10445,7 +10630,7 @@ Transform
 				"Translation", "Rotation", or "Scale".
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 8 - Camera ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 8 - Camera ]#
 
 Camera
 	
@@ -10471,7 +10656,7 @@ Camera
 				a default value.
 			-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Effect ]#
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 9 - Effect ]#
 
 Effect
 
@@ -10496,77 +10681,6 @@ Effect
 				child with the content "Background Color", "Light", or "Fog". The element may also
 				have a child with the content "Intensity", which shall have a single child that has
 				a number as its content.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 1 - Objects: 2 - Component: 9 - Properties ]#
-
-Properties
-
-	Philosophy
-	
-		-
-			A properties element is a Kaeon ACE component that represents properties of the entity
-			it belongs to.
-
-			It must have the content "Properties".
-		-
-	
-	Principles
-		
-		Children
-		
-			-
-				The element may have one or both of children with the content "Active" or
-				"Destroyed", each of which, if present, must have a child with either "True" or
-				"False" as its content.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 1 - Frame Properties ]#
-
-Frame Properties
-
-	Philosophy
-		
-		-
-			A frame properties element is a Kaeon ACE component that represents the frame
-			properties of the GUI of its host environment.
-
-			It must have the content "Frame Properties".
-		-
-	
-	Principles
-		
-		Children
-
-			-
-				The element may have a child with the content fullscreen.
-
-				The element may also have a child with the content "Icon", which if present shall
-				have a child containing the file path to an image as its content.
-
-				The element may also have a child with the content "Title", which if present shall
-				have a child containing any string.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Components: 2 - Directives: 2 - Tick Rate ]#
-
-Tick Rate
-
-	Philosophy
-		
-		-
-			A tick rate element is a Kaeon ACE component that represents the tick rate of the
-			script processor of its host environment.
-
-			It must have the content "Tick Rate".
-		-
-	
-	Principles
-		
-		Children
-		
-			-
-				The element must have a single child that contains a number as its content.
 			-
 
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 1 - Kaeon ACE Interface ]#

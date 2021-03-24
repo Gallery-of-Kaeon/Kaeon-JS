@@ -30,9 +30,9 @@
 <ul>
 <li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a> programming language.</p>
 </li>
-<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/1%20-%20ONE/README.md">ONE</a> and <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/tree/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/2%20-%20ONE%2B">ONE+</a> data interchange languages.</p>
+<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/Guide/1%20-%20Foundations/1%20-%20ONE/README.md">ONE</a> and <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/Guide/1%20-%20Foundations/2%20-%20ONE%2B/README.md">ONE+</a> data interchange languages.</p>
 </li>
-<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md">Universal Preprocessor</a>.</p>
+<li><p>The <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION/blob/master/Kaeon%20FUSION/Documentation/Guide/1%20-%20Foundations/3%20-%20Universal%20Preprocessor/README.md">Universal Preprocessor</a>.</p>
 </li>
 <li><p>A C and C++ hybrid language called <a href="https://github.com/Gallery-of-Kaeon/United-C">United C</a>.</p>
 </li>

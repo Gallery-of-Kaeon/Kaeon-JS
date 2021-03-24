@@ -3791,6 +3791,18 @@ Self-Ciphering Document
 			key.
 		-
 
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 2 - Documents: 4 - The Responsive DOM Principle ]#
+
+The Responsive DOM Principle
+
+	Philosophy
+
+		-
+			The Responsive DOM principle is the principle that all aspects of a document based
+			rendering, including any changes made to it at runtime, must be reflected in the
+			document that defines it.
+		-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Applications: 1 - Standard Service ]#
 
 Standard Service
@@ -10465,54 +10477,6 @@ Skybox
 			The type child of the loadable element must have a child with the content "Skybox".
 		-
 
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 14 - Frame Properties ]#
-
-Frame Properties
-
-	Philosophy
-		
-		-
-			A frame properties element is a Kaeon ACE component that represents the frame
-			properties of the GUI of its host environment.
-
-			It must have the content "Frame Properties".
-		-
-	
-	Principles
-		
-		Children
-
-			-
-				The element may have a child with the content fullscreen.
-
-				The element may also have a child with the content "Icon", which if present shall
-				have a child containing the file path to an image as its content.
-
-				The element may also have a child with the content "Title", which if present shall
-				have a child containing any string.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 15 - Tick Rate ]#
-
-Tick Rate
-
-	Philosophy
-		
-		-
-			A tick rate element is a Kaeon ACE component that represents the tick rate of the
-			script processor of its host environment.
-
-			It must have the content "Tick Rate".
-		-
-	
-	Principles
-		
-		Children
-		
-			-
-				The element must have a single child that contains a number as its content.
-			-
-
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 2 - Field ]#
 
 Field
@@ -10558,38 +10522,6 @@ Script
 				content "On Start", "On Update", "On Activate", "On Deactivate", or "On Destroy",
 				and the children of each of said children shall constitute a Kaeon FUSION script.
 			-
-
-#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 3 - Script: 1 - ACE Interface ]#
-
-ACE Interface
-
-	Philosophy
-		
-		-
-			The ACE interface is a Kaeon FUSION interface that allows Kaeon FUSION code to navigate
-			manipulate an ACE document.
-
-			It has the alias "ACE".
-		-
-	
-	Principles
-		
-		Commands
-			
-			Get Document
-			
-				-
-					The get document command contains the content "Get Document", and returns the
-					ACE document that the script it belongs to is acting on in ONE list form.
-				-
-			
-			Set Document
-			
-				-
-					The set document command contains the content "Set Document", and has one child
-					that returns an element in ONE list form, and sets the ACE document that the
-					script it belongs to is acting on to the element returned by its child.
-				-
 
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 4 - Mesh ]#
 
@@ -10738,6 +10670,54 @@ Effect
 				child with the content "Background Color", "Light", or "Fog". The element may also
 				have a child with the content "Intensity", which shall have a single child that has
 				a number as its content.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 2 - Second: 1 - Directives: 1 - Frame ]#
+
+Frame Properties
+
+	Philosophy
+		
+		-
+			A frame properties element is a Kaeon ACE component that represents the frame
+			properties of the GUI of its host environment.
+
+			It must have the content "Frame Properties".
+		-
+	
+	Principles
+		
+		Children
+
+			-
+				The element may have a child with the content fullscreen.
+
+				The element may also have a child with the content "Icon", which if present shall
+				have a child containing the file path to an image as its content.
+
+				The element may also have a child with the content "Title", which if present shall
+				have a child containing any string.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 2 - Second: 1 - Directives: 2 - Tick ]#
+
+Tick Rate
+
+	Philosophy
+		
+		-
+			A tick rate element is a Kaeon ACE component that represents the tick rate of the
+			script processor of its host environment.
+
+			It must have the content "Tick Rate".
+		-
+	
+	Principles
+		
+		Children
+		
+			-
+				The element must have a single child that contains a number as its content.
 			-
 
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 2 - Kaeon ACE Interfaces: 1 - FUSION: 1 - Kaeon ACE Interface ]#

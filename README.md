@@ -1,3 +1,7 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R +pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
 <p><h1 align="center">Kaeon United</h1></p>
 
 <h2 align="center">It Just Works</h2>
@@ -223,114 +227,32 @@ and &quot;disassemble&quot;.</p>
 
 <p><em>The disassemble operation should specify the input as a file path using &quot;read&quot;.</em></p>
 
-<!-- STUB -->
-
 <h3>As a Module</h3>
 
-<p>If using JavaScript through Kaeon United&#39;s CDN,
+<p>If using United JavaScript through Kaeon United&#39;s CDN,
 Script,
 or CLI modes,
-then Kaeon United may be imported as a CommonJS style module through the KaeonUnited require function via the alias &quot;Kaeon United&quot;.</p>
+then Kaeon United may be imported as a CommonJS style module through the KaeonUnited require function via the aliass &quot;Kaeon United&quot; and  &quot;kaeon-united&quot;.</p>
 
-<p>The imported module may act as a Kaeon FUSION interface,
-and shall contain a series of functions which when called return references to various miscellaneous JavaScript utilities.</p>
+<p>Said module shall include a "modules" object that contain several functions,
+each of which,
+when called,
+load a module from the <a href="https://github.com/Gallery-of-Kaeon/JavaScript-Utilities">Kaeon JavaScript Utilities</a> sharing the same alias as the called function.</p>
 
-<p>Said functions and the modules they return are listed as follows:</p>
+<p>For example:</p>
 
-<h4>dimensions()</h4>
+<pre><code>var io = require("kaeon-united").modules.io();</code></pre>
 
-<p>A module for applying stacked transforms to HTML DOM elements.</p>
+<p>shall load the io module and store it in a variable called &quot;io&quot;</p>
 
-<h4>httpUtils()</h4>
+<p>The imported module may act also as a Kaeon FUSION interface,
+which shall load the most important Kaeon FUSION modules, including the standard module.</p>
 
-<p>A module for easily sending HTTP requests.</p>
+<p>For example:</p>
 
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/HTTP%20Utils/httpUtils.js">here</a> for the source code.</p>
+<pre><code>Use: Kaeon United; Log Line: &#39;Hello, world!&#39;</code></pre>
 
-<h4>input()</h4>
-
-<p>A module for automatically detecting keyboard and mouse interaction with DOM elements.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/input.js">here</a> for the source code.</p>
-
-<h4>io()</h4>
-
-<p>A module for basic file system and terminal IO.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/IO/io.js">here</a> for the source code.</p>
-
-<h4>kaeonACE()</h4>
-
-<p>See <a href="https://github.com/Gallery-of-Kaeon/Kaeon-ACE">Kaeon ACE</a>.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACE.js">here</a> for the source code.</p>
-
-<h4>kaeonACEModules()</h4>
-
-<p>See <a href="https://github.com/Gallery-of-Kaeon/Kaeon-ACE">Kaeon ACE</a>.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-ACE/master/Kaeon%20ACE/API/Kaeon%20ACE/Babylon/KaeonACEModules.js">here</a> for the source code.</p>
-
-<h4>ONESuite()</h4>
-
-<p>See <a href="https://github.com/Gallery-of-Kaeon/Kaeon-FUSION">Kaeon FUSION</a>.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/United%20Bootstrap/ONESuite.js">here</a> for the source code.</p>
-
-<h4>philosophersStone()</h4>
-
-<p>See the <a href="https://github.com/Gallery-of-Kaeon/Philosophers-Stone">Philosopher&#39;s Stone</a>.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/Philosophers-Stone/master/Philosopher&#39;s%20Stone/API/JavaScript/PhilosophersStone.js">here</a> for the source code.</p>
-
-<h4>plaform()</h4>
-
-<p>A module for detecting whether the program is running on the browser or on node.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Platform/platform.js">here</a> for the source code.</p>
-
-<h4>search()</h4>
-
-<p>A module for creating search bar widgets.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/search.js">here</a> for the source code.</p>
-
-<h4>server()</h4>
-
-<p>A module for simple server utilities.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Server/server.js">here</a> for the source code.</p>
-
-<h4>speech()</h4>
-
-<p>A module for front end speech to text and text to speech functionality.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Speech/speech.js">here</a> for the source code.</p>
-
-<h4>tokenizer()</h4>
-
-<p>A module for tokenization.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/Tokenizer/tokenizer.js">here</a> for the source code.</p>
-
-<h4>ui()</h4>
-
-<p>For more details,
-see the <a href="https://github.com/Gallery-of-Kaeon/Kaeon-United/blob/master/Kaeon%20United/Specification/1%20-%20United%20Suite/1%20-%20United%20JavaScript/3%20-%20Frameworks/1%20-%20Dynamic%20UI/Dynamic%20UI%20Framework.op">Dynamic UI Framework</a>.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/UI.js">here</a> for the source code.</p>
-
-<h4>virtualSystem()</h4>
-
-<p>A module for emulating the structure of a file system.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/Philosophers-Stone/master/Philosopher&#39;s%20Stone/API/Virtual%20System/virtualSystem.js">here</a> for the source code.</p>
-
-<h4>widgets()</h4>
-
-<p>A module for creating various miscellaneous widgets.</p>
-
-<p>Click <a href="https://raw.githubusercontent.com/Gallery-of-Kaeon/JavaScript-Utilities/master/JavaScript%20Utilities/UI/widgets.js">here</a> for the source code.</p>
+<p>shall log &quot;Hello, world!&quot; to the console.</p>
 
 <h2 align="center">Source</h2>
 

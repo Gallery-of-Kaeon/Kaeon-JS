@@ -10333,7 +10333,7 @@ Tag
 	Philosophy
 	
 		-
-			A tag element is a Kaeon ACE component that represents a tag identifier.
+			A tag element is a first order Kaeon ACE subcomponent that represents a tag identifier.
 
 			It must have the content "Tag".
 		-
@@ -10354,8 +10354,8 @@ Properties
 	Philosophy
 	
 		-
-			A properties element is a Kaeon ACE component that represents properties of the entity
-			it belongs to.
+			A properties element is a first order Kaeon ACE subcomponent that represents properties
+			of the entity it belongs to.
 
 			It must have the content "Properties".
 		-
@@ -10377,7 +10377,7 @@ Audio
 	Philosophy
 	
 		-
-			A audio element is an ACE element that represents an audio clip.
+			An audio element is a first order Kaeon ACE subcomponent that represents an audio clip.
 			
 			It must have the content "audio".
 		-
@@ -10398,8 +10398,8 @@ Conduit
 	Philosophy
 	
 		-
-			A conduit element is a Kaeon ACE component wherein the children of the element are
-			periodically updated by the host environment based on its type.
+			A conduit element is a first order Kaeon ACE subcomponent wherein the children of the
+			element are periodically updated by the host environment based on its type.
 
 			It must have the content "Conduit".
 		-
@@ -10421,7 +10421,7 @@ Loadable
 	Philosophy
 	
 		-
-			A loadable is a Kaeon ACE component that represents a loadable resource.
+			A loadable is a first order Kaeon ACE subcomponent that represents a loadable resource.
 
 			It must have the content "Loadable".
 		-
@@ -10485,8 +10485,8 @@ Field
 	Philosophy
 		
 		-
-			A field element is a Kaeon ACE component that represents a field of data with an alias
-			and content.
+			A field element is a first order Kaeon ACE subcomponent that represents a field of data
+			with an alias and content.
 
 			It must have the content "Field".
 		-
@@ -10508,20 +10508,66 @@ Script
 	Philosophy
 		
 		-
-			A script element is a Kaeon ACE component that represents a script attached to the
-			entity it belongs to.
+			A script element is a first order Kaeon ACE subcomponent that represents a script
+			attached to the entity it belongs to.
 
 			It must have the content "Script".
 		-
 	
 	Principles
-		
-		Children
-		
+
+		Status
+
 			-
-				The element may have any number of children, each of which may have as their
-				content "On Start", "On Update", "On Activate", "On Deactivate", or "On Destroy",
-				and the children of each of said children shall constitute a Kaeon FUSION script.
+				A script may either be active or inactive.
+
+				As such, a script element may optionally have a child with the content "Status",
+				which if present must have a child with either the content "Active" or "Inactive",
+				indicating the status of the script.
+
+				If said element is not present, the script shall have a status of active by
+				default.
+			-
+		
+		Sub-Scripts
+
+			-
+				Each child of a script element shall be a sub-script element.
+
+				The content of a sub-script element shall determine when it executes, and may be
+				"Start", "Update", "Status", or "Destroy".
+
+				A start sub-script shall execute once when the script is first placed into the
+				scene.
+
+				An update sub-script shall execute once per scene loop if the script to which it
+				belongs is active.
+
+				A status sub-script shall execute whenever the status of the script is changed.
+
+				A destroy sub-script shall execute whenever the script to which it belongs is
+				removed from the scene.
+
+				A sub-script element shall have a child with the content "source", and may
+				optionally have a child with the content "language".
+
+				The source element shall have one child containing the code for the sub-script to
+				which it belongs.
+				
+				Said code shall have an arguments array passed to it, which shall contain the Kaeon
+				ACE core as its first argument, which the sub-script may perform philosopher's
+				atlas calls on as the sole means to interface with the rest of the scene and with
+				the engine.
+
+				The arguments array for a status sub-script shall also contain a boolean as its
+				second element, which shall have a value of true if the status has been set to
+				active, and a value of false if the status has been set to inactive.
+
+				The language element, if present, shall have one child containing the language that
+				the sub-script is written in.
+
+				If the language element is not present, the engine shall attempt to detect the
+				language of the sub-script automatically.
 			-
 
 #[ Kaeon United Specification: 2 - Suite: 3 - Kaeon Series: 3 - Kaeon ACE Modules: 1 - Standard Kaeon ACE: 1 - Subcomponents: 2 - Ordered: 1 - Single: 1 - First: 4 - Mesh ]#
@@ -10531,8 +10577,8 @@ Mesh
 	Philosophy
 	
 		-
-			A mesh element is a Kaeon ACE component that represents a collection of polygons
-			attached to the entity it belongs to.
+			A mesh element is a first order Kaeon ACE subcomponent that represents a collection of
+			polygons attached to the entity it belongs to.
 
 			It must have the content "Mesh".
 		-
@@ -10561,8 +10607,8 @@ Collider
 	Philosophy
 		
 		-
-			A collider element is a Kaeon ACE component that represents a rigid body attached to
-			the entity it belongs to.
+			A collider element is a first order Kaeon ACE subcomponent that represents a rigid body
+			attached to the entity it belongs to.
 
 			It must have the content "Collider".
 		-
@@ -10583,8 +10629,8 @@ Force
 	Philosophy
 	
 		-
-			A force element is a Kaeon ACE component that represents a force attached to the entity
-			it belongs to.
+			A force element is a first order Kaeon ACE subcomponent that represents a force
+			attached to the entity it belongs to.
 
 			It must have the content "Force".
 		-
@@ -10604,8 +10650,8 @@ Transform
 	Philosophy
 		
 		-
-			A transform element is a Kaeon ACE component that represents a transformation attached
-			to the entity it belongs to.
+			A transform element is a first order Kaeon ACE subcomponent that represents a
+			transformation attached to the entity it belongs to.
 
 			It must have the content "Transform".
 		-
@@ -10627,8 +10673,8 @@ Camera
 	Philosophy
 	
 		-
-			A camera element is a Kaeon ACE component that represents a camera attached to the
-			entity it belongs to.
+			A camera element is a first order Kaeon ACE subcomponent that represents a camera
+			attached to the entity it belongs to.
 
 			It must have the content "Camera".
 		-
@@ -10653,8 +10699,8 @@ Effect
 	Philosophy
 	
 		-
-			An effect element is a Kaeon ACE component that represents a graphical effect attached
-			to the entity it belongs to.
+			An effect element is a first order Kaeon ACE subcomponent that represents a graphical
+			effect attached to the entity it belongs to.
 
 			It must have the content "Effect".
 		-
@@ -10680,10 +10726,11 @@ Frame Properties
 	Philosophy
 		
 		-
-			A frame properties element is a Kaeon ACE component that represents the frame
-			properties of the GUI of its host environment.
+			A frame properties element is a second order Kaeon ACE subcomponent that represents the
+			frame properties of the GUI of its host environment.
 
-			It must have the content "Frame Properties".
+			It must have the content "Frame Properties", and must be the child of a Kaeon ACE
+			directive.
 		-
 	
 	Principles
@@ -10707,10 +10754,10 @@ Tick Rate
 	Philosophy
 		
 		-
-			A tick rate element is a Kaeon ACE component that represents the tick rate of the
-			script processor of its host environment.
+			A tick rate element is a second order Kaeon ACE subcomponent that represents the tick
+			rate of the script processor of its host environment.
 
-			It must have the content "Tick Rate".
+			It must have the content "Tick Rate", and must be the child of a Kaeon ACE directive.
 		-
 	
 	Principles

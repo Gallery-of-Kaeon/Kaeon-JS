@@ -10521,9 +10521,9 @@ Script
 			-
 				A script may either be active or inactive.
 
-				As such, a script element may optionally have a child with the content "Status",
-				which if present must have a child with either the content "Active" or "Inactive",
-				indicating the status of the script.
+				As such, a script element may optionally have a child with the content "Status"
+				referred to as the status element, which if present must have a child with either
+				the content "Active" or "Inactive", indicating the status of the script.
 
 				If said element is not present, the script shall have a status of active by
 				default.
@@ -10532,7 +10532,8 @@ Script
 		Sub-Scripts
 
 			-
-				Each child of a script element shall be a sub-script element.
+				Each child of a script element, save for the status element if it is present, shall
+				be a sub-script element.
 
 				The content of a sub-script element shall determine when it executes, and may be
 				"Start", "Update", "Status", or "Destroy".

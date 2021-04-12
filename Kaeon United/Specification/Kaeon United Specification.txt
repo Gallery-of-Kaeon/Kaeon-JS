@@ -10556,12 +10556,13 @@ Script
 				which it belongs.
 				
 				Said code shall have an arguments array passed to it, which shall contain the Kaeon
-				ACE core as its first argument, which the sub-script may perform philosopher's
-				atlas calls on as the sole means to interface with the rest of the scene and with
-				the engine.
+				ACE core as its first element, which the sub-script may perform philosopher's atlas
+				calls on as the sole means to interface with the rest of the scene and with the
+				engine, and shall also contain a number representing the time in seconds that has
+				passed since the last iteration of the update loop as its second element.
 
 				The arguments array for a status sub-script shall also contain a boolean as its
-				second element, which shall have a value of true if the status has been set to
+				third element, which shall have a value of true if the status has been set to
 				active, and a value of false if the status has been set to inactive.
 
 				The language element, if present, shall have one child containing the language that

@@ -228,18 +228,23 @@ and &quot;disassemble&quot;.</p>
 <p>If using United JavaScript through Kaeon United&#39;s CDN,
 Script,
 or CLI modes,
-then Kaeon United may be imported as a CommonJS style module through the KaeonUnited require function via the aliass &quot;Kaeon United&quot; and  &quot;kaeon-united&quot;.</p>
+then Kaeon United may be imported as a CommonJS style module through the KaeonUnited require function via the alias &quot;Kaeon United&quot; and  &quot;kaeon-united&quot;.</p>
 
-<p>Said module shall include a "modules" object that contain several functions,
-each of which,
-when called,
-load a module from the <a href="https://github.com/Gallery-of-Kaeon/JavaScript-Utilities">Kaeon JavaScript Utilities</a> sharing the same alias as the called function.</p>
+<p>Said module shall take the form of a function which,
+when called with a string argument,
+shall a module from the <a href="https://github.com/Gallery-of-Kaeon/JavaScript-Utilities">Kaeon JavaScript Utilities</a> with an alias matching said argument.</p>
+
+Calling said function without a string argument shall return a JSON object specfying the aliases of all modules available through the function.
 
 <p>For example:</p>
 
-<pre><code>var io = require("kaeon-united").modules.io();</code></pre>
+<pre><code>var io = require("kaeon-united")("io");</code></pre>
 
-<p>shall load the io module and store it in a variable called &quot;io&quot;</p>
+<p>shall load the io module and store it in a variable called &quot;io&quot;, and:</p>
+
+<pre><code>console.log(require("kaeon-united"));</code></pre>
+
+<p>shall print the aforementioned JSON object.</p>
 
 <p>The imported module may act also as a Kaeon FUSION interface,
 which shall load the most important Kaeon FUSION modules, including the standard module.</p>

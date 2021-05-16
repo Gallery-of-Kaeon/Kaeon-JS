@@ -3803,6 +3803,87 @@ The Responsive DOM Principle
 			document that defines it.
 		-
 
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 3 - Encoding: 1 - Binary: 1 - Dynamic Binary Headers ]#
+
+Dynamic Binary Headers
+
+	Philosophy
+
+		-
+			Dynamic binary headers allow metadata in binary files to be specified using a standard
+			that can scale to varying lengths.
+		-
+
+	Principles
+
+		Structure
+
+			-
+				Dynamic binary headers shall occur at the beginning of a binary file, and their
+				content, which itself shall be in trinary, shall be specified using "11" to
+				represent "2", "10" to represent "1", and "01" to represent "0", and shall end with
+				"00".
+
+				Following a header may be another header, the main content of the file, or the end
+				or the file. No more headers may be placed into the file following the beginning of
+				the main content.
+			-
+
+		Count Header
+
+			-
+				A count header, which if present must be the first header in the file, shall
+				specify, as a trinary number, the number of headers present in the file, not
+				counting itself.
+			-
+
+		Sequence Headers
+
+			-
+				If a count header is present, the headers that follow it may be sequence headers,
+				each of which specify, as a trinary number, the length of a sequence of bits in the
+				main content.
+
+				The sequences defined by the sequence headers shall start at the beginning of the
+				main content and shall be adjacent to one another, ordered according to the order
+				of their corresponding headers.
+				
+				Any bits that follow the last sequence in the main content may be used for another
+				purpose, if it is not junk data.
+			-
+
+		Sequence Objects
+
+			-
+				A binary file separated into sequences using sequences headers may itself be
+				separated into sequences called sub-sequences using sequence headers.
+
+				Sub-sequences may be used as references to the sibling sequences of their parent.
+
+				If being used this way, each subsequence should have a header defining itself as
+				either a reference or as raw data. The header for a reference should be "0100", and
+				the header for raw data should be "1000".
+
+				The content following a reference header should be a binary number specifying the
+				index of the sibling sequence being referenced, starting at zero, and the content
+				following a raw data header should be raw data in binary.
+			-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 1 - Data: 3 - Encoding: 1 - Binary: 2 - Multistate Binary Sequence ]#
+
+Multistate Binary Sequence
+
+	Philosophy
+	
+		-
+			A multistate binary sequence is a sequence of bit sequences, referred to as state
+			sequences, each of which just long enough to encode a given number, defined as the
+			order of the multistate binary sequence.
+
+			Each state sequence shall specify in binary a number between zero and the order number,
+			inclusive.
+		-
+
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 1 - Implementation: 1 - Standard Service ]#
 
 Standard Service
@@ -4824,6 +4905,127 @@ True Flight
 				bodies of fluid, but unless flight is enabled, the avatar will not be able to
 				re-enter the air from the fluid.
 			-
+
+#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 2 - Algorithms: 5 - Applications: 3 - Bioinformatics: 1 - Standard Genetic Format ]#
+
+Standard Genetic Format
+
+	Philosophy
+
+		-
+			The standard genetic format is a file format for encoding the genome of an organism.
+		-
+
+	Philosophy
+
+		Structure
+
+			Chunks
+
+				-
+					The standard genetic format is a binary format that uses sequence headers to
+					separate its content into chunks.
+
+					Each possible nucleotide base shall be assigned a unique numerical index,
+					referred to as the base index, in a hierarchy.
+
+					The first chunk shall be a header, referred to as the base order header, used
+					to specify, as a trinary number, how many types of nucleotide bases are present
+					in the sequenced DNA. This number shall be referred to as the base order.
+					
+					For each nucleotide base present in the DNA, one chunk, called a base index
+					header shall follow the first chunk, specifying the base index of the
+					respective nucleotide base. The order in which a base index header is placed
+					relative to the others, starting at zero, is referred to as its base reference.
+
+					Each of the chunks that follow the base index headers, excluding the last one
+					shall specify the nucleotide sequence of a given DNA component of an organism's
+					genome using a multistate binary sequence called a standard nucleotide
+					sequence.
+
+					The final chunk may specify, in any manner, any miscellaneous metadata about
+					the sequenced DNA.
+				-
+
+			Standard Nucleotide Sequence
+
+				-
+					A standard nucleotide sequence is a multistate binary sequence used to
+					represent a sequence of nucleotides in a DNA molecule. It shall have an order
+					of equivalent to the specified base order.
+					
+					Each number specified in the sequence shall be the base reference of the base
+					header for one of the nucleotide bases present in the sequenced DNA.
+				-
+
+		Conventions
+
+			Standard Base Indices
+
+				Adenine
+
+					-
+						The standard base index for adenine is zero.
+					-
+
+				Cytosine
+
+					-
+						The standard base index for cytosine is one.
+					-
+
+				Guanine
+
+					-
+						The standard base index for guanine is two.
+					-
+
+				Thymine
+
+					-
+						The standard base index for thymine is three.
+					-
+
+				Uracil
+
+					-
+						The standard base index for uracil is four.
+					-
+
+			Eukaryotic Conventions
+
+				-
+					The conventional format for representing the genome of a eukaryotic organism is
+					to specify the nucleotide sequences for each of its chromosomes in order,
+					followed by the nucleotide sequence of its mitochondria.
+				-
+
+			Abbreviation
+
+				-
+					The standard genetic format can be abbreviated as "SGF" and thus files written
+					in it should have an "sgf" extension.
+				-
+
+			ONE
+
+				-
+					The standard genetic format has a human-readable ONE-based counterpart known as
+					the ONE genetic format, which can be abbreviated as "OGF".
+
+					A document in the ONE genetic format should may have an indefinite number of
+					elements, called sequence elements.
+
+					Sequence elements must contain the name of the nucleotide sequence they
+					represent, and may have an indefinite number of children, called nucleotide
+					elements.
+
+					Each nucleotide element corresponds to a given nucleotide, and they must be
+					arranged in the order that they occur in the gene they represent.
+					
+					Nucleotide elements shall contain a the base index of a base nucleotide, in
+					decimal format, which shall define the nucleotides they represent.
+				-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 1 - APIs: 1 - Software: 3 - Architecture: 1 - Kaeon Architecture ]#
 
@@ -6134,87 +6336,6 @@ Character Separated Binary
 			-
 				Character separated binary may be abbreviated as CSB.
 			-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 2 - Dynamic Binary Headers ]#
-
-Dynamic Binary Headers
-
-	Philosophy
-
-		-
-			Dynamic binary headers allow metadata in binary files to be specified using a standard
-			that can scale to varying lengths.
-		-
-
-	Principles
-
-		Structure
-
-			-
-				Dynamic binary headers shall occur at the beginning of a binary file, and their
-				content, which itself shall be in trinary, shall be specified using "11" to
-				represent "2", "10" to represent "1", and "01" to represent "0", and shall end with
-				"00".
-
-				Following a header may be another header, the main content of the file, or the end
-				or the file. No more headers may be placed into the file following the beginning of
-				the main content.
-			-
-
-		Count Header
-
-			-
-				A count header, which if present must be the first header in the file, shall
-				specify, as a trinary number, the number of headers present in the file, not
-				counting itself.
-			-
-
-		Sequence Headers
-
-			-
-				If a count header is present, the headers that follow it may be sequence headers,
-				each of which specify, as a trinary number, the length of a sequence of bits in the
-				main content.
-
-				The sequences defined by the sequence headers shall start at the beginning of the
-				main content and shall be adjacent to one another, ordered according to the order
-				of their corresponding headers.
-				
-				Any bits that follow the last sequence in the main content may be used for another
-				purpose, if it is not junk data.
-			-
-
-		Sequence Objects
-
-			-
-				A binary file separated into sequences using sequences headers may itself be
-				separated into sequences called sub-sequences using sequence headers.
-
-				Sub-sequences may be used as references to the sibling sequences of their parent.
-
-				If being used this way, each subsequence should have a header defining itself as
-				either a reference or as raw data. The header for a reference should be "0100", and
-				the header for raw data should be "1000".
-
-				The content following a reference header should be a binary number specifying the
-				index of the sibling sequence being referenced, starting at zero, and the content
-				following a raw data header should be raw data in binary.
-			-
-
-#[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 2 - United C: 3 - Binary: 3 - Multistate Binary Sequence ]#
-
-Multistate Binary Sequence
-
-	Philosophy
-	
-		-
-			A multistate binary sequence is a sequence of bit sequences, referred to as state
-			sequences, each of which just long enough to encode a given number, defined as the
-			order of the multistate binary sequence.
-
-			Each state sequence shall specify in binary a number between zero and the order number,
-			inclusive.
-		-
 
 #[ Kaeon United Specification: 2 - Suite: 2 - Conventions: 3 - Tools: 2 - United: 1 - United Suite: 3 - United Query Language ]#
 

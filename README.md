@@ -242,7 +242,7 @@ Calling said function without a string argument shall return a JSON object specf
 
 <p>shall load the io module and store it in a variable called &quot;io&quot;, and:</p>
 
-<pre><code>console.log(require("kaeon-united"));</code></pre>
+<pre><code>console.log(require("kaeon-united")());</code></pre>
 
 <p>shall print the aforementioned JSON object.</p>
 

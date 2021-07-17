@@ -3,7 +3,7 @@
 <h2 align="center">It Just Works</h2>
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" width="300px" height="300px"/>
+    <img src="https://raw.githubusercontent.com/Gallery-of-Kaeon/Kaeon-United/master/Kaeon%20United/Logo/Logo.png" height="300px"/>
 </p>
 
 <h2 align="center">What is Kaeon United?</h2>
